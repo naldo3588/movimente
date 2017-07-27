@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ContratoAluno_subreport1" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e7ca2967-33c5-4024-937c-d9ec81c7aa71">
+	<property name="ireport.zoom" value="3.138428376721007"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_contrato" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[$F{contrato_id_contrato}]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     cad_item_contrato.`id_item_contrato` AS cad_item_contrato_id_item_contrato,
+     cad_item_contrato.`id_contrato` AS cad_item_contrato_id_contrato,
+     cad_item_contrato.`id_titular` AS cad_item_contrato_id_titular,
+     cad_item_contrato.`id_modalidade` AS cad_item_contrato_id_modalidade,
+     cad_item_contrato.`id_item_modalidade` AS cad_item_contrato_id_item_modalidade,
+     cad_item_contrato.`id_aluno` AS cad_item_contrato_id_aluno,
+     cad_item_contrato.`nome_aluno` AS cad_item_contrato_nome_aluno,
+     cad_item_contrato.`frequencia` AS cad_item_contrato_frequencia,
+     cad_item_contrato.`dias` AS cad_item_contrato_dias,
+     cad_item_contrato.`valor` AS cad_item_contrato_valor,
+     cad_item_contrato.`modalidade` AS cad_item_contrato_modalidade,
+     cad_item_contrato.`horario` AS cad_item_contrato_horario,
+     contrato.`id_contrato` AS contrato_id_contrato,
+     contrato.`id_titular` AS contrato_id_titular,
+     contrato.`id_plano` AS contrato_id_plano,
+     contrato.`id_item_plano` AS contrato_id_item_plano,
+     contrato.`data_adesao` AS contrato_data_adesao,
+     contrato.`data_criacao` AS contrato_data_criacao,
+     contrato.`usuario` AS contrato_usuario,
+     contrato.`total_parcelas` AS contrato_total_parcelas,
+     contrato.`valor_total` AS contrato_valor_total,
+     contrato.`valor_mensal` AS contrato_valor_mensal
+FROM
+     `cad_item_contrato` cad_item_contrato INNER JOIN `contrato` contrato ON cad_item_contrato.`id_contrato` = contrato.`id_contrato`
+     AND cad_item_contrato.`id_titular` = contrato.`id_titular`
+WHERE
+     contrato.`id_contrato` = $P{id_contrato}]]>
+	</queryString>
+	<field name="cad_item_contrato_id_item_contrato" class="java.lang.Integer"/>
+	<field name="cad_item_contrato_id_contrato" class="java.lang.Integer"/>
+	<field name="cad_item_contrato_id_titular" class="java.lang.Integer"/>
+	<field name="cad_item_contrato_id_modalidade" class="java.lang.Integer"/>
+	<field name="cad_item_contrato_id_item_modalidade" class="java.lang.Integer"/>
+	<field name="cad_item_contrato_id_aluno" class="java.lang.Integer"/>
+	<field name="cad_item_contrato_nome_aluno" class="java.lang.String"/>
+	<field name="cad_item_contrato_frequencia" class="java.lang.Integer"/>
+	<field name="cad_item_contrato_dias" class="java.lang.String"/>
+	<field name="cad_item_contrato_valor" class="java.lang.Double"/>
+	<field name="cad_item_contrato_modalidade" class="java.lang.String"/>
+	<field name="cad_item_contrato_horario" class="java.lang.String"/>
+	<field name="contrato_id_contrato" class="java.lang.Integer"/>
+	<field name="contrato_id_titular" class="java.lang.Integer"/>
+	<field name="contrato_id_plano" class="java.lang.Integer"/>
+	<field name="contrato_id_item_plano" class="java.lang.Integer"/>
+	<field name="contrato_data_adesao" class="java.sql.Date"/>
+	<field name="contrato_data_criacao" class="java.sql.Date"/>
+	<field name="contrato_usuario" class="java.lang.String"/>
+	<field name="contrato_total_parcelas" class="java.lang.Integer"/>
+	<field name="contrato_valor_total" class="java.lang.Double"/>
+	<field name="contrato_valor_mensal" class="java.lang.Double"/>
+	<group name="cad_item_contrato_nome_aluno">
+		<groupExpression><![CDATA[$F{cad_item_contrato_nome_aluno}]]></groupExpression>
+	</group>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<rectangle>
+				<reportElement x="388" y="0" width="126" height="12" uuid="5a302824-8577-4fac-ba77-9732af108ffd"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="289" y="0" width="99" height="12" uuid="5e3edeb2-e4c1-4b29-b791-52fe05677e35"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="154" y="0" width="135" height="12" uuid="52096729-e34c-4ec0-9096-9eb046cab70e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="0" width="154" height="12" uuid="31ba7008-f60c-4ace-a179-1abadb53d016"/>
+			</rectangle>
+			<textField>
+				<reportElement x="164" y="0" width="125" height="12" uuid="ac4fbfe8-2f05-4817-adae-4ba12d08b0d9"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cad_item_contrato_modalidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="299" y="0" width="89" height="12" uuid="5e1e74f6-b347-4254-bb5a-ee45c55337cc"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cad_item_contrato_horario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="114" height="12" uuid="1e233fd2-e396-4740-a8c9-805b32f0cc59"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cad_item_contrato_dias}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="0" width="144" height="12" uuid="10780918-98f1-4f4f-b4e0-5c4685311587"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cad_item_contrato_nome_aluno}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

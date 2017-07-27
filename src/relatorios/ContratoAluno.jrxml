@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ContratoAluno" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="93dd18c9-c132-4721-a37f-b5b992027e8c">
+	<property name="ireport.zoom" value="1.1289478601075664"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="Table Dataset 1" uuid="bea791d6-9afd-444f-b369-0f920568bd47"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\administrator\\Documents\\PROJETO E AQR\\proj\\MoviMente\\src\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     cad_item_contrato.`id_item_contrato` AS cad_item_contrato_id_item_contrato,
+     cad_item_contrato.`id_contrato` AS cad_item_contrato_id_contrato,
+     cad_item_contrato.`id_titular` AS cad_item_contrato_id_titular,
+     cad_item_contrato.`id_modalidade` AS cad_item_contrato_id_modalidade,
+     cad_item_contrato.`id_item_modalidade` AS cad_item_contrato_id_item_modalidade,
+     cad_item_contrato.`id_aluno` AS cad_item_contrato_id_aluno,
+     cad_item_contrato.`nome_aluno` AS cad_item_contrato_nome_aluno,
+     cad_item_contrato.`frequencia` AS cad_item_contrato_frequencia,
+     cad_item_contrato.`dias` AS cad_item_contrato_dias,
+     cad_item_contrato.`valor` AS cad_item_contrato_valor,
+     cad_item_contrato.`modalidade` AS cad_item_contrato_modalidade,
+     cad_item_contrato.`horario` AS cad_item_contrato_horario,
+     cad_aluno.`id_aluno` AS cad_aluno_id_aluno,
+     cad_aluno.`nome` AS cad_aluno_nome,
+     cad_aluno.`endereco` AS cad_aluno_endereco,
+     cad_aluno.`bairro` AS cad_aluno_bairro,
+     cad_aluno.`telefone` AS cad_aluno_telefone,
+     cad_aluno.`cidade` AS cad_aluno_cidade,
+     cad_aluno.`cpf` AS cad_aluno_cpf,
+     cad_aluno.`rg` AS cad_aluno_rg,
+     cad_aluno.`email` AS cad_aluno_email,
+     cad_aluno.`data_nasc` AS cad_aluno_data_nasc,
+     cad_aluno.`ativo` AS cad_aluno_ativo,
+     cad_aluno.`id_titular` AS cad_aluno_id_titular,
+     contrato.`id_contrato` AS contrato_id_contrato,
+     contrato.`total_parcelas` AS contrato_total_parcelas,
+     contrato.`valor_mensal` AS contrato_valor_mensal
+FROM
+     `cad_aluno` cad_aluno INNER JOIN `contrato` contrato ON cad_aluno.`id_aluno` = contrato.`id_titular`
+     INNER JOIN `cad_item_contrato` cad_item_contrato ON contrato.`id_titular` = cad_item_contrato.`id_titular`
+     AND cad_item_contrato.`id_contrato` = contrato.`id_contrato`
+WHERE
+     cad_item_contrato.`id_titular` ='']]>
+	</queryString>
+	<field name="cad_item_contrato_id_item_contrato" class="java.lang.Integer"/>
+	<field name="cad_item_contrato_id_contrato" class="java.lang.Integer"/>
+	<field name="cad_item_contrato_id_titular" class="java.lang.Integer"/>
+	<field name="cad_item_contrato_id_modalidade" class="java.lang.Integer"/>
+	<field name="cad_item_contrato_id_item_modalidade" class="java.lang.Integer"/>
+	<field name="cad_item_contrato_id_aluno" class="java.lang.Integer"/>
+	<field name="cad_item_contrato_nome_aluno" class="java.lang.String"/>
+	<field name="cad_item_contrato_frequencia" class="java.lang.Integer"/>
+	<field name="cad_item_contrato_dias" class="java.lang.String"/>
+	<field name="cad_item_contrato_valor" class="java.lang.Double"/>
+	<field name="cad_item_contrato_modalidade" class="java.lang.String"/>
+	<field name="cad_item_contrato_horario" class="java.lang.String"/>
+	<field name="cad_aluno_id_aluno" class="java.lang.Integer"/>
+	<field name="cad_aluno_nome" class="java.lang.String"/>
+	<field name="cad_aluno_endereco" class="java.lang.String"/>
+	<field name="cad_aluno_bairro" class="java.lang.String"/>
+	<field name="cad_aluno_telefone" class="java.lang.String"/>
+	<field name="cad_aluno_cidade" class="java.lang.String"/>
+	<field name="cad_aluno_cpf" class="java.lang.String"/>
+	<field name="cad_aluno_rg" class="java.lang.String"/>
+	<field name="cad_aluno_email" class="java.lang.String"/>
+	<field name="cad_aluno_data_nasc" class="java.lang.String"/>
+	<field name="cad_aluno_ativo" class="java.lang.Integer"/>
+	<field name="cad_aluno_id_titular" class="java.lang.Integer"/>
+	<field name="contrato_id_contrato" class="java.lang.Integer"/>
+	<field name="contrato_total_parcelas" class="java.lang.Integer"/>
+	<field name="contrato_valor_mensal" class="java.lang.Double"/>
+	<title>
+		<band height="834">
+			<rectangle>
+				<reportElement x="439" y="218" width="126" height="13" uuid="b6c393de-f408-435b-8d72-380fab8da81d"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="51" y="218" width="154" height="13" uuid="b7ec09b3-d87b-4c24-9a32-3a7522bff0dd"/>
+			</rectangle>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="341" width="514" height="15" uuid="a58148dd-a29d-4dbc-a5ca-009cd2d5a185"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[dos materiais disponibilizados pelo  CONTRATADO  na execução  das  atividades,  inclusive  comportar – se,  com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="478" width="115" height="15" uuid="cec168e3-d381-4de3-84c9-77cdb909809e"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLÁUSULA TERCEIRA -]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="62" y="218" width="31" height="13" uuid="25c61f2a-66e9-4e77-ab45-37ecf0cbd729"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="791" width="514" height="13" uuid="81fc8439-c5d4-4127-8eaf-4e8dff999937"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[diante das testemunhas abaixo.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="10" width="585" height="17" uuid="b748fa9b-b80b-4b0b-bb2c-8a6554b97016"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true" isItalic="false" isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[CONTRATO DE PRESTAÇÃO DE SERVIÇOS – PRÉ-PAGAMENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="582" width="514" height="13" uuid="7507d60f-bcbe-47eb-b2ba-d6b916218f5a"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[podendo  ser  rescindido  a  qualquer momento  desde  que  manifestado pela parte interessada com antecedência]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="649" width="514" height="15" uuid="c875867f-7cac-4d83-91d5-7724efc61c1a"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[presente  instrumento,  mediante solicitação formal, com antecedência mínima de 15 (quinze) dias, faculdade essa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="422" width="128" height="15" uuid="a9c08171-05a5-457c-9aad-a90065b8576b"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARÁGRAFO ÚNICO    –]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="392" width="128" height="15" uuid="8d27a115-5857-4cd3-8124-6d8e4a7319d9"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLÁUSULA SEGUNDA  –]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="542" y="290" width="23" height="15" uuid="0d3dd508-eb7f-4f56-8d10-032db173f19a"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[sem]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="755" width="514" height="13" uuid="9419e898-38ba-4147-bf3a-35285ee163a2"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[mais privilegiado que seja para dirimir as dúvidas e questões oriundas do presente instrumento.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="51" y="89" width="72" height="22" uuid="752e5193-6af7-49c9-8fa5-f5255894ec2e"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONTRATADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="447" y="218" width="31" height="13" uuid="102a5426-f3dc-4ce1-a70a-191f9b9c3b77"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Dias]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="437" width="514" height="15" uuid="587c7adb-84e5-46f8-abc2-bb2a51308124"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[nas  atividades, ou  seja, será obstada  a entrada do CONTRATANTE  nas dependências  do CONTRATADO até o]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="305" width="458" height="15" uuid="69fb6ae3-1250-414d-afa1-9705851d8d99"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="true" isUnderline="true" isStrikeThrough="false"/>
+				</textElement>
+				<text><![CDATA[exclusividade, ou seja, em conjunto com os demais usuários/clientes.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="51" y="152" width="514" height="13" uuid="d71988df-9923-4f6c-b472-b07c6ed934b3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[As partes acima celebram o presente Contrato de Prestação de Serviços, de  acordo com as cláusulas e condições
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="166" y="568" width="399" height="14" uuid="57f75335-b90c-4b41-a886-1341655572b5"/>
+				<textElement verticalAlignment="Top" markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[O  prazo  de  vigência  deste  termo  é  de        meses  a partir da  assinatura  do contrato,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="166" y="39" width="399" height="47" uuid="a3e3a421-8b3b-4a57-b6aa-72f0910820c8"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Nome:                                                                                             DOCUMENTOS
+Endereço:                                                                                       RG:
+Bairro:                                                                                             CPF:
+Cidade:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="166" y="89" width="399" height="46" uuid="a7d84980-2248-4fa5-b58f-d58e51d07e48"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[MOVI MENTE Gestão Esportiva e Lazer Ltda – ME
+CNPJ: 23.464.976/0001-10
+Endereço: Avenida Senador Vicente Vuolo s/n Bairro: Morada do Ouro
+Fone: 65 99277-7331/ 65 99226-8375]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="166" y="186" width="399" height="15" uuid="2b72cd61-4f20-4db2-8ea6-6b3f652fac43"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ O  CONTRATADO se compromete  a prestar o serviço de  Atividade Física no(s) dia(s) e]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="679" width="514" height="15" uuid="7f329aef-b13a-4493-95d5-7caa5ec1fe7b"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[havendo  a  devolução  dos  demais  valores , em  caso  de  crédito. Contudo, o CONTRATADO  deverá  aplicar  a]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="742" width="514" height="13" uuid="32c96d8f-f330-494a-bd80-819570e41b61"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fica  eleito o foro da comarca de Cuiabá no Estado de Mato Grosso, com renúncia expressa a qualquer outro, por]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="407" width="514" height="15" uuid="9747bf3b-104f-46b8-a30d-90a7c431cfb8"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[pago por meio de cartão de crédito ou débito, somente em casos excepcionais na recepção.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="568" width="115" height="14" uuid="7f736618-5c57-48db-8127-9eabcfbc3afc"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLÁUSULA QUINTA -]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="179" y="422" width="386" height="15" uuid="6a7405ab-7c17-4b2b-a68a-8eb2809599e0"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Caso não haja valores pré-pagos não será possível a participação do CONTRATANTE]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="205" y="218" width="135" height="13" uuid="e13fb8b7-b3d3-4bd9-91d2-ea3464a22c85"/>
+			</rectangle>
+			<staticText>
+				<reportElement positionType="Float" x="154" y="634" width="411" height="15" uuid="10d47d03-bea2-4726-819a-e3057ab0a971"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[O  CONTRATANTE  poderá  requerer  junto  a Tesouraria do CONTRATADO a rescisão do]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="326" width="128" height="15" uuid="969e3084-6bb6-40b8-9ac4-e98691491081"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARÁGRAFO TERCEIRO -]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="533" width="115" height="15" uuid="c24a2360-db00-42de-9408-0603691916c2"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLAUSULA QUARTA -]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="508" width="350" height="15" uuid="6aeae74f-284c-408e-b500-7b49a40fc500"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[às condições normais de conservação dos equipamentos e instalações.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="634" width="103" height="15" uuid="26c18b51-4e74-4444-8867-7b888c0d23ee"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLÁUSULA SEXTA -]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="166" y="478" width="399" height="15" uuid="fcb38903-b4f3-4dc8-a5de-c7766a3f2306"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ O CONTRATADO não se responsabilizará por  acidentes pessoais ou  grupais ocorridos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="51" y="201" width="458" height="15" uuid="60d48b18-86d6-4abd-b77f-cee89ac22489"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[horário(s) descrito(s) no cronograma abaixo, no sistema Pré-pagamento ao CONTRATANTE.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="595" width="514" height="15" uuid="f301a006-ccfc-45a7-b69a-a2b22b0dac47"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[mínima  de  10 (dez)  dias. Fica  ressaltado  que  o  período  compreendido  entre  os dias 18 de Dezembro à 06 de]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="719" width="103" height="13" uuid="4c222bf6-3fe2-4a78-9585-20536d39f102"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLÁUSULA SÉTIMA -]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="179" y="250" width="386" height="15" uuid="26397f25-50b9-4a1b-8332-c9c5c1ee480f"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ A utilização  das d ependências do CONTRATADO está  condicionada à existência de]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="610" width="514" height="14" uuid="8d820d49-4760-4d0a-b54f-2585442664f0"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[janeiro/18 não haverá funcionamento do espaço, em virtude das férias coletivas.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="694" width="514" height="15" uuid="f818075b-49e7-4c03-94f1-b604a6662a6f"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[penalidade de 20%( vinte por cento) sobre o valor do CONTRATO.]]></text>
+			</staticText>
+			<subreport>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" isPrintRepeatedValues="false" x="51" y="231" width="514" height="19" uuid="2e675374-4cae-43c5-a66c-5813351a47e2"/>
+				<subreportParameter name="id_contrato">
+					<subreportParameterExpression><![CDATA[$F{cad_item_contrato_id_contrato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "ContratoAluno_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" x="166" y="533" width="399" height="15" uuid="7c2af7f1-dcda-4ae8-b4c9-82a1e2d029f4"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[O  CONTRATADO  não  se  responsabilizará  em hipótese alguma por perdas , extravios,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="179" y="392" width="386" height="15" uuid="12e1c806-fa41-4c31-b910-31ce848bdb08"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Para  todos  os efeitos  legais o valor dos  serviços é de"                   ",     podendo  ser]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="216" y="218" width="66" height="13" uuid="100636ca-eff6-4e3e-9400-1a69e98104a3"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Modalidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="371" width="491" height="15" uuid="3ae40f04-67a1-4b57-ac73-c3ac25b8dd67"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[prejuízos a que der causa.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="452" width="154" height="15" uuid="6767f3ad-1b41-4b56-b2a3-6e91283036ff"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[efetivo pagamento.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="179" y="326" width="386" height="15" uuid="718cdbe8-67f6-4794-bebf-609f60fbea28"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[O  CONTRATANTE se obriga a  cumprir  todas as normas que disciplinam a utilização]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="664" width="514" height="15" uuid="373ae367-770d-4790-a0ac-54246e9a0d9e"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[que  também  possui o CONTRATADO. Neste caso, será cobrado os valores dos serviços efetivamente prestados,]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="51" y="186" width="115" height="15" uuid="bcacf5b8-dec3-499d-a3ed-c8262dde4ba6"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLÁUSULA PRIMEIRA -]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="179" y="290" width="363" height="15" uuid="40321158-ba93-4283-a28a-8484da68a80e"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fica ciente o CONTRATANTE  que  utilizará  as  dependências  citadas   acima,]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="340" y="218" width="99" height="13" uuid="b0a74ebd-22ce-448f-baf7-a2fea74b6cf5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="51" y="39" width="82" height="15" uuid="1844a11b-257b-4449-aaba-1f2262aa2cbb"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONTRATANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="345" y="218" width="51" height="13" uuid="08d7ac63-7b9b-408a-a43a-616266df230b"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Horário]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="493" width="514" height="15" uuid="5741c798-db5c-4e43-9578-fcbf11d6f4f2"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[dentro  de  suas  dependências, ocasionados pelo  uso inadequado  ou outros motivos que não sejam relacionados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="356" width="514" height="15" uuid="09eeaadc-2995-495a-8d18-5b158588c4cc"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[estrita  observância  aos  avisos  disciplinares  expostos  ao  longo  das  instalações ,  sob  pena  de arcar  com  os]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="51" y="165" width="514" height="13" uuid="401aef1d-afd8-44df-a6a4-d96584b40e3e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[Abaixo:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="154" y="719" width="411" height="13" uuid="f0866f9c-34b3-4e8a-98ba-ac82d90ff623"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[ Os casos omissos serão resolvidos de comum acordo entre as partes.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="290" width="128" height="15" uuid="68aca9d7-5d27-4814-9e26-1b6444335085"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARÁGRAFO SEGUNDO -]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="778" width="514" height="13" uuid="287eacab-52a5-4351-96ed-a5d53b5ef710"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[E  por  estarem  assim  justos e contratadas, as partes assinam o presente em 02 (duas) vias de igual teor e forma]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="250" width="128" height="15" uuid="dc7d442e-ad0a-4ceb-ab3e-ab3c993ea6d0"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PARÁGRAFO PRIMEIRO -]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="265" width="458" height="14" uuid="21bd7861-6194-4e4d-9517-7155fb2b4051"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[valores previamente pagos.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="51" y="548" width="514" height="15" uuid="cecb7ee4-17b3-482d-a1fc-e96b36aa116e"/>
+				<textElement markup="none">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[roubos ou esquecimentos de qualquer pertence pessoal ou valores que não forem colocados sob sua guarda.]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="833" width="595" height="1" uuid="7bfc5b10-c612-4b0f-985d-b9170057942e"/>
+			</break>
+			<textField>
+				<reportElement x="205" y="39" width="242" height="12" uuid="fea3e20e-d22b-4358-b555-5c405bf07440"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cad_aluno_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="216" y="51" width="231" height="12" uuid="22d3aab0-0315-4dd0-a649-66f75a73493d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cad_aluno_endereco}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="209" y="63" width="238" height="12" uuid="68827592-026f-40eb-9fc3-9c6aa99d35bd"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cad_aluno_bairro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="209" y="74" width="238" height="12" uuid="f3b20aef-f646-42c8-9582-960bb34947aa"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cad_aluno_cidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="51" width="73" height="12" uuid="3493eb89-b4bb-4d85-97ff-6be9fcae1b03"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cad_aluno_rg}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="490" y="63" width="73" height="12" uuid="8f1c5f7e-0dbe-4060-b146-d915221c2b4b"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cad_aluno_cpf}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement positionType="Float" x="433" y="392" width="57" height="15" uuid="da6090cd-db16-48b7-8e06-ef712ce3d5d6"/>
+				<textElement>
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contrato_valor_mensal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="354" y="568" width="17" height="14" uuid="d6f64a5a-b863-4e1a-ab86-f10e5f95b9c8"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contrato_total_parcelas}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<lastPageFooter>
+		<band height="842">
+			<staticText>
+				<reportElement positionType="Float" x="391" y="18" width="57" height="13" uuid="bb72f788-77fa-45d5-978b-347faf0e45e9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Cuiabá/MT,]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" x="10" y="278" width="253" height="1" uuid="a84ebff0-d4fb-4fcf-8dd2-5827535287f2"/>
+			</line>
+			<staticText>
+				<reportElement positionType="Float" x="60" y="373" width="41" height="13" uuid="efa15eaa-0168-4fae-83a1-d2bc2ab43202"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[1.Nome:]]></text>
+			</staticText>
+			<textField pattern="d&apos; de &apos;MMMM&apos; de &apos;yyyy">
+				<reportElement positionType="Float" x="447" y="18" width="95" height="13" uuid="d5ac8544-a8ff-49e4-8277-139ffe4aed11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="60" y="386" width="41" height="13" uuid="db6ece4e-3db7-4cdc-b585-dd9a569073c7"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[RG nº]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="350" y="386" width="41" height="13" uuid="03048ab0-8654-40ab-b0af-3737be7e705a"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[RG nº]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="350" y="373" width="41" height="13" uuid="f1722232-3350-4761-b23e-8c98197e759d"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[2.Nome:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="60" y="342" width="72" height="13" uuid="090c9473-7fcc-4b7a-b111-fadf3ffa526e"/>
+				<textElement>
+					<font fontName="Arial" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Testemunhas:.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="82" y="293" width="82" height="15" uuid="41415854-5afb-4c99-90e7-f7b432b9441f"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONTRATANTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="396" y="293" width="72" height="15" uuid="32f02f9c-7b57-46a5-9de7-6010c841f8ac"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONTRATADO]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" x="309" y="277" width="254" height="1" uuid="c55470a3-13dc-4ebf-93b4-85c1cf0ef1f9"/>
+			</line>
+		</band>
+	</lastPageFooter>
+</jasperReport>

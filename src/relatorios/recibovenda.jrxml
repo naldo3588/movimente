@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="recibovenda" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fda01c3e-3ee0-4a03-bd9b-6991a544a8ce">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="36"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\administrator\\Documents\\PROJETO E AQR\\proj\\MoviMente\\src\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     cad_aluno.`id_aluno` AS cad_aluno_id_aluno,
+     cad_aluno.`nome` AS cad_aluno_nome,
+     cad_aluno.`endereco` AS cad_aluno_endereco,
+     cad_aluno.`bairro` AS cad_aluno_bairro,
+     cad_aluno.`telefone` AS cad_aluno_telefone,
+     cad_aluno.`cidade` AS cad_aluno_cidade,
+     cad_aluno.`cpf` AS cad_aluno_cpf,
+     cad_aluno.`rg` AS cad_aluno_rg,
+     cad_aluno.`email` AS cad_aluno_email,
+     cad_aluno.`data_nasc` AS cad_aluno_data_nasc,
+     cad_aluno.`ativo` AS cad_aluno_ativo,
+     cad_aluno.`id_titular` AS cad_aluno_id_titular,
+     contrato.`id_contrato` AS contrato_id_contrato,
+     contrato.`id_titular` AS contrato_id_titular,
+     contrato.`id_plano` AS contrato_id_plano,
+     contrato.`id_item_plano` AS contrato_id_item_plano,
+     contrato.`data_adesao` AS contrato_data_adesao,
+     contrato.`data_criacao` AS contrato_data_criacao,
+     contrato.`usuario` AS contrato_usuario,
+     contrato.`total_parcelas` AS contrato_total_parcelas,
+     contrato.`valor_total` AS contrato_valor_total,
+     contrato.`valor_mensal` AS contrato_valor_mensal,
+     parcela_contrato.`id_parcela_contrato` AS parcela_contrato_id_parcela_contrato,
+     parcela_contrato.`id_contrato` AS parcela_contrato_id_contrato,
+     parcela_contrato.`numero_parcela` AS parcela_contrato_numero_parcela,
+     parcela_contrato.`valor_parcela` AS parcela_contrato_valor_parcela,
+     parcela_contrato.`data_vencimento` AS parcela_contrato_data_vencimento,
+     parcela_contrato.`data_baixa` AS parcela_contrato_data_baixa,
+     parcela_contrato.`usuario` AS parcela_contrato_usuario,
+     parcela_contrato.`tipo_pagamento` AS parcela_contrato_tipo_pagamento,
+     parcela_contrato.`tipo_entrada` AS parcela_contrato_tipo_entrada,
+     parcela_contrato.`valor_total` AS parcela_contrato_valor_total,
+     caixa.`id_caixa` AS caixa_id_caixa,
+     caixa.`tipo_movimento` AS caixa_tipo_movimento,
+     caixa.`tipo_pagamento` AS caixa_tipo_pagamento,
+     caixa.`data_lancamento` AS caixa_data_lancamento,
+     caixa.`hora_lancamento` AS caixa_hora_lancamento,
+     caixa.`historico` AS caixa_historico,
+     caixa.`valor` AS caixa_valor,
+     caixa.`id_titulo` AS caixa_id_titulo,
+     caixa.`nome_caixa` AS caixa_nome_caixa,
+     caixa.`id_banco` AS caixa_id_banco,
+     cad_plano.`id_plano` AS cad_plano_id_plano,
+     cad_plano.`nome` AS cad_plano_nome,
+     caixa.`id_aluno` AS caixa_id_aluno
+FROM
+     `cad_aluno` cad_aluno INNER JOIN `contrato` contrato ON cad_aluno.`id_aluno` = contrato.`id_titular`
+     INNER JOIN `cad_plano` cad_plano ON contrato.`id_plano` = cad_plano.`id_plano`
+     INNER JOIN `parcela_contrato` parcela_contrato ON contrato.`id_contrato` = parcela_contrato.`id_contrato`
+     INNER JOIN `caixa` caixa ON contrato.`id_titular` = caixa.`id_aluno`
+     AND caixa.`id_titulo` = parcela_contrato.`id_parcela_contrato`
+WHERE
+     contrato.id_contrato = ''
+     and parcela_contrato.id_parcela_contrato = '']]>
+	</queryString>
+	<field name="cad_aluno_id_aluno" class="java.lang.Integer"/>
+	<field name="cad_aluno_nome" class="java.lang.String"/>
+	<field name="cad_aluno_endereco" class="java.lang.String"/>
+	<field name="cad_aluno_bairro" class="java.lang.String"/>
+	<field name="cad_aluno_telefone" class="java.lang.String"/>
+	<field name="cad_aluno_cidade" class="java.lang.String"/>
+	<field name="cad_aluno_cpf" class="java.lang.String"/>
+	<field name="cad_aluno_rg" class="java.lang.String"/>
+	<field name="cad_aluno_email" class="java.lang.String"/>
+	<field name="cad_aluno_data_nasc" class="java.lang.String"/>
+	<field name="cad_aluno_ativo" class="java.lang.Integer"/>
+	<field name="cad_aluno_id_titular" class="java.lang.Integer"/>
+	<field name="contrato_id_contrato" class="java.lang.Integer"/>
+	<field name="contrato_id_titular" class="java.lang.Integer"/>
+	<field name="contrato_id_plano" class="java.lang.Integer"/>
+	<field name="contrato_id_item_plano" class="java.lang.Integer"/>
+	<field name="contrato_data_adesao" class="java.sql.Date"/>
+	<field name="contrato_data_criacao" class="java.sql.Date"/>
+	<field name="contrato_usuario" class="java.lang.String"/>
+	<field name="contrato_total_parcelas" class="java.lang.Integer"/>
+	<field name="contrato_valor_total" class="java.lang.Double"/>
+	<field name="contrato_valor_mensal" class="java.lang.Double"/>
+	<field name="parcela_contrato_id_parcela_contrato" class="java.lang.Integer"/>
+	<field name="parcela_contrato_id_contrato" class="java.lang.Integer"/>
+	<field name="parcela_contrato_numero_parcela" class="java.lang.Integer"/>
+	<field name="parcela_contrato_valor_parcela" class="java.lang.Double"/>
+	<field name="parcela_contrato_data_vencimento" class="java.sql.Date"/>
+	<field name="parcela_contrato_data_baixa" class="java.sql.Date"/>
+	<field name="parcela_contrato_usuario" class="java.lang.String"/>
+	<field name="parcela_contrato_tipo_pagamento" class="java.lang.String"/>
+	<field name="parcela_contrato_tipo_entrada" class="java.lang.Integer"/>
+	<field name="parcela_contrato_valor_total" class="java.lang.Double"/>
+	<field name="caixa_id_caixa" class="java.lang.Integer"/>
+	<field name="caixa_tipo_movimento" class="java.lang.String"/>
+	<field name="caixa_tipo_pagamento" class="java.lang.String"/>
+	<field name="caixa_data_lancamento" class="java.sql.Date"/>
+	<field name="caixa_hora_lancamento" class="java.sql.Time"/>
+	<field name="caixa_historico" class="java.lang.String"/>
+	<field name="caixa_valor" class="java.lang.Double"/>
+	<field name="caixa_id_titulo" class="java.lang.Integer"/>
+	<field name="caixa_nome_caixa" class="java.lang.String"/>
+	<field name="caixa_id_banco" class="java.lang.Integer"/>
+	<field name="cad_plano_id_plano" class="java.lang.Integer"/>
+	<field name="cad_plano_nome" class="java.lang.String"/>
+	<field name="caixa_id_aluno" class="java.lang.Integer"/>
+	<title>
+		<band height="57">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="57" uuid="6edcfb59-b2a3-481b-9494-ef3bb185e6c3"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="208" y="0" width="197" height="14" uuid="c13de425-5a89-4829-9701-be28d6801508"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[MOVI MENTE Gestão Esportiva e Lazer Ltda – ME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="208" y="14" width="197" height="14" uuid="74c8b662-ffeb-4ed3-ab9a-b4da31f815d1"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[CNPJ: 23.464.976/0001-10]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="208" y="28" width="272" height="14" uuid="f8fce5b3-bcd7-48ea-a2e4-cd9207e45adb"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Endereço: Avenida Senador Vicente Vuolo s/n Bairro: Morada do Ouro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="208" y="42" width="230" height="14" uuid="5e390592-111a-414b-b5d8-3124e5956054"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fone: 65 99277-7331/ 65 99226-8375]]></text>
+			</staticText>
+			<image>
+				<reportElement x="3" y="5" width="187" height="47" uuid="bec0d9e3-4dfc-4b94-8c1e-a89653a32905"/>
+				<imageExpression><![CDATA["C:\\Users\\administrator\\Documents\\PROJETO E AQR\\proj\\MoviMente\\src\\resrelatorio\\logoredimensionadaRelatorio.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="127">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="16" uuid="a09db1d4-9583-4d89-bd7f-cb00e053a67f"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="208" y="0" width="165" height="16" uuid="04c3e233-d762-4c72-a632-06e6d4a091d0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Recibo de Pagamento]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="98" width="555" height="28" uuid="ae5278f0-ff3e-4c05-a7e8-c4a417257760"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="16" width="555" height="82" uuid="ac9f1755-40b2-4e7c-a1c9-c83fc28be5db"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="8" y="43" width="43" height="13" uuid="b9a1f5cd-6a6a-4f92-be32-93275d1da5be"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="111" width="43" height="15" uuid="477d20bd-c30b-4599-b51d-3a159b3ac6c4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nº Titulo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="122" y="111" width="68" height="15" uuid="2752bb55-dfb7-4296-a029-5d29a6941468"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Pagamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="51" y="111" width="71" height="15" uuid="9bca0d58-bb84-4123-93ba-032b72288e6c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Vencimento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="98" width="100" height="13" uuid="62fc4fe3-e3d9-4594-a504-7ca82e3ecff7"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Itens]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="51" y="16" width="100" height="15" uuid="54d03850-39e7-4ad2-af80-34d704ccf880"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Aluno]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="51" y="43" width="178" height="13" uuid="23af36da-f313-4a82-8dae-0d06b77993ee"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cad_aluno_nome}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="451" y="110" width="36" height="15" uuid="373a6c5b-c8d5-49cf-8dad-2e990e783831"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Historico]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="56" width="43" height="13" uuid="d63035f8-5e85-4058-911a-e951954cccd0"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="51" y="56" width="178" height="13" uuid="0181eace-4268-49b7-bb18-71547a1e4b03"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cad_aluno_cpf}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="69" width="43" height="13" uuid="619a1987-f8c8-4b26-8ff3-6da22ad38c81"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Email:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="82" width="43" height="13" uuid="5b7cd7d0-c843-4780-873b-c441df062ecc"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="51" y="69" width="178" height="13" uuid="ca02ed47-444d-4d72-af22-b81db5ecaffe"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cad_aluno_email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="51" y="82" width="178" height="13" uuid="26799310-2026-4e70-9968-36142fdcadb4"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cad_aluno_telefone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="383" y="16" width="100" height="15" uuid="28b292f0-9ee9-4a03-8e5c-15672000208e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Plano / Modalidade]]></text>
+			</staticText>
+			<line>
+				<reportElement x="287" y="16" width="1" height="82" uuid="668e5c4b-4f69-485a-8a6c-1deb00630210"/>
+			</line>
+			<staticText>
+				<reportElement x="303" y="43" width="50" height="13" uuid="fd7413ac-087a-4742-9613-4f9bba2ecb30"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Plano]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="303" y="56" width="50" height="13" uuid="3b90d3bf-b718-43bb-8b24-6c75ef7dbed1"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Adesão]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="356" y="43" width="83" height="13" uuid="f81d0c71-70d2-4fa4-8131-2ba35e4d5aab"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cad_plano_nome}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="31" width="555" height="1" uuid="26286633-a547-46f2-a149-9278b5d10940"/>
+			</line>
+			<textField>
+				<reportElement x="356" y="56" width="82" height="13" uuid="f6093653-95f2-490d-96a1-b6f5a072f6ef"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{contrato_data_adesao})]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="109" width="555" height="1" uuid="678f7454-62b7-4595-babe-30463c3ccf4d"/>
+			</line>
+			<staticText>
+				<reportElement x="337" y="110" width="68" height="15" uuid="42973f62-9666-4378-b42d-90c4b8e43b05"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="20" uuid="b35512d7-a360-4555-9f76-d78fbbed432a"/>
+			</rectangle>
+			<textField>
+				<reportElement x="122" y="0" width="68" height="20" uuid="b52fb181-2272-48ad-a6b2-4feabf75d165"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{parcela_contrato_data_baixa})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="0" width="27" height="20" uuid="9713367b-5087-4e33-83ab-56d5e20a7cd5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{caixa_id_titulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="51" y="0" width="51" height="20" uuid="5cb76f29-2de4-46d7-b154-41536ffc72f3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{parcela_contrato_data_vencimento})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="451" y="0" width="104" height="20" uuid="7d36b1f3-c969-4ba4-830e-3f847ee28563"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{caixa_historico}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement x="337" y="0" width="68" height="20" uuid="ad5787d8-0913-4c6d-884d-2127874feba8"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parcela_contrato_valor_parcela}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="217">
+			<line>
+				<reportElement x="0" y="0" width="235" height="1" uuid="edff9653-1445-46ee-bf71-19aa627ea609"/>
+			</line>
+			<staticText>
+				<reportElement x="21" y="1" width="184" height="20" uuid="c493523f-b7f7-4073-b304-53366bd9bd63"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Movi Mente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="353" y="0" width="185" height="20" uuid="77c1f8b7-0ac0-403a-b19a-ce34da54413a"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Assinatura Aluno]]></text>
+			</staticText>
+			<line>
+				<reportElement x="320" y="1" width="235" height="1" uuid="c42f6c4e-b61f-4a6b-8c0b-f4f75cd5d2c6"/>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="487" y="0" width="68" height="16" uuid="8612721c-8d12-4c0e-84bd-6434164a665c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contrato_usuario}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="3" y="0" width="552" height="1" uuid="ee64058f-dbb0-4b1b-be04-9bddd1dacae0"/>
+			</line>
+			<staticText>
+				<reportElement x="451" y="0" width="36" height="16" uuid="a15805ea-858e-4a19-94e5-62a03c6e7149"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuario:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="1" width="61" height="15" uuid="f0d6ec9b-3d47-42bd-8183-6c8ee25a88df"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data Emissão:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="76" y="1" width="50" height="15" uuid="6855a198-0f3b-435c-8339-ac505488c6fe"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm">
+				<reportElement x="151" y="0" width="76" height="16" uuid="4e77aa96-2945-4bc3-ad10-74880f452604"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="126" y="0" width="25" height="16" uuid="dabcca6f-789e-4c22-8c9d-7657b03cf0f6"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hora:]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>
