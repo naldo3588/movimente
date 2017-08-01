@@ -56,8 +56,7 @@ public class ContratoDAO {
             return false;
         }
     }
-    
-    
+
     public boolean inserirEmpresa(ContratoBean contrato) throws ClassNotFoundException {
 
 //        if (existeID_Aluno(contrato.getId_aluno())) {
@@ -67,19 +66,19 @@ public class ContratoDAO {
         try {
 
             con = ConexaoFactory.getConnection();
-            String sql = "INSERT INTO contrato (id_empresa,id_plano,id_item_plano,data_adesao,data_criacao,usuario,total_parcelas,valor_total,valor_mensal,status) VALUES(?,?,?,?,?,?,?,?,?,?)";
-            System.out.println("PASSOU AQUI");
+            String sql = "INSERT INTO contrato_empresa (id_plano,id_item_plano,data_adesao,data_criacao,usuario,total_parcelas,valor_total,valor_mensal,status,id_empresa) VALUES(?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, contrato.getId_empresa());
-            ps.setInt(2, contrato.getId_plano());
-            ps.setInt(3, contrato.getId_item_plano());
-            ps.setObject(4, contrato.getData_adesao());
-            ps.setObject(5, contrato.getData_criacao());
-            ps.setString(6, contrato.getUsuario());
-            ps.setInt(7, contrato.getQtd_parcelas());
-            ps.setDouble(8, contrato.getValor_total_contrato());
-            ps.setDouble(9, contrato.getValor_mensal());
-            ps.setInt(10, contrato.getStatus());
+            
+            ps.setInt(1, contrato.getId_plano());
+            ps.setInt(2, contrato.getId_item_plano());
+            ps.setObject(3, contrato.getData_adesao());
+            ps.setObject(4, contrato.getData_criacao());
+            ps.setString(5, contrato.getUsuario());
+            ps.setInt(6, contrato.getQtd_parcelas());
+            ps.setDouble(7, contrato.getValor_total_contrato());
+            ps.setDouble(8, contrato.getValor_mensal());
+            ps.setInt(9, contrato.getStatus());
+            ps.setInt(10, contrato.getId_empresa());
 
 //            JOptionPane.showMessageDialog(null, "Cadastrado com sucesso! ");
             return ps.executeUpdate() != PreparedStatement.EXECUTE_FAILED;

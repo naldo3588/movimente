@@ -20,7 +20,17 @@ public class EmpresaBean {
     private String bairro;
     private String cidade;
     private String email;
+    private int id_empresa;
+
     private int ativo;
+
+    public int getId_empresa() {
+        return id_empresa;
+    }
+
+    public void setId_empresa(int id_empresa) {
+        this.id_empresa = id_empresa;
+    }
 
     public String getNome_fantasia() {
         return nome_fantasia;

@@ -132,7 +132,7 @@ public class AlunoDAO {
             }
             con = ConexaoFactory.getConnection();
             Statement stmt = con.createStatement();
-            stmt.executeUpdate("UPDATE cad_aluno SET nome='" + aluno.getNome() + "',endereco='" + aluno.getEndereco() + "',bairro='" + aluno.getBairro() + "',telefone='" + aluno.getTelefone() + "',cidade='" + aluno.getCidade() + "',cpf='" + aluno.getCpf() + "',rg='" + aluno.getRg() + "',email='" + aluno.getEmail() + "',data_nasc='" + aluno.getData_nasc() + "',ativo='" + aluno.getAtivo() + "' WHERE cpf='" + aluno.getCpf() + "'");
+            stmt.executeUpdate("UPDATE cad_aluno SET nome='" + aluno.getNome() + "',endereco='" + aluno.getEndereco() + "',bairro='" + aluno.getBairro() + "',telefone='" + aluno.getTelefone() + "',cidade='" + aluno.getCidade() + "',cpf='" + aluno.getCpf() + "',rg='" + aluno.getRg() + "',email='" + aluno.getEmail() + "',data_nasc='" + aluno.getData_nasc() + "',ativo='" + aluno.getAtivo() + "' WHERE id_aluno='" + aluno.getId_aluno() + "'");
             JOptionPane.showMessageDialog(null, " Aluno Atualizado !!");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);

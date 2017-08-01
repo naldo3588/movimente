@@ -15,15 +15,33 @@ public class ItemContratoBean {
 
     private int id_contrato;
     private int id_aluno;
+    private int id_empresa;
     private int id_titular;
     private int id_modalidade;
     private int id_item_modalidade;
     private String nome_aluno;
+    private String nome_empresa;
     private int frequencia;
     private String dias;
     private double valor;
     private String modalidade;
     private String horario;
+
+    public String getNome_empresa() {
+        return nome_empresa;
+    }
+
+    public void setNome_empresa(String nome_empresa) {
+        this.nome_empresa = nome_empresa;
+    }
+
+    public int getId_empresa() {
+        return id_empresa;
+    }
+
+    public void setId_empresa(int id_empresa) {
+        this.id_empresa = id_empresa;
+    }
 
     public int getId_contrato() {
         return id_contrato;

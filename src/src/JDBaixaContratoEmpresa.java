@@ -44,7 +44,7 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author Ronaldo Pedro
  */
-public class JDBaixaContrato extends javax.swing.JDialog {
+public class JDBaixaContratoEmpresa extends javax.swing.JDialog {
 
     private java.sql.Connection con;
     private java.sql.Statement stmtListar;
@@ -55,11 +55,11 @@ public class JDBaixaContrato extends javax.swing.JDialog {
     /**
      * Creates new form JDEmprestimo
      */
-    public JDBaixaContrato(java.awt.Frame parent, boolean modal) {
+    public JDBaixaContratoEmpresa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         lookandfell();
-        jFormattedTextFieldCPFBusca.requestFocus();
+        jFormattedTextFieldCNPJ.requestFocus();
         jRadioButtonEmAberto.setSelected(true);
     }
 
@@ -80,12 +80,11 @@ public class JDBaixaContrato extends javax.swing.JDialog {
         jButtonLimpar = new javax.swing.JButton();
         jButtonSair = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jFormattedTextFieldCPFBusca = new javax.swing.JFormattedTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableParcelas = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        jTextFieldNomeAlunoDados = new javax.swing.JTextField();
+        jTextFieldNomeFantasiaDados = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jTextFieldEmailAlunoDados = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
@@ -97,9 +96,9 @@ public class JDBaixaContrato extends javax.swing.JDialog {
         jLabel30 = new javax.swing.JLabel();
         jTextFieldBairroAlunoDados = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jFormattedTextFieldCPFDados = new javax.swing.JFormattedTextField();
+        jFormattedTextFieldCNPJDados = new javax.swing.JFormattedTextField();
         jLabel10 = new javax.swing.JLabel();
-        jTextFieldRG = new javax.swing.JTextField();
+        jTextFieldIE = new javax.swing.JTextField();
         jLabel31 = new javax.swing.JLabel();
         jTextFieldCidadeAlunoDados = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -114,6 +113,7 @@ public class JDBaixaContrato extends javax.swing.JDialog {
         dataRender1 = new util.DataRender();
         jButtonBusca = new javax.swing.JButton();
         jButtonExcluir = new javax.swing.JButton();
+        jFormattedTextFieldCNPJ = new javax.swing.JFormattedTextField();
 
         jTableItensEmprestimo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -184,24 +184,7 @@ public class JDBaixaContrato extends javax.swing.JDialog {
         });
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel4.setText("CPF Aluno");
-
-        try {
-            jFormattedTextFieldCPFBusca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jFormattedTextFieldCPFBusca.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jFormattedTextFieldCPFBusca.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jFormattedTextFieldCPFBuscaFocusLost(evt);
-            }
-        });
-        jFormattedTextFieldCPFBusca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextFieldCPFBuscaActionPerformed(evt);
-            }
-        });
+        jLabel4.setText("CNPJ");
 
         jTableParcelas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -257,13 +240,13 @@ public class JDBaixaContrato extends javax.swing.JDialog {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Dados do Aluno", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel12.setText("Nome");
+        jLabel12.setText("Nome Fantasia");
 
-        jTextFieldNomeAlunoDados.setEditable(false);
-        jTextFieldNomeAlunoDados.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextFieldNomeAlunoDados.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldNomeFantasiaDados.setEditable(false);
+        jTextFieldNomeFantasiaDados.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldNomeFantasiaDados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNomeAlunoDadosActionPerformed(evt);
+                jTextFieldNomeFantasiaDadosActionPerformed(evt);
             }
         });
 
@@ -337,21 +320,21 @@ public class JDBaixaContrato extends javax.swing.JDialog {
         });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel7.setText("CPF");
+        jLabel7.setText("CNPJ");
 
-        jFormattedTextFieldCPFDados.setEditable(false);
+        jFormattedTextFieldCNPJDados.setEditable(false);
         try {
-            jFormattedTextFieldCPFDados.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            jFormattedTextFieldCNPJDados.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextFieldCPFDados.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jFormattedTextFieldCNPJDados.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel10.setText("RG");
+        jLabel10.setText("IE");
 
-        jTextFieldRG.setEditable(false);
-        jTextFieldRG.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldIE.setEditable(false);
+        jTextFieldIE.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         jLabel31.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel31.setText("Cidade");
@@ -384,8 +367,8 @@ public class JDBaixaContrato extends javax.swing.JDialog {
                             .addComponent(jFormattedTextFieldTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormattedTextFieldCPFDados, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
-                            .addComponent(jTextFieldRG, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jFormattedTextFieldCNPJDados, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
+                            .addComponent(jTextFieldIE, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7)
@@ -394,7 +377,7 @@ public class JDBaixaContrato extends javax.swing.JDialog {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel29)
-                            .addComponent(jTextFieldNomeAlunoDados, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
+                            .addComponent(jTextFieldNomeFantasiaDados, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
                             .addComponent(jLabel12)
                             .addComponent(jTextFieldEnderecoAlunoDados))
                         .addGap(18, 18, 18)
@@ -425,7 +408,7 @@ public class JDBaixaContrato extends javax.swing.JDialog {
                     .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldNomeAlunoDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldNomeFantasiaDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldEmailAlunoDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -443,7 +426,7 @@ public class JDBaixaContrato extends javax.swing.JDialog {
                             .addComponent(jLabel10))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldCidadeAlunoDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTextFieldRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldIE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
@@ -452,12 +435,12 @@ public class JDBaixaContrato extends javax.swing.JDialog {
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jFormattedTextFieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jFormattedTextFieldCPFDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFormattedTextFieldCNPJDados, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel5.setText("Contratos do Aluno");
+        jLabel5.setText("Contratos da Empresa");
 
         jTableContrato.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -544,6 +527,27 @@ public class JDBaixaContrato extends javax.swing.JDialog {
             }
         });
 
+        try {
+            jFormattedTextFieldCNPJ.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFormattedTextFieldCNPJ.setFocusLostBehavior(javax.swing.JFormattedTextField.COMMIT);
+        jFormattedTextFieldCNPJ.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jFormattedTextFieldCNPJ.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jFormattedTextFieldCNPJFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jFormattedTextFieldCNPJFocusLost(evt);
+            }
+        });
+        jFormattedTextFieldCNPJ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextFieldCNPJActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -577,9 +581,9 @@ public class JDBaixaContrato extends javax.swing.JDialog {
                                         .addComponent(jLabel5))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel4)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jFormattedTextFieldCPFBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jFormattedTextFieldCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(25, 25, 25)
                                         .addComponent(jButtonBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
@@ -603,9 +607,9 @@ public class JDBaixaContrato extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jFormattedTextFieldCPFBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)
-                            .addComponent(jButtonBusca))
+                            .addComponent(jButtonBusca)
+                            .addComponent(jFormattedTextFieldCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -678,22 +682,6 @@ public class JDBaixaContrato extends javax.swing.JDialog {
 //        jTextFieldIdItem.setText(jTableParcelas.getValueAt(linha, 8).toString());
     }//GEN-LAST:event_jTableParcelasMouseClicked
 
-    private void jFormattedTextFieldCPFBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCPFBuscaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextFieldCPFBuscaActionPerformed
-
-    private void jFormattedTextFieldCPFBuscaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCPFBuscaFocusLost
-        if (jFormattedTextFieldCPFBusca.getText().equals("   .   .   -  ")) {
-
-        } else {
-
-            buscarCPF();
-            buscarContrato();
-            limparTabelaParcelas();
-        }
-
-    }//GEN-LAST:event_jFormattedTextFieldCPFBuscaFocusLost
-
     private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButtonSairActionPerformed
@@ -738,9 +726,9 @@ public class JDBaixaContrato extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowGainedFocus
 
-    private void jTextFieldNomeAlunoDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeAlunoDadosActionPerformed
+    private void jTextFieldNomeFantasiaDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeFantasiaDadosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNomeAlunoDadosActionPerformed
+    }//GEN-LAST:event_jTextFieldNomeFantasiaDadosActionPerformed
 
     private void jTextFieldEmailAlunoDadosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldEmailAlunoDadosFocusLost
         // TODO add your handling code here:
@@ -799,8 +787,8 @@ public class JDBaixaContrato extends javax.swing.JDialog {
 
     private void jRadioButtonBaixadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonBaixadosActionPerformed
         // TODO add your handling code here:
-        jButtonExcluir.setEnabled(false);
         jButtonEfetuarBaixa.setEnabled(false);
+        jButtonExcluir.setEnabled(false);
         ((DefaultTableModel) jTableParcelas.getModel()).setNumRows(0);
         ((DefaultTableModel) jTableParcelas.getModel()).setNumRows(30);
         montarParcelasBaixados();
@@ -820,11 +808,11 @@ public class JDBaixaContrato extends javax.swing.JDialog {
         limparCampos();
         limparTabelaContrato();
         limparTabelaParcelas();
-        JDPesquisaGlobalAluno pesquisa = new JDPesquisaGlobalAluno(null, rootPaneCheckingEnabled);
+        JDPesquisaGlobalFornecedor pesquisa = new JDPesquisaGlobalFornecedor(null, rootPaneCheckingEnabled);
         pesquisa.setLocationRelativeTo(null);
         pesquisa.setVisible(true);
-        jFormattedTextFieldCPFBusca.setText(pesquisa.cpf);
-        jFormattedTextFieldCPFBusca.requestFocus();
+        jFormattedTextFieldCNPJ.setText(pesquisa.cpf);
+        jFormattedTextFieldCNPJ.requestFocus();
     }//GEN-LAST:event_jButtonBuscaActionPerformed
 
     private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
@@ -844,7 +832,7 @@ public class JDBaixaContrato extends javax.swing.JDialog {
                 parcela.setId_parcela_contrato(id);
                 Integer opcao = JOptionPane.showConfirmDialog(null, "Confirma a Exclusão do Titutlo?", "Excluir Titulo", JOptionPane.OK_CANCEL_OPTION);
                 if (opcao == JOptionPane.YES_OPTION) {
-                    dao.excluirLancamento(parcela);
+                    dao.excluirLancamentoEmpresa(parcela);
                     ((DefaultTableModel) jTableParcelas.getModel()).removeRow(jTableParcelas.getSelectedRow());
 
                 } else {
@@ -855,6 +843,28 @@ public class JDBaixaContrato extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jFormattedTextFieldCNPJFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCNPJFocusGained
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_jFormattedTextFieldCNPJFocusGained
+
+    private void jFormattedTextFieldCNPJFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCNPJFocusLost
+        if (jFormattedTextFieldCNPJ.getText().equals("   .   .   -  ")) {
+
+        } else {
+
+            buscarCPF();
+            buscarContrato();
+            limparTabelaParcelas();
+        }
+
+
+    }//GEN-LAST:event_jFormattedTextFieldCNPJFocusLost
+
+    private void jFormattedTextFieldCNPJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCNPJActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextFieldCNPJActionPerformed
 
     private void EfetuarBaixa() {
         int linha = jTableParcelas.getSelectedRow();
@@ -871,7 +881,7 @@ public class JDBaixaContrato extends javax.swing.JDialog {
             String tipo_movimento = "E";
             String tipo_pagamento = String.valueOf(jTableParcelas.getValueAt(linha, 3));
             Object data_lancamento = jTableParcelas.getValueAt(linha, 5);
-            String historico = "Pagamento de Mensalidade. - Aluno: " + jTextFieldNomeAlunoDados.getText() + "";
+            String historico = "Pagamento de Mensalidade. - Empresa: " + jTextFieldNomeFantasiaDados.getText() + "";
             String valorstr = jTableParcelas.getValueAt(linha, 4).toString();
             Double valor = Double.parseDouble(valorstr);
 
@@ -884,9 +894,9 @@ public class JDBaixaContrato extends javax.swing.JDialog {
             caixa.setId_titulo(Integer.parseInt(idstr));
             caixa.setCaixa(JDBancoBaixa.nome_banco);
             caixa.setId_banco(JDBancoBaixa.id_banco);
-            caixa.setId_tipo(1);
-            caixa.setId_fornecedor(1);
-            caixa.setId_aluno(Integer.parseInt(jTextFieldID_Aluno.getText()));
+            caixa.setId_tipo(4);
+            caixa.setId_fornecedor(Integer.parseInt(jTextFieldID_Aluno.getText()));
+            caixa.setId_aluno(1);
             parcelas.setId_parcela_contrato(Integer.parseInt(idstr));
             parcelas.setData_baixa(data_criacao);
 
@@ -896,8 +906,8 @@ public class JDBaixaContrato extends javax.swing.JDialog {
             gerarreciboJD();
             ((DefaultTableModel) jTableParcelas.getModel()).removeRow(jTableParcelas.getSelectedRow());
 
-            jFormattedTextFieldCPFBusca.setText("");
-            jFormattedTextFieldCPFBusca.requestFocus();
+            jFormattedTextFieldCNPJ.setText("");
+            jFormattedTextFieldCNPJ.requestFocus();
 
         } catch (NumberFormatException | SQLException e) {
 
@@ -907,30 +917,30 @@ public class JDBaixaContrato extends javax.swing.JDialog {
     private void buscarCPF() {
         try {
             AlunoBean aluno = new AlunoBean();
-            aluno.setCpf(jFormattedTextFieldCPFBusca.getText());
+            aluno.setCpf(jFormattedTextFieldCNPJ.getText());
             iniciarBD();
-            rsListar = stmtListar.executeQuery("SELECT * FROM cad_aluno WHERE cpf='" + jFormattedTextFieldCPFBusca.getText() + "'");
+            rsListar = stmtListar.executeQuery("SELECT * FROM cad_empresa WHERE cnpj='" + jFormattedTextFieldCNPJ.getText() + "'");
 
             if (rsListar.next()) {
                 jTextFieldID_Aluno.setText(rsListar.getString(1));
-                jTextFieldNomeAlunoDados.setText(rsListar.getString(2));
+                jTextFieldNomeFantasiaDados.setText(rsListar.getString(2));
 
-                jTextFieldEmailAlunoDados.setText(rsListar.getString(9));
-                jFormattedTextFieldTelefone.setText(rsListar.getString(5));
+                jTextFieldEmailAlunoDados.setText(rsListar.getString(7));
+                jFormattedTextFieldTelefone.setText(rsListar.getString(10));
 
-                jTextFieldEnderecoAlunoDados.setText(rsListar.getString(3));
-                jTextFieldBairroAlunoDados.setText(rsListar.getString(4));
+                jTextFieldEnderecoAlunoDados.setText(rsListar.getString(4));
+                jTextFieldBairroAlunoDados.setText(rsListar.getString(5));
                 jTextFieldCidadeAlunoDados.setText(rsListar.getString(6));
-                jFormattedTextFieldCPFDados.setText(rsListar.getString(7));
-                jTextFieldRG.setText(rsListar.getString(8));
+                jFormattedTextFieldCNPJDados.setText(rsListar.getString(8));
+                jTextFieldIE.setText(rsListar.getString(9));
 
-            } else if (!jFormattedTextFieldCPFBusca.equals("   .   .   -  ")) {
+            } else if (!jFormattedTextFieldCNPJ.equals("  .   .   /    -  ")) {
 
             }
-            if (!jFormattedTextFieldCPFBusca.getText().equals("   .   .   -  ") && (!rsListar.first())) {
-                JOptionPane.showMessageDialog(null, "Aluno Não cadastrado para este CPF!!");
-                jFormattedTextFieldCPFBusca.requestFocus();
-                jFormattedTextFieldCPFBusca.setText("");
+            if (!jFormattedTextFieldCNPJ.getText().equals("  .   .   /    -  ") && (!rsListar.first())) {
+                JOptionPane.showMessageDialog(null, "Empresa Não cadastrado para este CNPJ!!");
+                jFormattedTextFieldCNPJ.requestFocus();
+                jFormattedTextFieldCNPJ.setText("");
             }
 
         } catch (SQLException ex) {
@@ -943,9 +953,9 @@ public class JDBaixaContrato extends javax.swing.JDialog {
         int linha = 0;
         try {
             while (rsListar.next()) {
-                String id_contrato = rsListar.getString("contrato.id_contrato");
+                String id_contrato = rsListar.getString("contrato_empresa.id_contrato_empresa");
                 String plano = rsListar.getString("cad_plano.nome");
-                Double valor = rsListar.getDouble("contrato.valor_mensal");
+                Double valor = rsListar.getDouble("contrato_empresa.valor_mensal");
 
                 jTableContrato.getModel().setValueAt(id_contrato, linha, 0);
                 jTableContrato.getModel().setValueAt(plano, linha, 1);
@@ -961,20 +971,26 @@ public class JDBaixaContrato extends javax.swing.JDialog {
     private void buscarContrato() {
         iniciarBD();
         try {
-            int id_titular = Integer.parseInt(jTextFieldID_Aluno.getText());
-            rsListar = stmtListar.executeQuery("SELECT\n"
-                    + "     contrato.id_titular,\n"
-                    + "     contrato.valor_mensal ,\n"
-                    + "     cad_plano.id_plano ,\n"
-                    + "     cad_plano.nome ,\n"
-                    + "     contrato.id_plano,\n"
-                    + "     contrato.id_contrato\n"
-                    + "FROM\n"
-                    + "     contrato contrato INNER JOIN cad_plano cad_plano ON contrato.id_plano = cad_plano.id_plano where contrato.id_titular='" + id_titular + "'");
-            montarTabelaContrato();
+            if (jFormattedTextFieldCNPJ.getText().equals("  .   .   /    -  ")) {
+
+            } else {
+
+                int id_titular = Integer.parseInt(jTextFieldID_Aluno.getText());
+                rsListar = stmtListar.executeQuery("SELECT\n"
+                        + "                    contrato_empresa.id_empresa,\n"
+                        + "                  contrato_empresa.valor_mensal ,\n"
+                        + "                    cad_plano.id_plano ,\n"
+                        + "                    cad_plano.nome ,\n"
+                        + "                    contrato_empresa.id_plano,\n"
+                        + "                    contrato_empresa.id_contrato_empresa\n"
+                        + "                    FROM\n"
+                        + "                    contrato_empresa contrato_empresa INNER JOIN cad_plano cad_plano ON contrato_empresa.id_plano = cad_plano.id_plano where contrato_empresa.id_empresa='" + id_titular + "'");
+                montarTabelaContrato();
+            }
         } catch (SQLException ex) {
 
         }
+
     }
 
     private void montarParcelas() {
@@ -983,7 +999,7 @@ public class JDBaixaContrato extends javax.swing.JDialog {
             Object id = jTableContrato.getValueAt(indiceLinha, 0);
             System.out.println(id);
             iniciarBD();
-            rsListar = stmtListar.executeQuery("select * from parcela_contrato where id_contrato= '" + id + "' order by data_baixa asc");
+            rsListar = stmtListar.executeQuery("select * from parcela_contrato_empresa where id_parcela_contrato_empresa= '" + id + "' order by data_baixa asc");
             montarTabela();
         } catch (Exception e) {
         }
@@ -995,7 +1011,7 @@ public class JDBaixaContrato extends javax.swing.JDialog {
             Object id = jTableContrato.getValueAt(indiceLinha, 0);
             System.out.println(id);
             iniciarBD();
-            rsListar = stmtListar.executeQuery("select * from parcela_contrato where id_contrato= '" + id + "' and data_baixa IS NOT NULL order by data_baixa asc");
+            rsListar = stmtListar.executeQuery("select * from parcela_contrato_empresa where id_parcela_contrato_empresa= '" + id + "' and data_baixa IS NOT NULL order by data_baixa asc");
             montarTabela();
         } catch (Exception e) {
         }
@@ -1007,7 +1023,7 @@ public class JDBaixaContrato extends javax.swing.JDialog {
             Object id = jTableContrato.getValueAt(indiceLinha, 0);
             System.out.println(id);
             iniciarBD();
-            rsListar = stmtListar.executeQuery("select * from parcela_contrato where id_contrato= '" + id + "' and data_baixa IS NULL order by data_baixa asc");
+            rsListar = stmtListar.executeQuery("select * from parcela_contrato_empresa where id_parcela_contrato_empresa= '" + id + "' and data_baixa IS NULL order by data_baixa asc");
             montarTabela();
         } catch (Exception e) {
         }
@@ -1065,38 +1081,6 @@ public class JDBaixaContrato extends javax.swing.JDialog {
             viewer.setBounds(0, 0, screenSize.width, screenSize.height);
             viewer.setLocationRelativeTo(null);
             conecta.executaSQL("SELECT\n"
-                    + "     cad_aluno.`id_aluno` AS cad_aluno_id_aluno,\n"
-                    + "     cad_aluno.`nome` AS cad_aluno_nome,\n"
-                    + "     cad_aluno.`endereco` AS cad_aluno_endereco,\n"
-                    + "     cad_aluno.`bairro` AS cad_aluno_bairro,\n"
-                    + "     cad_aluno.`telefone` AS cad_aluno_telefone,\n"
-                    + "     cad_aluno.`cidade` AS cad_aluno_cidade,\n"
-                    + "     cad_aluno.`cpf` AS cad_aluno_cpf,\n"
-                    + "     cad_aluno.`rg` AS cad_aluno_rg,\n"
-                    + "     cad_aluno.`email` AS cad_aluno_email,\n"
-                    + "     cad_aluno.`data_nasc` AS cad_aluno_data_nasc,\n"
-                    + "     cad_aluno.`ativo` AS cad_aluno_ativo,\n"
-                    + "     cad_aluno.`id_titular` AS cad_aluno_id_titular,\n"
-                    + "     contrato.`id_contrato` AS contrato_id_contrato,\n"
-                    + "     contrato.`id_titular` AS contrato_id_titular,\n"
-                    + "     contrato.`id_plano` AS contrato_id_plano,\n"
-                    + "     contrato.`id_item_plano` AS contrato_id_item_plano,\n"
-                    + "     contrato.`data_adesao` AS contrato_data_adesao,\n"
-                    + "     contrato.`data_criacao` AS contrato_data_criacao,\n"
-                    + "     contrato.`usuario` AS contrato_usuario,\n"
-                    + "     contrato.`total_parcelas` AS contrato_total_parcelas,\n"
-                    + "     contrato.`valor_total` AS contrato_valor_total,\n"
-                    + "     contrato.`valor_mensal` AS contrato_valor_mensal,\n"
-                    + "     parcela_contrato.`id_parcela_contrato` AS parcela_contrato_id_parcela_contrato,\n"
-                    + "     parcela_contrato.`id_contrato` AS parcela_contrato_id_contrato,\n"
-                    + "     parcela_contrato.`numero_parcela` AS parcela_contrato_numero_parcela,\n"
-                    + "     parcela_contrato.`valor_parcela` AS parcela_contrato_valor_parcela,\n"
-                    + "     parcela_contrato.`data_vencimento` AS parcela_contrato_data_vencimento,\n"
-                    + "     parcela_contrato.`data_baixa` AS parcela_contrato_data_baixa,\n"
-                    + "     parcela_contrato.`usuario` AS parcela_contrato_usuario,\n"
-                    + "     parcela_contrato.`tipo_pagamento` AS parcela_contrato_tipo_pagamento,\n"
-                    + "     parcela_contrato.`tipo_entrada` AS parcela_contrato_tipo_entrada,\n"
-                    + "     parcela_contrato.`valor_total` AS parcela_contrato_valor_total,\n"
                     + "     caixa.`id_caixa` AS caixa_id_caixa,\n"
                     + "     caixa.`tipo_movimento` AS caixa_tipo_movimento,\n"
                     + "     caixa.`tipo_pagamento` AS caixa_tipo_pagamento,\n"
@@ -1109,18 +1093,51 @@ public class JDBaixaContrato extends javax.swing.JDialog {
                     + "     caixa.`id_banco` AS caixa_id_banco,\n"
                     + "     cad_plano.`id_plano` AS cad_plano_id_plano,\n"
                     + "     cad_plano.`nome` AS cad_plano_nome,\n"
-                    + "     caixa.`id_aluno` AS caixa_id_aluno\n"
+                    + "     caixa.`id_aluno` AS caixa_id_aluno,\n"
+                    + "     cad_empresa.`id_empresa` AS cad_empresa_id_empresa,\n"
+                    + "     cad_empresa.`nome_fantasia` AS cad_empresa_nome_fantasia,\n"
+                    + "     cad_empresa.`razao_social` AS cad_empresa_razao_social,\n"
+                    + "     cad_empresa.`endereco` AS cad_empresa_endereco,\n"
+                    + "     cad_empresa.`bairro` AS cad_empresa_bairro,\n"
+                    + "     cad_empresa.`cidade` AS cad_empresa_cidade,\n"
+                    + "     cad_empresa.`email` AS cad_empresa_email,\n"
+                    + "     cad_empresa.`cnpj` AS cad_empresa_cnpj,\n"
+                    + "     cad_empresa.`inscricao_estadual` AS cad_empresa_inscricao_estadual,\n"
+                    + "     cad_empresa.`telefone` AS cad_empresa_telefone,\n"
+                    + "     cad_empresa.`ativo` AS cad_empresa_ativo,\n"
+                    + "     parcela_contrato_empresa.`id_parcela_contrato_empresa` AS parcela_contrato_empresa_id_parcela_contrato_empresa,\n"
+                    + "     parcela_contrato_empresa.`id_contrato` AS parcela_contrato_empresa_id_contrato,\n"
+                    + "     parcela_contrato_empresa.`numero_parcela` AS parcela_contrato_empresa_numero_parcela,\n"
+                    + "     parcela_contrato_empresa.`valor_parcela` AS parcela_contrato_empresa_valor_parcela,\n"
+                    + "     parcela_contrato_empresa.`data_vencimento` AS parcela_contrato_empresa_data_vencimento,\n"
+                    + "     parcela_contrato_empresa.`data_baixa` AS parcela_contrato_empresa_data_baixa,\n"
+                    + "     parcela_contrato_empresa.`usuario` AS parcela_contrato_empresa_usuario,\n"
+                    + "     parcela_contrato_empresa.`tipo_pagamento` AS parcela_contrato_empresa_tipo_pagamento,\n"
+                    + "     parcela_contrato_empresa.`tipo_entrada` AS parcela_contrato_empresa_tipo_entrada,\n"
+                    + "     parcela_contrato_empresa.`valor_total` AS parcela_contrato_empresa_valor_total,\n"
+                    + "     contrato_empresa.`id_contrato_empresa` AS contrato_empresa_id_contrato_empresa,\n"
+                    + "     contrato_empresa.`id_empresa` AS contrato_empresa_id_empresa,\n"
+                    + "     contrato_empresa.`id_plano` AS contrato_empresa_id_plano,\n"
+                    + "     contrato_empresa.`id_item_plano` AS contrato_empresa_id_item_plano,\n"
+                    + "     contrato_empresa.`data_adesao` AS contrato_empresa_data_adesao,\n"
+                    + "     contrato_empresa.`data_criacao` AS contrato_empresa_data_criacao,\n"
+                    + "     contrato_empresa.`usuario` AS contrato_empresa_usuario,\n"
+                    + "     contrato_empresa.`total_parcelas` AS contrato_empresa_total_parcelas,\n"
+                    + "     contrato_empresa.`valor_total` AS contrato_empresa_valor_total,\n"
+                    + "     contrato_empresa.`valor_mensal` AS contrato_empresa_valor_mensal,\n"
+                    + "     contrato_empresa.`status` AS contrato_empresa_status,\n"
+                    + "     caixa.`id_fornecedor` AS caixa_id_fornecedor\n"
                     + "FROM\n"
-                    + "     `cad_aluno` cad_aluno INNER JOIN `contrato` contrato ON cad_aluno.`id_aluno` = contrato.`id_titular`\n"
-                    + "     INNER JOIN `cad_plano` cad_plano ON contrato.`id_plano` = cad_plano.`id_plano`\n"
-                    + "     INNER JOIN `parcela_contrato` parcela_contrato ON contrato.`id_contrato` = parcela_contrato.`id_contrato`\n"
-                    + "     INNER JOIN `caixa` caixa ON contrato.`id_titular` = caixa.`id_aluno`\n"
-                    + "     AND caixa.`id_titulo` = parcela_contrato.`id_parcela_contrato`\n"
-                    + "                   WHERE\n"
-                    + "                      contrato.id_contrato ='" + id_contrato + "'\n"
-                    + "                   and parcela_contrato.id_parcela_contrato ='" + id_titulo + "'");
+                    + "     `cad_empresa` cad_empresa INNER JOIN `contrato_empresa` contrato_empresa ON cad_empresa.`id_empresa` = contrato_empresa.`id_empresa`\n"
+                    + "     INNER JOIN `caixa` caixa ON contrato_empresa.`id_empresa` = caixa.`id_fornecedor`\n"
+                    + "     INNER JOIN `cad_plano` cad_plano ON contrato_empresa.`id_plano` = cad_plano.`id_plano`\n"
+                    + "     INNER JOIN `parcela_contrato_empresa` parcela_contrato_empresa ON contrato_empresa.`id_contrato_empresa` = parcela_contrato_empresa.`id_contrato`\n"
+                    + "     AND caixa.`id_titulo` = parcela_contrato_empresa.`id_parcela_contrato_empresa`\n"
+                    + "WHERE\n"
+                    + "     contrato_empresa.id_contrato_empresa ='" + id_contrato + "'\n"
+                    + "     and parcela_contrato_empresa.id_parcela_contrato_empresa = '" + id_titulo + "'");
             JRResultSetDataSource relatResult = new JRResultSetDataSource(conecta.rs);
-            JasperPrint jpPrint = JasperFillManager.fillReport("C:\\Program Files\\Movimente\\MoviMente\\src\\relatorios\\recibovenda.jasper", new HashMap(), relatResult);
+            JasperPrint jpPrint = JasperFillManager.fillReport("C:\\Program Files\\Movimente\\MoviMente\\src\\relatorios\\recibovenda_empresa.jasper", new HashMap(), relatResult);
             JasperViewer jv = new JasperViewer(jpPrint, false);
             viewer.getContentPane().add(jv.getContentPane());
             viewer.setVisible(true);
@@ -1134,13 +1151,13 @@ public class JDBaixaContrato extends javax.swing.JDialog {
 
         jTextFieldBairroAlunoDados.setText("");
         jTextFieldCidadeAlunoDados.setText("");
-        jTextFieldRG.setText("");
-        jTextFieldNomeAlunoDados.setText("");
+        jTextFieldIE.setText("");
+        jTextFieldNomeFantasiaDados.setText("");
         jTextFieldID_Aluno.setText("");
         jTextFieldEmailAlunoDados.setText("");
         jTextFieldEnderecoAlunoDados.setText("");
-        jFormattedTextFieldCPFBusca.setText(null);
-        jFormattedTextFieldCPFDados.setText(null);
+        jFormattedTextFieldCNPJ.setText(null);
+        jFormattedTextFieldCNPJDados.setText(null);
         jFormattedTextFieldTelefone.setText(null);
 
     }
@@ -1201,21 +1218,29 @@ public class JDBaixaContrato extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDBaixaContrato.class
+            java.util.logging.Logger.getLogger(JDBaixaContratoEmpresa.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDBaixaContrato.class
+            java.util.logging.Logger.getLogger(JDBaixaContratoEmpresa.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDBaixaContrato.class
+            java.util.logging.Logger.getLogger(JDBaixaContratoEmpresa.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDBaixaContrato.class
+            java.util.logging.Logger.getLogger(JDBaixaContratoEmpresa.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -1228,7 +1253,7 @@ public class JDBaixaContrato extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JDBaixaContrato dialog = new JDBaixaContrato(new javax.swing.JFrame(), true);
+                JDBaixaContratoEmpresa dialog = new JDBaixaContratoEmpresa(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -1249,8 +1274,8 @@ public class JDBaixaContrato extends javax.swing.JDialog {
     private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonLimpar;
     private javax.swing.JButton jButtonSair;
-    private javax.swing.JFormattedTextField jFormattedTextFieldCPFBusca;
-    private javax.swing.JFormattedTextField jFormattedTextFieldCPFDados;
+    private javax.swing.JFormattedTextField jFormattedTextFieldCNPJ;
+    private javax.swing.JFormattedTextField jFormattedTextFieldCNPJDados;
     private javax.swing.JFormattedTextField jFormattedTextFieldTelefone;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -1280,8 +1305,8 @@ public class JDBaixaContrato extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldEmailAlunoDados;
     private javax.swing.JTextField jTextFieldEnderecoAlunoDados;
     private javax.swing.JTextField jTextFieldID_Aluno;
-    private javax.swing.JTextField jTextFieldNomeAlunoDados;
-    private javax.swing.JTextField jTextFieldRG;
+    private javax.swing.JTextField jTextFieldIE;
+    private javax.swing.JTextField jTextFieldNomeFantasiaDados;
     private util.PrecoRender precoRender1;
     // End of variables declaration//GEN-END:variables
 }

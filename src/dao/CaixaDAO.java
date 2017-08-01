@@ -96,4 +96,17 @@ public class CaixaDAO {
         }
         return false;
     }
+    public boolean estornarBaixaEmpresa(CaixaBean caixa) throws SQLException, ClassNotFoundException {
+        con = ConexaoFactory.getConnection();
+        Statement stmt = con.createStatement();
+        try {
+
+            stmt.executeUpdate("DELETE FROM caixa WHERE id_titulo='" + caixa.getId_titulo() + "'");
+            JOptionPane.showMessageDialog(null, " Titulo Estornado com Sucesso!!");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 }

@@ -54,12 +54,61 @@ public class ParcelasDAO {
         return true;
 
     }
+    
+    public boolean inserirEmpresa(ParcelasBean parcela) {
+
+        try {
+
+            con = ConexaoFactory.getConnection();
+            String sql = "INSERT INTO parcela_contrato_empresa (id_contrato,valor_total,data_vencimento,tipo_entrada,tipo_pagamento,usuario,numero_parcela,valor_parcela) VALUES (?,?,?,?,?,?,?,?)";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, parcela.getId_contrato());
+            ps.setDouble(2, parcela.getValor_total());
+            ps.setObject(3, parcela.getData_vencimento());
+            ps.setInt(4, parcela.getTipo_entrada());
+            ps.setString(5, parcela.getTipo_pagamento());
+            ps.setString(6, parcela.getUsuario());
+            ps.setInt(7, parcela.getNumero_parcela());
+            ps.setDouble(8, parcela.getValor_parcela());
+            System.out.println("Inserido com Sucesso!");
+            return ps.executeUpdate() != PreparedStatement.EXECUTE_FAILED;
+
+        } catch (ClassNotFoundException | SQLException | HeadlessException e) {
+
+        }
+
+        return true;
+
+    }
 
     public boolean efetuarBaixa(ParcelasBean parcelas) throws SQLException {
 
         try {
             con = ConexaoFactory.getConnection();
-            String sql = ("UPDATE parcela_contrato SET data_baixa= ? WHERE id_parcela_contrato= ?");
+            String sql = ("UPDATE parcela_contrato_empresa SET data_baixa= ? WHERE id_parcela_contrato_empresa= ?");
+
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            ps.setObject(1, parcelas.getData_baixa());
+            ps.setInt(2, parcelas.getId_parcela_contrato());
+
+            System.out.println("Passou DNV");
+
+            JOptionPane.showMessageDialog(null, "Baixa realizada com sucesso! ");
+
+            return ps.executeUpdate() != PreparedStatement.EXECUTE_FAILED;
+
+        } catch (ClassNotFoundException e) {
+
+        }
+        return true;
+    }
+    public boolean efetuarBaixaEmpresa(ParcelasBean parcelas) throws SQLException {
+
+        try {
+            con = ConexaoFactory.getConnection();
+            String sql = ("UPDATE parcela_contrato_empresa SET data_baixa= ? WHERE id_parcela_contrato_empresa= ?");
 
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -84,6 +133,18 @@ public class ParcelasDAO {
             con = ConexaoFactory.getConnection();
             Statement stmt = con.createStatement();
             stmt.executeUpdate("UPDATE parcela_contrato SET data_baixa = NULL WHERE id_parcela_contrato='" + parcelas.getId_parcela_contrato() + "'");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+
+        }
+        return true;
+    }
+    public boolean efetuarEstornoContratoEmpresa(ParcelasBean parcelas) throws ClassNotFoundException {
+        try {
+
+            con = ConexaoFactory.getConnection();
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate("UPDATE parcela_contrato_empresa SET data_baixa = NULL WHERE id_parcela_contrato_empresa='" + parcelas.getId_parcela_contrato() + "'");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
 
@@ -140,6 +201,14 @@ public class ParcelasDAO {
         con = ConexaoFactory.getConnection();
         Statement stmt = con.createStatement();
         stmt.executeUpdate("DELETE FROM parcela_contrato WHERE id_parcela_contrato='" + parcela.getId_parcela_contrato() + "'");
+        JOptionPane.showMessageDialog(null, " Titulo Excluido com Sucesso!!");
+        return false;
+    }
+    
+    public boolean excluirLancamentoEmpresa(ParcelasBean parcela) throws SQLException, ClassNotFoundException {
+        con = ConexaoFactory.getConnection();
+        Statement stmt = con.createStatement();
+        stmt.executeUpdate("DELETE FROM parcela_contrato_empresa WHERE id_parcela_contrato_empresa='" + parcela.getId_parcela_contrato() + "'");
         JOptionPane.showMessageDialog(null, " Titulo Excluido com Sucesso!!");
         return false;
     }

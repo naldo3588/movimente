@@ -22,20 +22,27 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
  * @author Ronaldo Pedro
  */
-public class JDMovimentoCaixa extends javax.swing.JDialog {
-
+public class JDMovimentoCaixa extends javax.swing.JFrame {
+    ConexaoFactory conecta = new ConexaoFactory();
     private java.sql.Connection con;
     private java.sql.Statement stmtListar;
     private java.sql.ResultSet rsListar;
@@ -44,16 +51,17 @@ public class JDMovimentoCaixa extends javax.swing.JDialog {
     Toolkit toolkit = Toolkit.getDefaultToolkit();
     Dimension screenSize = toolkit.getScreenSize();
     NumberFormat format;
+    public String sql;
 
     /**
      * Creates new form JDMovimentoCaixa
      */
     public JDMovimentoCaixa(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+//        super(parent, modal);
         initComponents();
         lookandfell();
         this.setLocationRelativeTo(null);
-        this.setBounds(0, 0, screenSize.width, screenSize.height);
+        this.setBounds(0, 580, screenSize.width, 580);
         jDateChooserA02.setVisible(false);
         jDateChooserDe01.setVisible(false);
         jLabelA.setVisible(false);
@@ -254,7 +262,7 @@ public class JDMovimentoCaixa extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jLabel2.setText("Saldo Caixa");
+        jLabel2.setText("Saldo Total Caixa");
 
         jFormattedTextFieldTotalSaldo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
         jFormattedTextFieldTotalSaldo.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -507,7 +515,7 @@ public class JDMovimentoCaixa extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -597,6 +605,8 @@ public class JDMovimentoCaixa extends javax.swing.JDialog {
                         daop.efetuarEstornoContasaPagar(pagar);
                     } else if (jTableCaixa.getValueAt(linha, 9).equals("Contas a Receber")) {
                         daop.efetuarEstornoContasaReceber(receber);
+                    } else  if (jTableCaixa.getValueAt(linha, 9).equals("Contrato Empresa")) {
+                        daop.efetuarEstornoContratoEmpresa(parcela);
                     }
 
                     ((DefaultTableModel) jTableCaixa.getModel()).removeRow(jTableCaixa.getSelectedRow());
@@ -613,6 +623,7 @@ public class JDMovimentoCaixa extends javax.swing.JDialog {
 
     private void jButtonGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGerarRelatorioActionPerformed
         // TODO add your handling code here:
+        buscarDadosEmpresasGerar();
     }//GEN-LAST:event_jButtonGerarRelatorioActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -839,7 +850,7 @@ public class JDMovimentoCaixa extends javax.swing.JDialog {
                         + "     cad_aluno.`id_titular` AS cad_aluno_id_titular\n"
                         + "FROM\n"
                         + "     `caixa` caixa INNER JOIN `cad_empresa` cad_empresa ON caixa.`id_fornecedor` = cad_empresa.`id_empresa`\n"
-                        + "     INNER JOIN `cad_aluno` cad_aluno ON caixa.`id_aluno` = cad_aluno.`id_aluno` order by caixa.id_caixa DESC");
+                        + "     INNER JOIN `cad_aluno` cad_aluno ON caixa.`id_aluno` = cad_aluno.`id_aluno` WHERE caixa.data_lancamento=CURRENT_DATE order by caixa.id_caixa DESC");
                 montarTabela();
             }
             if (jComboBoxPeriodo.getSelectedItem().toString().equals("Entre Datas") && jTextFieldId.getText().isEmpty()) {
@@ -1144,6 +1155,482 @@ public class JDMovimentoCaixa extends javax.swing.JDialog {
 
         }
     }
+    
+    private void buscarDadosEmpresasGerar() {
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        if (jRadioButtonEntrada.isSelected()) {
+            tipo = "E";
+        } else if (jRadioButtonSaida.isSelected()) {
+            tipo = "S";
+        }
+        if (jComboBoxPeriodo.getSelectedItem().toString().equals("Hoje") && jTextFieldId.getText().isEmpty()) {
+            iniciarBD();
+            sql = ("SELECT\n"
+                    + "     caixa.`id_caixa` AS caixa_id_caixa,\n"
+                    + "     caixa.`tipo_movimento` AS caixa_tipo_movimento,\n"
+                    + "     caixa.`tipo_pagamento` AS caixa_tipo_pagamento,\n"
+                    + "     caixa.`data_lancamento` AS caixa_data_lancamento,\n"
+                    + "     caixa.`hora_lancamento` AS caixa_hora_lancamento,\n"
+                    + "     caixa.`historico` AS caixa_historico,\n"
+                    + "     caixa.`valor` AS caixa_valor,\n"
+                    + "     caixa.`id_titulo` AS caixa_id_titulo,\n"
+                    + "     caixa.`nome_caixa` AS caixa_nome_caixa,\n"
+                    + "     caixa.`id_banco` AS caixa_id_banco,\n"
+                    + "     caixa.`id_fornecedor` AS caixa_id_fornecedor,\n"
+                    + "     caixa.`tipo` AS caixa_tipo,\n"
+                    + "     cad_empresa.`id_empresa` AS cad_empresa_id_empresa,\n"
+                    + "     cad_empresa.`nome_fantasia` AS cad_empresa_nome_fantasia,\n"
+                    + "     cad_empresa.`razao_social` AS cad_empresa_razao_social,\n"
+                    + "     caixa.`id_aluno` AS caixa_id_aluno,\n"
+                    + "     cad_aluno.`id_aluno` AS cad_aluno_id_aluno,\n"
+                    + "     cad_aluno.`nome` AS cad_aluno_nome,\n"
+                    + "     cad_aluno.`ativo` AS cad_aluno_ativo,\n"
+                    + "     cad_aluno.`id_titular` AS cad_aluno_id_titular\n"
+                    + "FROM\n"
+                    + "     `caixa` caixa INNER JOIN `cad_empresa` cad_empresa ON caixa.`id_fornecedor` = cad_empresa.`id_empresa`\n"
+                    + "     INNER JOIN `cad_aluno` cad_aluno ON caixa.`id_aluno` = cad_aluno.`id_aluno` where caixa.tipo_movimento='" + tipo + "' and caixa.data_lancamento=CURRENT_DATE");
+            
+            gerarextratoJD();
+            
+        }
+        if (jComboBoxPeriodo.getSelectedItem().toString().equals("Ultimos 7 Dias") && jTextFieldId.getText().isEmpty()) {
+            iniciarBD();
+            sql = ("SELECT\n"
+                    + "     caixa.`id_caixa` AS caixa_id_caixa,\n"
+                    + "     caixa.`tipo_movimento` AS caixa_tipo_movimento,\n"
+                    + "     caixa.`tipo_pagamento` AS caixa_tipo_pagamento,\n"
+                    + "     caixa.`data_lancamento` AS caixa_data_lancamento,\n"
+                    + "     caixa.`hora_lancamento` AS caixa_hora_lancamento,\n"
+                    + "     caixa.`historico` AS caixa_historico,\n"
+                    + "     caixa.`valor` AS caixa_valor,\n"
+                    + "     caixa.`id_titulo` AS caixa_id_titulo,\n"
+                    + "     caixa.`nome_caixa` AS caixa_nome_caixa,\n"
+                    + "     caixa.`id_banco` AS caixa_id_banco,\n"
+                    + "     caixa.`id_fornecedor` AS caixa_id_fornecedor,\n"
+                    + "     caixa.`tipo` AS caixa_tipo,\n"
+                    + "     cad_empresa.`id_empresa` AS cad_empresa_id_empresa,\n"
+                    + "     cad_empresa.`nome_fantasia` AS cad_empresa_nome_fantasia,\n"
+                    + "     cad_empresa.`razao_social` AS cad_empresa_razao_social,\n"
+                    + "     caixa.`id_aluno` AS caixa_id_aluno,\n"
+                    + "     cad_aluno.`id_aluno` AS cad_aluno_id_aluno,\n"
+                    + "     cad_aluno.`nome` AS cad_aluno_nome,\n"
+                    + "     cad_aluno.`ativo` AS cad_aluno_ativo,\n"
+                    + "     cad_aluno.`id_titular` AS cad_aluno_id_titular\n"
+                    + "FROM\n"
+                    + "     `caixa` caixa INNER JOIN `cad_empresa` cad_empresa ON caixa.`id_fornecedor` = cad_empresa.`id_empresa`\n"
+                    + "     INNER JOIN `cad_aluno` cad_aluno ON caixa.`id_aluno` = cad_aluno.`id_aluno` where caixa.tipo_movimento='" + tipo + "' and caixa.data_lancamento BETWEEN TIMESTAMP(DATE_SUB(NOW(), INTERVAL 7 day)) AND NOW() order by caixa.id_caixa DESC");
+            gerarextratoJD();
+        }
+        if (jComboBoxPeriodo.getSelectedItem().toString().equals("Ultimos 7 Dias") && jRadioButtonTodos.isSelected() && jTextFieldId.getText().isEmpty()) {
+            iniciarBD();
+            sql = ("SELECT\n"
+                    + "     caixa.`id_caixa` AS caixa_id_caixa,\n"
+                    + "     caixa.`tipo_movimento` AS caixa_tipo_movimento,\n"
+                    + "     caixa.`tipo_pagamento` AS caixa_tipo_pagamento,\n"
+                    + "     caixa.`data_lancamento` AS caixa_data_lancamento,\n"
+                    + "     caixa.`hora_lancamento` AS caixa_hora_lancamento,\n"
+                    + "     caixa.`historico` AS caixa_historico,\n"
+                    + "     caixa.`valor` AS caixa_valor,\n"
+                    + "     caixa.`id_titulo` AS caixa_id_titulo,\n"
+                    + "     caixa.`nome_caixa` AS caixa_nome_caixa,\n"
+                    + "     caixa.`id_banco` AS caixa_id_banco,\n"
+                    + "     caixa.`id_fornecedor` AS caixa_id_fornecedor,\n"
+                    + "     caixa.`tipo` AS caixa_tipo,\n"
+                    + "     cad_empresa.`id_empresa` AS cad_empresa_id_empresa,\n"
+                    + "     cad_empresa.`nome_fantasia` AS cad_empresa_nome_fantasia,\n"
+                    + "     cad_empresa.`razao_social` AS cad_empresa_razao_social,\n"
+                    + "     caixa.`id_aluno` AS caixa_id_aluno,\n"
+                    + "     cad_aluno.`id_aluno` AS cad_aluno_id_aluno,\n"
+                    + "     cad_aluno.`nome` AS cad_aluno_nome,\n"
+                    + "     cad_aluno.`ativo` AS cad_aluno_ativo,\n"
+                    + "     cad_aluno.`id_titular` AS cad_aluno_id_titular\n"
+                    + "FROM\n"
+                    + "     `caixa` caixa INNER JOIN `cad_empresa` cad_empresa ON caixa.`id_fornecedor` = cad_empresa.`id_empresa`\n"
+                    + "     INNER JOIN `cad_aluno` cad_aluno ON caixa.`id_aluno` = cad_aluno.`id_aluno` where caixa.data_lancamento BETWEEN TIMESTAMP(DATE_SUB(NOW(), INTERVAL 7 day)) AND NOW() order by caixa.id_caixa DESC");
+            gerarextratoJD();
+        }
+        if (jComboBoxPeriodo.getSelectedItem().toString().equals("Ultimos 30 Dias") && jTextFieldId.getText().isEmpty()) {
+            iniciarBD();
+            sql = ("SELECT\n"
+                    + "     caixa.`id_caixa` AS caixa_id_caixa,\n"
+                    + "     caixa.`tipo_movimento` AS caixa_tipo_movimento,\n"
+                    + "     caixa.`tipo_pagamento` AS caixa_tipo_pagamento,\n"
+                    + "     caixa.`data_lancamento` AS caixa_data_lancamento,\n"
+                    + "     caixa.`hora_lancamento` AS caixa_hora_lancamento,\n"
+                    + "     caixa.`historico` AS caixa_historico,\n"
+                    + "     caixa.`valor` AS caixa_valor,\n"
+                    + "     caixa.`id_titulo` AS caixa_id_titulo,\n"
+                    + "     caixa.`nome_caixa` AS caixa_nome_caixa,\n"
+                    + "     caixa.`id_banco` AS caixa_id_banco,\n"
+                    + "     caixa.`id_fornecedor` AS caixa_id_fornecedor,\n"
+                    + "     caixa.`tipo` AS caixa_tipo,\n"
+                    + "     cad_empresa.`id_empresa` AS cad_empresa_id_empresa,\n"
+                    + "     cad_empresa.`nome_fantasia` AS cad_empresa_nome_fantasia,\n"
+                    + "     cad_empresa.`razao_social` AS cad_empresa_razao_social,\n"
+                    + "     caixa.`id_aluno` AS caixa_id_aluno,\n"
+                    + "     cad_aluno.`id_aluno` AS cad_aluno_id_aluno,\n"
+                    + "     cad_aluno.`nome` AS cad_aluno_nome,\n"
+                    + "     cad_aluno.`ativo` AS cad_aluno_ativo,\n"
+                    + "     cad_aluno.`id_titular` AS cad_aluno_id_titular\n"
+                    + "FROM\n"
+                    + "     `caixa` caixa INNER JOIN `cad_empresa` cad_empresa ON caixa.`id_fornecedor` = cad_empresa.`id_empresa`\n"
+                    + "     INNER JOIN `cad_aluno` cad_aluno ON caixa.`id_aluno` = cad_aluno.`id_aluno` where caixa.tipo_movimento='" + tipo + "' and caixa.data_lancamento BETWEEN TIMESTAMP(DATE_SUB(NOW(), INTERVAL 30 day)) AND NOW() order by caixa.id_caixa DESC");
+            gerarextratoJD();
+        }
+        if (jComboBoxPeriodo.getSelectedItem().toString().equals("Ultimos 30 Dias") && jRadioButtonTodos.isSelected() && jTextFieldId.getText().isEmpty()) {
+            iniciarBD();
+            sql = ("SELECT\n"
+                    + "     caixa.`id_caixa` AS caixa_id_caixa,\n"
+                    + "     caixa.`tipo_movimento` AS caixa_tipo_movimento,\n"
+                    + "     caixa.`tipo_pagamento` AS caixa_tipo_pagamento,\n"
+                    + "     caixa.`data_lancamento` AS caixa_data_lancamento,\n"
+                    + "     caixa.`hora_lancamento` AS caixa_hora_lancamento,\n"
+                    + "     caixa.`historico` AS caixa_historico,\n"
+                    + "     caixa.`valor` AS caixa_valor,\n"
+                    + "     caixa.`id_titulo` AS caixa_id_titulo,\n"
+                    + "     caixa.`nome_caixa` AS caixa_nome_caixa,\n"
+                    + "     caixa.`id_banco` AS caixa_id_banco,\n"
+                    + "     caixa.`id_fornecedor` AS caixa_id_fornecedor,\n"
+                    + "     caixa.`tipo` AS caixa_tipo,\n"
+                    + "     cad_empresa.`id_empresa` AS cad_empresa_id_empresa,\n"
+                    + "     cad_empresa.`nome_fantasia` AS cad_empresa_nome_fantasia,\n"
+                    + "     cad_empresa.`razao_social` AS cad_empresa_razao_social,\n"
+                    + "     caixa.`id_aluno` AS caixa_id_aluno,\n"
+                    + "     cad_aluno.`id_aluno` AS cad_aluno_id_aluno,\n"
+                    + "     cad_aluno.`nome` AS cad_aluno_nome,\n"
+                    + "     cad_aluno.`ativo` AS cad_aluno_ativo,\n"
+                    + "     cad_aluno.`id_titular` AS cad_aluno_id_titular\n"
+                    + "FROM\n"
+                    + "     `caixa` caixa INNER JOIN `cad_empresa` cad_empresa ON caixa.`id_fornecedor` = cad_empresa.`id_empresa`\n"
+                    + "     INNER JOIN `cad_aluno` cad_aluno ON caixa.`id_aluno` = cad_aluno.`id_aluno` where caixa.data_lancamento BETWEEN TIMESTAMP(DATE_SUB(NOW(), INTERVAL 30 day)) AND NOW() order by caixa.id_caixa DESC");
+            gerarextratoJD();
+        }
+        if (jComboBoxPeriodo.getSelectedItem().toString().equals("Hoje") && jRadioButtonTodos.isSelected() && jTextFieldId.getText().isEmpty()) {
+            iniciarBD();
+            sql = ("SELECT\n"
+                    + "     caixa.`id_caixa` AS caixa_id_caixa,\n"
+                    + "     caixa.`tipo_movimento` AS caixa_tipo_movimento,\n"
+                    + "     caixa.`tipo_pagamento` AS caixa_tipo_pagamento,\n"
+                    + "     caixa.`data_lancamento` AS caixa_data_lancamento,\n"
+                    + "     caixa.`hora_lancamento` AS caixa_hora_lancamento,\n"
+                    + "     caixa.`historico` AS caixa_historico,\n"
+                    + "     caixa.`valor` AS caixa_valor,\n"
+                    + "     caixa.`id_titulo` AS caixa_id_titulo,\n"
+                    + "     caixa.`nome_caixa` AS caixa_nome_caixa,\n"
+                    + "     caixa.`id_banco` AS caixa_id_banco,\n"
+                    + "     caixa.`id_fornecedor` AS caixa_id_fornecedor,\n"
+                    + "     caixa.`tipo` AS caixa_tipo,\n"
+                    + "     cad_empresa.`id_empresa` AS cad_empresa_id_empresa,\n"
+                    + "     cad_empresa.`nome_fantasia` AS cad_empresa_nome_fantasia,\n"
+                    + "     cad_empresa.`razao_social` AS cad_empresa_razao_social,\n"
+                    + "     caixa.`id_aluno` AS caixa_id_aluno,\n"
+                    + "     cad_aluno.`id_aluno` AS cad_aluno_id_aluno,\n"
+                    + "     cad_aluno.`nome` AS cad_aluno_nome,\n"
+                    + "     cad_aluno.`ativo` AS cad_aluno_ativo,\n"
+                    + "     cad_aluno.`id_titular` AS cad_aluno_id_titular\n"
+                    + "FROM\n"
+                    + "     `caixa` caixa INNER JOIN `cad_empresa` cad_empresa ON caixa.`id_fornecedor` = cad_empresa.`id_empresa`\n"
+                    + "     INNER JOIN `cad_aluno` cad_aluno ON caixa.`id_aluno` = cad_aluno.`id_aluno` order by caixa.id_caixa DESC");
+            gerarextratoJD();
+        }
+        if (jComboBoxPeriodo.getSelectedItem().toString().equals("Entre Datas") && jTextFieldId.getText().isEmpty()) {
+            Date dataDe01 = jDateChooserDe01.getDate();
+            Date dataA02 = jDateChooserA02.getDate();
+            
+            iniciarBD();
+            sql = ("SELECT\n"
+                    + "     caixa.`id_caixa` AS caixa_id_caixa,\n"
+                    + "     caixa.`tipo_movimento` AS caixa_tipo_movimento,\n"
+                    + "     caixa.`tipo_pagamento` AS caixa_tipo_pagamento,\n"
+                    + "     caixa.`data_lancamento` AS caixa_data_lancamento,\n"
+                    + "     caixa.`hora_lancamento` AS caixa_hora_lancamento,\n"
+                    + "     caixa.`historico` AS caixa_historico,\n"
+                    + "     caixa.`valor` AS caixa_valor,\n"
+                    + "     caixa.`id_titulo` AS caixa_id_titulo,\n"
+                    + "     caixa.`nome_caixa` AS caixa_nome_caixa,\n"
+                    + "     caixa.`id_banco` AS caixa_id_banco,\n"
+                    + "     caixa.`id_fornecedor` AS caixa_id_fornecedor,\n"
+                    + "     caixa.`tipo` AS caixa_tipo,\n"
+                    + "     cad_empresa.`id_empresa` AS cad_empresa_id_empresa,\n"
+                    + "     cad_empresa.`nome_fantasia` AS cad_empresa_nome_fantasia,\n"
+                    + "     cad_empresa.`razao_social` AS cad_empresa_razao_social,\n"
+                    + "     caixa.`id_aluno` AS caixa_id_aluno,\n"
+                    + "     cad_aluno.`id_aluno` AS cad_aluno_id_aluno,\n"
+                    + "     cad_aluno.`nome` AS cad_aluno_nome,\n"
+                    + "     cad_aluno.`ativo` AS cad_aluno_ativo,\n"
+                    + "     cad_aluno.`id_titular` AS cad_aluno_id_titular\n"
+                    + "FROM\n"
+                    + "     `caixa` caixa INNER JOIN `cad_empresa` cad_empresa ON caixa.`id_fornecedor` = cad_empresa.`id_empresa`\n"
+                    + "     INNER JOIN `cad_aluno` cad_aluno ON caixa.`id_aluno` = cad_aluno.`id_aluno` where caixa.data_lancamento between '" + df.format(dataDe01) + "' and '" + df.format(dataA02) + "' and caixa.tipo_movimento='" + tipo + "'");
+            gerarextratoJD();
+            
+        }
+        if (jComboBoxPeriodo.getSelectedItem().toString().equals("Entre Datas") && jRadioButtonTodos.isSelected() && jTextFieldId.getText().isEmpty()) {
+            Date dataDe01 = jDateChooserDe01.getDate();
+            Date dataA02 = jDateChooserA02.getDate();
+            
+            iniciarBD();
+            sql = ("SELECT\n"
+                    + "     caixa.`id_caixa` AS caixa_id_caixa,\n"
+                    + "     caixa.`tipo_movimento` AS caixa_tipo_movimento,\n"
+                    + "     caixa.`tipo_pagamento` AS caixa_tipo_pagamento,\n"
+                    + "     caixa.`data_lancamento` AS caixa_data_lancamento,\n"
+                    + "     caixa.`hora_lancamento` AS caixa_hora_lancamento,\n"
+                    + "     caixa.`historico` AS caixa_historico,\n"
+                    + "     caixa.`valor` AS caixa_valor,\n"
+                    + "     caixa.`id_titulo` AS caixa_id_titulo,\n"
+                    + "     caixa.`nome_caixa` AS caixa_nome_caixa,\n"
+                    + "     caixa.`id_banco` AS caixa_id_banco,\n"
+                    + "     caixa.`id_fornecedor` AS caixa_id_fornecedor,\n"
+                    + "     caixa.`tipo` AS caixa_tipo,\n"
+                    + "     cad_empresa.`id_empresa` AS cad_empresa_id_empresa,\n"
+                    + "     cad_empresa.`nome_fantasia` AS cad_empresa_nome_fantasia,\n"
+                    + "     cad_empresa.`razao_social` AS cad_empresa_razao_social,\n"
+                    + "     caixa.`id_aluno` AS caixa_id_aluno,\n"
+                    + "     cad_aluno.`id_aluno` AS cad_aluno_id_aluno,\n"
+                    + "     cad_aluno.`nome` AS cad_aluno_nome,\n"
+                    + "     cad_aluno.`ativo` AS cad_aluno_ativo,\n"
+                    + "     cad_aluno.`id_titular` AS cad_aluno_id_titular\n"
+                    + "FROM\n"
+                    + "     `caixa` caixa INNER JOIN `cad_empresa` cad_empresa ON caixa.`id_fornecedor` = cad_empresa.`id_empresa`\n"
+                    + "     INNER JOIN `cad_aluno` cad_aluno ON caixa.`id_aluno` = cad_aluno.`id_aluno` where caixa.data_lancamento between '" + df.format(dataDe01) + "' and '" + df.format(dataA02) + "' order by caixa.id_caixa DESC");
+            gerarextratoJD();
+            
+        }
+        if (jComboBoxPeriodo.getSelectedItem().toString().equals("Hoje") && !jTextFieldId.getText().isEmpty()) {
+            
+            iniciarBD();
+            sql = ("SELECT\n"
+                    + "     caixa.`id_caixa` AS caixa_id_caixa,\n"
+                    + "     caixa.`tipo_movimento` AS caixa_tipo_movimento,\n"
+                    + "     caixa.`tipo_pagamento` AS caixa_tipo_pagamento,\n"
+                    + "     caixa.`data_lancamento` AS caixa_data_lancamento,\n"
+                    + "     caixa.`hora_lancamento` AS caixa_hora_lancamento,\n"
+                    + "     caixa.`historico` AS caixa_historico,\n"
+                    + "     caixa.`valor` AS caixa_valor,\n"
+                    + "     caixa.`id_titulo` AS caixa_id_titulo,\n"
+                    + "     caixa.`nome_caixa` AS caixa_nome_caixa,\n"
+                    + "     caixa.`id_banco` AS caixa_id_banco,\n"
+                    + "     caixa.`id_fornecedor` AS caixa_id_fornecedor,\n"
+                    + "     caixa.`tipo` AS caixa_tipo,\n"
+                    + "     cad_empresa.`id_empresa` AS cad_empresa_id_empresa,\n"
+                    + "     cad_empresa.`nome_fantasia` AS cad_empresa_nome_fantasia,\n"
+                    + "     cad_empresa.`razao_social` AS cad_empresa_razao_social,\n"
+                    + "     caixa.`id_aluno` AS caixa_id_aluno,\n"
+                    + "     cad_aluno.`id_aluno` AS cad_aluno_id_aluno,\n"
+                    + "     cad_aluno.`nome` AS cad_aluno_nome,\n"
+                    + "     cad_aluno.`ativo` AS cad_aluno_ativo,\n"
+                    + "     cad_aluno.`id_titular` AS cad_aluno_id_titular\n"
+                    + "FROM\n"
+                    + "     `caixa` caixa INNER JOIN `cad_empresa` cad_empresa ON caixa.`id_fornecedor` = cad_empresa.`id_empresa`\n"
+                    + "     INNER JOIN `cad_aluno` cad_aluno ON caixa.`id_aluno` = cad_aluno.`id_aluno` where caixa.tipo_movimento='" + tipo + "' and caixa.data_lancamento=CURRENT_DATE and caixa.id_fornecedor=" + Integer.parseInt(jTextFieldId.getText()) + "");
+            gerarextratoJD();
+        }
+        if (jComboBoxPeriodo.getSelectedItem().toString().equals("Ultimos 7 Dias") && !jTextFieldId.getText().isEmpty()) {
+            iniciarBD();
+            sql = ("SELECT\n"
+                    + "     caixa.`id_caixa` AS caixa_id_caixa,\n"
+                    + "     caixa.`tipo_movimento` AS caixa_tipo_movimento,\n"
+                    + "     caixa.`tipo_pagamento` AS caixa_tipo_pagamento,\n"
+                    + "     caixa.`data_lancamento` AS caixa_data_lancamento,\n"
+                    + "     caixa.`hora_lancamento` AS caixa_hora_lancamento,\n"
+                    + "     caixa.`historico` AS caixa_historico,\n"
+                    + "     caixa.`valor` AS caixa_valor,\n"
+                    + "     caixa.`id_titulo` AS caixa_id_titulo,\n"
+                    + "     caixa.`nome_caixa` AS caixa_nome_caixa,\n"
+                    + "     caixa.`id_banco` AS caixa_id_banco,\n"
+                    + "     caixa.`id_fornecedor` AS caixa_id_fornecedor,\n"
+                    + "     caixa.`tipo` AS caixa_tipo,\n"
+                    + "     cad_empresa.`id_empresa` AS cad_empresa_id_empresa,\n"
+                    + "     cad_empresa.`nome_fantasia` AS cad_empresa_nome_fantasia,\n"
+                    + "     cad_empresa.`razao_social` AS cad_empresa_razao_social,\n"
+                    + "     caixa.`id_aluno` AS caixa_id_aluno,\n"
+                    + "     cad_aluno.`id_aluno` AS cad_aluno_id_aluno,\n"
+                    + "     cad_aluno.`nome` AS cad_aluno_nome,\n"
+                    + "     cad_aluno.`ativo` AS cad_aluno_ativo,\n"
+                    + "     cad_aluno.`id_titular` AS cad_aluno_id_titular\n"
+                    + "FROM\n"
+                    + "     `caixa` caixa INNER JOIN `cad_empresa` cad_empresa ON caixa.`id_fornecedor` = cad_empresa.`id_empresa`\n"
+                    + "     INNER JOIN `cad_aluno` cad_aluno ON caixa.`id_aluno` = cad_aluno.`id_aluno` where caixa.tipo_movimento='" + tipo + "' and caixa.data_lancamento BETWEEN TIMESTAMP(DATE_SUB(NOW(), INTERVAL 7 day)) AND NOW() and caixa.id_fornecedor='" + jTextFieldId.getText() + "' order by caixa.id_caixa DESC");
+            gerarextratoJD();
+        }
+        if (jComboBoxPeriodo.getSelectedItem().toString().equals("Ultimos 7 Dias") && jRadioButtonTodos.isSelected() && !jTextFieldId.getText().isEmpty()) {
+            iniciarBD();
+            sql = ("SELECT\n"
+                    + "     caixa.`id_caixa` AS caixa_id_caixa,\n"
+                    + "     caixa.`tipo_movimento` AS caixa_tipo_movimento,\n"
+                    + "     caixa.`tipo_pagamento` AS caixa_tipo_pagamento,\n"
+                    + "     caixa.`data_lancamento` AS caixa_data_lancamento,\n"
+                    + "     caixa.`hora_lancamento` AS caixa_hora_lancamento,\n"
+                    + "     caixa.`historico` AS caixa_historico,\n"
+                    + "     caixa.`valor` AS caixa_valor,\n"
+                    + "     caixa.`id_titulo` AS caixa_id_titulo,\n"
+                    + "     caixa.`nome_caixa` AS caixa_nome_caixa,\n"
+                    + "     caixa.`id_banco` AS caixa_id_banco,\n"
+                    + "     caixa.`id_fornecedor` AS caixa_id_fornecedor,\n"
+                    + "     caixa.`tipo` AS caixa_tipo,\n"
+                    + "     cad_empresa.`id_empresa` AS cad_empresa_id_empresa,\n"
+                    + "     cad_empresa.`nome_fantasia` AS cad_empresa_nome_fantasia,\n"
+                    + "     cad_empresa.`razao_social` AS cad_empresa_razao_social,\n"
+                    + "     caixa.`id_aluno` AS caixa_id_aluno,\n"
+                    + "     cad_aluno.`id_aluno` AS cad_aluno_id_aluno,\n"
+                    + "     cad_aluno.`nome` AS cad_aluno_nome,\n"
+                    + "     cad_aluno.`ativo` AS cad_aluno_ativo,\n"
+                    + "     cad_aluno.`id_titular` AS cad_aluno_id_titular\n"
+                    + "FROM\n"
+                    + "     `caixa` caixa INNER JOIN `cad_empresa` cad_empresa ON caixa.`id_fornecedor` = cad_empresa.`id_empresa`\n"
+                    + "     INNER JOIN `cad_aluno` cad_aluno ON caixa.`id_aluno` = cad_aluno.`id_aluno` where caixa.data_lancamento BETWEEN TIMESTAMP(DATE_SUB(NOW(), INTERVAL 7 day)) AND NOW() and caixa.id_fornecedor='" + jTextFieldId.getText() + "' order by caixa.id_caixa DESC");
+            gerarextratoJD();
+        }
+        if (jComboBoxPeriodo.getSelectedItem().toString().equals("Ultimos 30 Dias") && !jTextFieldId.getText().isEmpty()) {
+            iniciarBD();
+            sql = ("SELECT\n"
+                    + "     caixa.`id_caixa` AS caixa_id_caixa,\n"
+                    + "     caixa.`tipo_movimento` AS caixa_tipo_movimento,\n"
+                    + "     caixa.`tipo_pagamento` AS caixa_tipo_pagamento,\n"
+                    + "     caixa.`data_lancamento` AS caixa_data_lancamento,\n"
+                    + "     caixa.`hora_lancamento` AS caixa_hora_lancamento,\n"
+                    + "     caixa.`historico` AS caixa_historico,\n"
+                    + "     caixa.`valor` AS caixa_valor,\n"
+                    + "     caixa.`id_titulo` AS caixa_id_titulo,\n"
+                    + "     caixa.`nome_caixa` AS caixa_nome_caixa,\n"
+                    + "     caixa.`id_banco` AS caixa_id_banco,\n"
+                    + "     caixa.`id_fornecedor` AS caixa_id_fornecedor,\n"
+                    + "     caixa.`tipo` AS caixa_tipo,\n"
+                    + "     cad_empresa.`id_empresa` AS cad_empresa_id_empresa,\n"
+                    + "     cad_empresa.`nome_fantasia` AS cad_empresa_nome_fantasia,\n"
+                    + "     cad_empresa.`razao_social` AS cad_empresa_razao_social,\n"
+                    + "     caixa.`id_aluno` AS caixa_id_aluno,\n"
+                    + "     cad_aluno.`id_aluno` AS cad_aluno_id_aluno,\n"
+                    + "     cad_aluno.`nome` AS cad_aluno_nome,\n"
+                    + "     cad_aluno.`ativo` AS cad_aluno_ativo,\n"
+                    + "     cad_aluno.`id_titular` AS cad_aluno_id_titular\n"
+                    + "FROM\n"
+                    + "     `caixa` caixa INNER JOIN `cad_empresa` cad_empresa ON caixa.`id_fornecedor` = cad_empresa.`id_empresa`\n"
+                    + "     INNER JOIN `cad_aluno` cad_aluno ON caixa.`id_aluno` = cad_aluno.`id_aluno` where caixa.tipo_movimento='" + tipo + "' and caixa.data_lancamento BETWEEN TIMESTAMP(DATE_SUB(NOW(), INTERVAL 30 day)) AND NOW() and caixa.id_fornecedor='" + jTextFieldId.getText() + "' order by caixa.id_caixa DESC");
+            gerarextratoJD();
+        }
+        if (jComboBoxPeriodo.getSelectedItem().toString().equals("Ultimos 30 Dias") && jRadioButtonTodos.isSelected() && !jTextFieldId.getText().isEmpty()) {
+            iniciarBD();
+            sql = ("SELECT\n"
+                    + "     caixa.`id_caixa` AS caixa_id_caixa,\n"
+                    + "     caixa.`tipo_movimento` AS caixa_tipo_movimento,\n"
+                    + "     caixa.`tipo_pagamento` AS caixa_tipo_pagamento,\n"
+                    + "     caixa.`data_lancamento` AS caixa_data_lancamento,\n"
+                    + "     caixa.`hora_lancamento` AS caixa_hora_lancamento,\n"
+                    + "     caixa.`historico` AS caixa_historico,\n"
+                    + "     caixa.`valor` AS caixa_valor,\n"
+                    + "     caixa.`id_titulo` AS caixa_id_titulo,\n"
+                    + "     caixa.`nome_caixa` AS caixa_nome_caixa,\n"
+                    + "     caixa.`id_banco` AS caixa_id_banco,\n"
+                    + "     caixa.`id_fornecedor` AS caixa_id_fornecedor,\n"
+                    + "     caixa.`tipo` AS caixa_tipo,\n"
+                    + "     cad_empresa.`id_empresa` AS cad_empresa_id_empresa,\n"
+                    + "     cad_empresa.`nome_fantasia` AS cad_empresa_nome_fantasia,\n"
+                    + "     cad_empresa.`razao_social` AS cad_empresa_razao_social,\n"
+                    + "     caixa.`id_aluno` AS caixa_id_aluno,\n"
+                    + "     cad_aluno.`id_aluno` AS cad_aluno_id_aluno,\n"
+                    + "     cad_aluno.`nome` AS cad_aluno_nome,\n"
+                    + "     cad_aluno.`ativo` AS cad_aluno_ativo,\n"
+                    + "     cad_aluno.`id_titular` AS cad_aluno_id_titular\n"
+                    + "FROM\n"
+                    + "     `caixa` caixa INNER JOIN `cad_empresa` cad_empresa ON caixa.`id_fornecedor` = cad_empresa.`id_empresa`\n"
+                    + "     INNER JOIN `cad_aluno` cad_aluno ON caixa.`id_aluno` = cad_aluno.`id_aluno` where caixa.data_lancamento BETWEEN TIMESTAMP(DATE_SUB(NOW(), INTERVAL 30 day)) AND NOW() and caixa.id_fornecedor='" + jTextFieldId.getText() + "' order by caixa.id_caixa DESC");
+            gerarextratoJD();
+        }
+        if (jComboBoxPeriodo.getSelectedItem().toString().equals("Hoje") && jRadioButtonTodos.isSelected() && !jTextFieldId.getText().isEmpty()) {
+            iniciarBD();
+            sql = ("SELECT\n"
+                    + "     caixa.`id_caixa` AS caixa_id_caixa,\n"
+                    + "     caixa.`tipo_movimento` AS caixa_tipo_movimento,\n"
+                    + "     caixa.`tipo_pagamento` AS caixa_tipo_pagamento,\n"
+                    + "     caixa.`data_lancamento` AS caixa_data_lancamento,\n"
+                    + "     caixa.`hora_lancamento` AS caixa_hora_lancamento,\n"
+                    + "     caixa.`historico` AS caixa_historico,\n"
+                    + "     caixa.`valor` AS caixa_valor,\n"
+                    + "     caixa.`id_titulo` AS caixa_id_titulo,\n"
+                    + "     caixa.`nome_caixa` AS caixa_nome_caixa,\n"
+                    + "     caixa.`id_banco` AS caixa_id_banco,\n"
+                    + "     caixa.`id_fornecedor` AS caixa_id_fornecedor,\n"
+                    + "     caixa.`tipo` AS caixa_tipo,\n"
+                    + "     cad_empresa.`id_empresa` AS cad_empresa_id_empresa,\n"
+                    + "     cad_empresa.`nome_fantasia` AS cad_empresa_nome_fantasia,\n"
+                    + "     cad_empresa.`razao_social` AS cad_empresa_razao_social,\n"
+                    + "     caixa.`id_aluno` AS caixa_id_aluno,\n"
+                    + "     cad_aluno.`id_aluno` AS cad_aluno_id_aluno,\n"
+                    + "     cad_aluno.`nome` AS cad_aluno_nome,\n"
+                    + "     cad_aluno.`ativo` AS cad_aluno_ativo,\n"
+                    + "     cad_aluno.`id_titular` AS cad_aluno_id_titular\n"
+                    + "FROM\n"
+                    + "     `caixa` caixa INNER JOIN `cad_empresa` cad_empresa ON caixa.`id_fornecedor` = cad_empresa.`id_empresa`\n"
+                    + "     INNER JOIN `cad_aluno` cad_aluno ON caixa.`id_aluno` = cad_aluno.`id_aluno` and caixa.id_fornecedor='" + jTextFieldId.getText() + "' order by caixa.id_caixa DESC");
+            gerarextratoJD();
+        }
+        if (jComboBoxPeriodo.getSelectedItem().toString().equals("Entre Datas") && !jTextFieldId.getText().isEmpty()) {
+            Date dataDe01 = jDateChooserDe01.getDate();
+            Date dataA02 = jDateChooserA02.getDate();
+            
+            iniciarBD();
+            sql = ("SELECT\n"
+                    + "     caixa.`id_caixa` AS caixa_id_caixa,\n"
+                    + "     caixa.`tipo_movimento` AS caixa_tipo_movimento,\n"
+                    + "     caixa.`tipo_pagamento` AS caixa_tipo_pagamento,\n"
+                    + "     caixa.`data_lancamento` AS caixa_data_lancamento,\n"
+                    + "     caixa.`hora_lancamento` AS caixa_hora_lancamento,\n"
+                    + "     caixa.`historico` AS caixa_historico,\n"
+                    + "     caixa.`valor` AS caixa_valor,\n"
+                    + "     caixa.`id_titulo` AS caixa_id_titulo,\n"
+                    + "     caixa.`nome_caixa` AS caixa_nome_caixa,\n"
+                    + "     caixa.`id_banco` AS caixa_id_banco,\n"
+                    + "     caixa.`id_fornecedor` AS caixa_id_fornecedor,\n"
+                    + "     caixa.`tipo` AS caixa_tipo,\n"
+                    + "     cad_empresa.`id_empresa` AS cad_empresa_id_empresa,\n"
+                    + "     cad_empresa.`nome_fantasia` AS cad_empresa_nome_fantasia,\n"
+                    + "     cad_empresa.`razao_social` AS cad_empresa_razao_social,\n"
+                    + "     caixa.`id_aluno` AS caixa_id_aluno,\n"
+                    + "     cad_aluno.`id_aluno` AS cad_aluno_id_aluno,\n"
+                    + "     cad_aluno.`nome` AS cad_aluno_nome,\n"
+                    + "     cad_aluno.`ativo` AS cad_aluno_ativo,\n"
+                    + "     cad_aluno.`id_titular` AS cad_aluno_id_titular\n"
+                    + "FROM\n"
+                    + "     `caixa` caixa INNER JOIN `cad_empresa` cad_empresa ON caixa.`id_fornecedor` = cad_empresa.`id_empresa`\n"
+                    + "     INNER JOIN `cad_aluno` cad_aluno ON caixa.`id_aluno` = cad_aluno.`id_aluno` where caixa.data_lancamento between '" + df.format(dataDe01) + "' and '" + df.format(dataA02) + "' and caixa.tipo_movimento='" + tipo + "' and caixa.id_fornecedor='" + jTextFieldId.getText() + "'");
+            gerarextratoJD();
+            
+        }
+        if (jComboBoxPeriodo.getSelectedItem().toString().equals("Entre Datas") && jRadioButtonTodos.isSelected() && !jTextFieldId.getText().isEmpty()) {
+            Date dataDe01 = jDateChooserDe01.getDate();
+            Date dataA02 = jDateChooserA02.getDate();
+            
+            iniciarBD();
+            sql = ("SELECT\n"
+                    + "     caixa.`id_caixa` AS caixa_id_caixa,\n"
+                    + "     caixa.`tipo_movimento` AS caixa_tipo_movimento,\n"
+                    + "     caixa.`tipo_pagamento` AS caixa_tipo_pagamento,\n"
+                    + "     caixa.`data_lancamento` AS caixa_data_lancamento,\n"
+                    + "     caixa.`hora_lancamento` AS caixa_hora_lancamento,\n"
+                    + "     caixa.`historico` AS caixa_historico,\n"
+                    + "     caixa.`valor` AS caixa_valor,\n"
+                    + "     caixa.`id_titulo` AS caixa_id_titulo,\n"
+                    + "     caixa.`nome_caixa` AS caixa_nome_caixa,\n"
+                    + "     caixa.`id_banco` AS caixa_id_banco,\n"
+                    + "     caixa.`id_fornecedor` AS caixa_id_fornecedor,\n"
+                    + "     caixa.`tipo` AS caixa_tipo,\n"
+                    + "     cad_empresa.`id_empresa` AS cad_empresa_id_empresa,\n"
+                    + "     cad_empresa.`nome_fantasia` AS cad_empresa_nome_fantasia,\n"
+                    + "     cad_empresa.`razao_social` AS cad_empresa_razao_social,\n"
+                    + "     caixa.`id_aluno` AS caixa_id_aluno,\n"
+                    + "     cad_aluno.`id_aluno` AS cad_aluno_id_aluno,\n"
+                    + "     cad_aluno.`nome` AS cad_aluno_nome,\n"
+                    + "     cad_aluno.`ativo` AS cad_aluno_ativo,\n"
+                    + "     cad_aluno.`id_titular` AS cad_aluno_id_titular\n"
+                    + "FROM\n"
+                    + "     `caixa` caixa INNER JOIN `cad_empresa` cad_empresa ON caixa.`id_fornecedor` = cad_empresa.`id_empresa`\n"
+                    + "     INNER JOIN `cad_aluno` cad_aluno ON caixa.`id_aluno` = cad_aluno.`id_aluno` where caixa.data_lancamento between '" + df.format(dataDe01) + "' and '" + df.format(dataA02) + "' and caixa.id_fornecedor='" + jTextFieldId.getText() + "' order by caixa.id_caixa DESC");
+            gerarextratoJD();
+            
+        }
+    }
 
     private void buscarDadosAlunos() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -1255,6 +1742,28 @@ public class JDMovimentoCaixa extends javax.swing.JDialog {
 
         }
     }
+    
+    private void gerarextratoJD() {
+        try {
+
+            Toolkit toolkit = Toolkit.getDefaultToolkit();
+            Dimension screenSize = toolkit.getScreenSize();
+
+            JDialog viewer = new JDialog(new javax.swing.JFrame(), "Visualização do Extrato", true);
+
+            viewer.setBounds(0, 0, screenSize.width, screenSize.height);
+            viewer.setLocationRelativeTo(null);
+            conecta.executaSQL(sql);
+            JRResultSetDataSource relatResult = new JRResultSetDataSource(conecta.rs);
+            JasperPrint jpPrint = JasperFillManager.fillReport("C:\\Program Files\\Movimente\\MoviMente\\src\\relatorios\\extrato_caixa.jasper", new HashMap(), relatResult);
+            JasperViewer jv = new JasperViewer(jpPrint, false);
+            viewer.getContentPane().add(jv.getContentPane());
+            viewer.setVisible(true);
+
+        } catch (JRException e) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao chamar o Relatorio! \nErro:" + e);
+        }
+    }
 
     private void buscarSaldo() {
         try {
@@ -1348,13 +1857,16 @@ public class JDMovimentoCaixa extends javax.swing.JDialog {
 
                 switch (tipo1) {
                     case 1:
-                        jTableCaixa.getModel().setValueAt("Contrato", linha, 9);
+                        jTableCaixa.getModel().setValueAt("Contrato Aluno", linha, 9);
                         break;
                     case 2:
                         jTableCaixa.getModel().setValueAt("Contas a Pagar", linha, 9);
                         break;
                     case 3:
                         jTableCaixa.getModel().setValueAt("Contas a Receber", linha, 9);
+                        break;
+                    case 4:
+                        jTableCaixa.getModel().setValueAt("Contrato Empresa", linha, 9);
                         break;
                     default:
                         break;

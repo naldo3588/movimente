@@ -5,6 +5,7 @@
  */
 package dao;
 
+import bean.AlunoBean;
 import factory.ConexaoFactory;
 import bean.EmpresaBean;
 import java.sql.Connection;
@@ -77,49 +78,46 @@ public class EmpresaDAO {
         }
     }
 
-//    public boolean altera(EmpresaBean empresa) throws ClassNotFoundException {
-//        try {
-//
-//            if (!existeCPF(empresa.getCpf())) {
-//                JOptionPane.showMessageDialog(null, "Falha na alteração, o CPF digitado não possui nenhum empresa cadastrado!!");
-//                return false;
-//            }
-//            con = ConexaoFactory.getConnection();
-//            Statement stmt = con.createStatement();
-//            stmt.executeUpdate("UPDATE cad_empresa SET nome='" + empresa.getNome() + "',endereco='" + empresa.getEndereco() + "',bairro='" + empresa.getBairro() + "',telefone='" + empresa.getTelefone() + "',cidade='" + empresa.getCidade() + "',cpf='" + empresa.getCpf() + "',rg='" + empresa.getRg() + "',email='" + empresa.getEmail() + "',data_nasc='" + empresa.getData_nasc() + "',ativo='" + empresa.getAtivo() + "' WHERE cpf='" + empresa.getCpf() + "'");
-//            JOptionPane.showMessageDialog(null, " Aluno Atualizado !!");
-//        } catch (SQLException e) {
-//            JOptionPane.showMessageDialog(null, e);
-//
-//        }
-//        return true;
-//    }
-//
-//    public boolean exclui(EmpresaBean empresa) throws SQLException, ClassNotFoundException {
-//        con = ConexaoFactory.getConnection();
-//        Statement stmt = con.createStatement();
-//        try {
-//
-//            Integer opcao = JOptionPane.showConfirmDialog(null, "Confirma a exclusão?", "Excluir Aluno", JOptionPane.OK_CANCEL_OPTION);
-//            if (opcao == JOptionPane.YES_OPTION) {
-//                stmt.executeUpdate("DELETE FROM cad_empresa WHERE cpf='" + empresa.getCpf() + "'");
-//                JOptionPane.showMessageDialog(null, " Aluno Excluido com Sucesso!!");
-//            }
-//        } catch (com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException e) {
-//            Integer opcao = JOptionPane.showConfirmDialog(null, "Este Aluno Possui Movimentação! Não é Possivel Excluir !! \n   \n Deseja Inativa-lo ?", "Excluir Aluno", JOptionPane.OK_CANCEL_OPTION);
-//            if (opcao == JOptionPane.YES_OPTION) {
-//                try {
-//                    stmt.executeUpdate("UPDATE cad_empresa SET ativo ='0' WHERE cpf='" + empresa.getCpf() + "'");
-//                    JOptionPane.showMessageDialog(null, "Aluno Inativado Com Sucesso !!");
-//                } catch (SQLException ex) {
-//                    Logger.getLogger(EmpresaDAO.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            } else {
-//
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(EmpresaDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return false;
-//    }
+ public boolean altera(EmpresaBean empresa) throws ClassNotFoundException {
+        try {
+
+            
+            con = ConexaoFactory.getConnection();
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate("UPDATE cad_empresa SET nome_fantasia='" + empresa.getNome_fantasia()+ "',razao_social='" + empresa.getRazao_social() + "',endereco='" + empresa.getEndereco() + "',bairro='" + empresa.getBairro() + "',cidade='" + empresa.getCidade() + "',email='" + empresa.getEmail() + "',inscricao_estadual='" + empresa.getInscricao_estadual() + "',telefone='" + empresa.getTelefone() + "' WHERE id_empresa='" + empresa.getId_empresa() + "'");
+            JOptionPane.showMessageDialog(null, " Empresa Atualizada !!");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e);
+
+        }
+        return true;
+    }
+
+    public boolean exclui(EmpresaBean empresa) throws SQLException, ClassNotFoundException {
+        con = ConexaoFactory.getConnection();
+        Statement stmt = con.createStatement();
+        try {
+
+            Integer opcao = JOptionPane.showConfirmDialog(null, "Confirma a exclusão?", "Excluir Empresa", JOptionPane.OK_CANCEL_OPTION);
+            if (opcao == JOptionPane.YES_OPTION) {
+                stmt.executeUpdate("DELETE FROM cad_empresa WHERE id_empresa='" + empresa.getId_empresa() + "'");
+                JOptionPane.showMessageDialog(null, " Empresa Excluida com Sucesso!!");
+            }
+        } catch (com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException e) {
+            Integer opcao = JOptionPane.showConfirmDialog(null, "Esta Empresa Possui Movimentação! Não é Possivel Excluir !! \n   \n Deseja Inativa-lá ?", "Excluir Empresa", JOptionPane.OK_CANCEL_OPTION);
+            if (opcao == JOptionPane.YES_OPTION) {
+                try {
+                    stmt.executeUpdate("UPDATE cad_empresa SET ativo ='0' WHERE id_empresa='" + empresa.getId_empresa() + "'");
+                    JOptionPane.showMessageDialog(null, "Empresa Inativada Com Sucesso !!");
+                } catch (SQLException ex) {
+                    Logger.getLogger(EmpresaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EmpresaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 }

@@ -7,7 +7,9 @@ package src;
 
 import factory.ConexaoFactory;
 import bean.AlunoBean;
+import bean.EmpresaBean;
 import dao.AlunoDAO;
+import dao.EmpresaDAO;
 import de.javasoft.plaf.synthetica.SyntheticaPlainLookAndFeel;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -29,7 +31,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Ronaldo Pedro
  */
-public class JDCRUDAluno extends javax.swing.JDialog {
+public class JDCRUDEmpresa extends javax.swing.JDialog {
 
     private java.sql.Connection con;
     private java.sql.Statement stmtListar;
@@ -41,7 +43,7 @@ public class JDCRUDAluno extends javax.swing.JDialog {
     /**
      * Creates new form JDCRUDAluno
      */
-    public JDCRUDAluno(java.awt.Frame parent, boolean modal) {
+    public JDCRUDEmpresa(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
@@ -67,10 +69,10 @@ public class JDCRUDAluno extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextFieldNome = new javax.swing.JTextField();
+        jTextFieldNomeFantasia = new javax.swing.JTextField();
         btAtualizar = new javax.swing.JButton();
         jButtonLimpar = new javax.swing.JButton();
-        jFormattedTextFieldCPF = new javax.swing.JFormattedTextField();
+        jFormattedTextFieldCNPJ = new javax.swing.JFormattedTextField();
         jTextFieldEmail = new javax.swing.JTextField();
         jFormattedTextFieldTelefone = new javax.swing.JFormattedTextField();
         jButtonNovoAluno = new javax.swing.JButton();
@@ -79,26 +81,26 @@ public class JDCRUDAluno extends javax.swing.JDialog {
         jLabel13 = new javax.swing.JLabel();
         jTextFieldCidade = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jTextFieldRG = new javax.swing.JTextField();
+        jTextFieldIE = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jTextFieldEndereco = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        jDateChooserDataNasc = new com.toedter.calendar.JDateChooser();
         jLabel14 = new javax.swing.JLabel();
         jTextFieldBairro = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jTextFieldID_Aluno = new javax.swing.JTextField();
+        jTextFieldID_Empresa = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        jTextFieldRazaoSocial = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        jTextFieldPesquisaNome2 = new javax.swing.JTextField();
+        jTextFieldPesquisaNomeFantasia = new javax.swing.JTextField();
         jButtonBuscaNome = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jButtonBuscaCPF = new javax.swing.JButton();
-        jFormattedTextFieldCPFBusca = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
         jRadioButtonAtivo = new javax.swing.JRadioButton();
         jRadioButtonInativo = new javax.swing.JRadioButton();
         jRadioButtonTodos = new javax.swing.JRadioButton();
+        jFormattedTextFieldCNPJBusca = new javax.swing.JFormattedTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         JTableAlunos = new javax.swing.JTable();
@@ -127,7 +129,7 @@ public class JDCRUDAluno extends javax.swing.JDialog {
         });
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("Nome");
+        jLabel3.setText("Nome Fan.");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText("Email");
@@ -136,9 +138,9 @@ public class JDCRUDAluno extends javax.swing.JDialog {
         jLabel9.setText("Telefone");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel7.setText("CPF");
+        jLabel7.setText("CNPJ");
 
-        jTextFieldNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldNomeFantasia.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
         btAtualizar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/update_icon.png"))); // NOI18N
@@ -159,19 +161,19 @@ public class JDCRUDAluno extends javax.swing.JDialog {
         });
 
         try {
-            jFormattedTextFieldCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            jFormattedTextFieldCNPJ.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextFieldCPF.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jFormattedTextFieldCPF.addFocusListener(new java.awt.event.FocusAdapter() {
+        jFormattedTextFieldCNPJ.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jFormattedTextFieldCNPJ.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jFormattedTextFieldCPFFocusLost(evt);
+                jFormattedTextFieldCNPJFocusLost(evt);
             }
         });
-        jFormattedTextFieldCPF.addActionListener(new java.awt.event.ActionListener() {
+        jFormattedTextFieldCNPJ.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextFieldCPFActionPerformed(evt);
+                jFormattedTextFieldCNPJActionPerformed(evt);
             }
         });
 
@@ -243,17 +245,17 @@ public class JDCRUDAluno extends javax.swing.JDialog {
         });
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel10.setText("RG");
+        jLabel10.setText("IE");
 
-        jTextFieldRG.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextFieldRG.addFocusListener(new java.awt.event.FocusAdapter() {
+        jTextFieldIE.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldIE.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextFieldRGFocusLost(evt);
+                jTextFieldIEFocusLost(evt);
             }
         });
-        jTextFieldRG.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldIE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldRGActionPerformed(evt);
+                jTextFieldIEActionPerformed(evt);
             }
         });
 
@@ -272,11 +274,6 @@ public class JDCRUDAluno extends javax.swing.JDialog {
             }
         });
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel12.setText("Data Nascimento");
-
-        jDateChooserDataNasc.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel14.setText("Bairro");
 
@@ -293,58 +290,77 @@ public class JDCRUDAluno extends javax.swing.JDialog {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel1.setText("ID Aluno");
+        jLabel1.setText("ID Empresa");
 
-        jTextFieldID_Aluno.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jTextFieldID_Aluno.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jTextFieldID_Aluno.setEnabled(false);
+        jTextFieldID_Empresa.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jTextFieldID_Empresa.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTextFieldID_Empresa.setEnabled(false);
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel17.setText("Razão Social");
+
+        jTextFieldRazaoSocial.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldRazaoSocial.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldRazaoSocialFocusLost(evt);
+            }
+        });
+        jTextFieldRazaoSocial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldRazaoSocialActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextFieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextFieldNome, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldEndereco, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jFormattedTextFieldCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel10)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldRG)))))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel12))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jFormattedTextFieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooserDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldID_Empresa, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel11)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jLabel14)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jTextFieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                            .addGap(68, 68, 68)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jTextFieldNomeFantasia, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jTextFieldEndereco, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                                    .addComponent(jFormattedTextFieldCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGap(18, 18, 18)
+                                                    .addComponent(jLabel10)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(jTextFieldIE))))))
+                                .addGap(6, 6, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel17)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel8))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jFormattedTextFieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextFieldEmail)
+                                        .addComponent(jTextFieldRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jTextFieldCidade, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
-                            .addComponent(jTextFieldCidade))
-                        .addContainerGap())))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel11))
-                        .addGap(20, 20, 20)
+                        .addGap(78, 78, 78)
                         .addComponent(jButtonNovoAluno)
                         .addGap(18, 18, 18)
                         .addComponent(btAtualizar)
@@ -353,55 +369,52 @@ public class JDCRUDAluno extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(jButtonLimpar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonInativar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldID_Aluno, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jButtonInativar)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextFieldID_Aluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                    .addComponent(jTextFieldID_Empresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jFormattedTextFieldCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel10))
-                        .addGap(53, 53, 53)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11)))
-                    .addComponent(jLabel3)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jFormattedTextFieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9)
-                            .addComponent(jTextFieldRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jTextFieldNomeFantasia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jFormattedTextFieldCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7)
+                                .addComponent(jLabel10))
+                            .addGap(53, 53, 53)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jTextFieldEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel11)))
+                        .addComponent(jLabel3)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(39, 39, 39)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jTextFieldIE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel9)
+                                .addComponent(jFormattedTextFieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jTextFieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel14))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jTextFieldCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel13)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel12)
-                            .addComponent(jDateChooserDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
+                                .addComponent(jLabel14)
+                                .addComponent(jLabel13))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addGap(54, 54, 54)
+                        .addComponent(jTextFieldCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(jTextFieldRazaoSocial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonLimpar)
                     .addComponent(jButtonNovoAluno)
@@ -416,10 +429,10 @@ public class JDCRUDAluno extends javax.swing.JDialog {
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel15.setText(" Nome");
 
-        jTextFieldPesquisaNome2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jTextFieldPesquisaNome2.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldPesquisaNomeFantasia.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jTextFieldPesquisaNomeFantasia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldPesquisaNome2ActionPerformed(evt);
+                jTextFieldPesquisaNomeFantasiaActionPerformed(evt);
             }
         });
 
@@ -432,30 +445,13 @@ public class JDCRUDAluno extends javax.swing.JDialog {
         });
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel16.setText("CPF");
+        jLabel16.setText("CNPJ");
 
         jButtonBuscaCPF.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButtonBuscaCPF.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/find.png"))); // NOI18N
         jButtonBuscaCPF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonBuscaCPFActionPerformed(evt);
-            }
-        });
-
-        try {
-            jFormattedTextFieldCPFBusca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jFormattedTextFieldCPFBusca.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jFormattedTextFieldCPFBusca.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jFormattedTextFieldCPFBuscaFocusLost(evt);
-            }
-        });
-        jFormattedTextFieldCPFBusca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextFieldCPFBuscaActionPerformed(evt);
             }
         });
 
@@ -489,43 +485,58 @@ public class JDCRUDAluno extends javax.swing.JDialog {
             }
         });
 
+        try {
+            jFormattedTextFieldCNPJBusca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFormattedTextFieldCNPJBusca.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jFormattedTextFieldCNPJBusca.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jFormattedTextFieldCNPJBuscaFocusLost(evt);
+            }
+        });
+        jFormattedTextFieldCNPJBusca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextFieldCNPJBuscaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(57, 57, 57)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jTextFieldPesquisaNome2, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonBuscaNome))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jRadioButtonAtivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jRadioButtonInativo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(67, 67, 67)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jTextFieldPesquisaNomeFantasia, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButtonTodos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jButtonBuscaNome))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jFormattedTextFieldCPFBusca)
+                                .addComponent(jFormattedTextFieldCNPJBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButtonBuscaCPF)
-                                .addGap(32, 32, 32)))
-                        .addGap(59, 59, 59)))
-                .addContainerGap())
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(18, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jRadioButtonAtivo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jRadioButtonInativo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(67, 67, 67)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jRadioButtonTodos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(59, 59, 59))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -535,13 +546,13 @@ public class JDCRUDAluno extends javax.swing.JDialog {
                     .addComponent(jButtonBuscaNome)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel15)
-                        .addComponent(jTextFieldPesquisaNome2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jTextFieldPesquisaNomeFantasia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonBuscaCPF)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel16)
-                        .addComponent(jFormattedTextFieldCPFBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jFormattedTextFieldCNPJBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -660,7 +671,7 @@ public class JDCRUDAluno extends javax.swing.JDialog {
                 {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Nome", "CPF", "RG", "Endereço", "Bairro", "Email", "Telefone", "Cidade", "Data Nasc", "Status"
+                "Id", "Nome Fantasia", "Razao Social", "Endereço", "Bairro", "Cidade", "Email", "CNPJ", "Inscrição Estadual", "Telefone", "Status"
             }
         ) {
             Class[] types = new Class [] {
@@ -691,8 +702,6 @@ public class JDCRUDAluno extends javax.swing.JDialog {
             JTableAlunos.getColumnModel().getColumn(0).setMinWidth(1);
             JTableAlunos.getColumnModel().getColumn(0).setPreferredWidth(1);
             JTableAlunos.getColumnModel().getColumn(1).setPreferredWidth(200);
-            JTableAlunos.getColumnModel().getColumn(2).setResizable(false);
-            JTableAlunos.getColumnModel().getColumn(2).setPreferredWidth(25);
             JTableAlunos.getColumnModel().getColumn(4).setPreferredWidth(35);
             JTableAlunos.getColumnModel().getColumn(6).setPreferredWidth(20);
             JTableAlunos.getColumnModel().getColumn(7).setResizable(false);
@@ -732,12 +741,12 @@ public class JDCRUDAluno extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButtonSair))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonSair)))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -769,13 +778,13 @@ public class JDCRUDAluno extends javax.swing.JDialog {
         validarClick();
     }//GEN-LAST:event_jButtonLimparActionPerformed
 
-    private void jFormattedTextFieldCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCPFFocusLost
+    private void jFormattedTextFieldCNPJFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCNPJFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextFieldCPFFocusLost
+    }//GEN-LAST:event_jFormattedTextFieldCNPJFocusLost
 
-    private void jFormattedTextFieldCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCPFActionPerformed
+    private void jFormattedTextFieldCNPJActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCNPJActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextFieldCPFActionPerformed
+    }//GEN-LAST:event_jFormattedTextFieldCNPJActionPerformed
 
     private void jTextFieldEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldEmailFocusLost
 //        validaremail();
@@ -786,7 +795,7 @@ public class JDCRUDAluno extends javax.swing.JDialog {
     }//GEN-LAST:event_jTextFieldEmailActionPerformed
 
     private void jButtonNovoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoAlunoActionPerformed
-        JDCadAluno telacadaluno = new JDCadAluno(null, rootPaneCheckingEnabled);
+        JDCadEmpresa telacadaluno = new JDCadEmpresa(null, rootPaneCheckingEnabled);
         telacadaluno.setLocationRelativeTo(null);
         telacadaluno.setVisible(true);
     }//GEN-LAST:event_jButtonNovoAlunoActionPerformed
@@ -800,60 +809,41 @@ public class JDCRUDAluno extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel1AncestorAdded
 
-    private void jTextFieldPesquisaNome2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPesquisaNome2ActionPerformed
+    private void jTextFieldPesquisaNomeFantasiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPesquisaNomeFantasiaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldPesquisaNome2ActionPerformed
-
-    private void jFormattedTextFieldCPFBuscaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCPFBuscaFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextFieldCPFBuscaFocusLost
-
-    private void jFormattedTextFieldCPFBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCPFBuscaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextFieldCPFBuscaActionPerformed
+    }//GEN-LAST:event_jTextFieldPesquisaNomeFantasiaActionPerformed
 
     private void JTableAlunosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTableAlunosMouseClicked
         try {
             int indiceLinha = JTableAlunos.getSelectedRow();
-            jTextFieldID_Aluno.setText(JTableAlunos.getValueAt(indiceLinha, 0).toString());
-            jTextFieldNome.setText(JTableAlunos.getValueAt(indiceLinha, 1).toString());
-            jFormattedTextFieldCPF.setText(null);
-            jFormattedTextFieldCPF.setText(JTableAlunos.getValueAt(indiceLinha, 2).toString());
-
-            jTextFieldRG.setText(JTableAlunos.getValueAt(indiceLinha, 3).toString());
-            jTextFieldEndereco.setText(JTableAlunos.getValueAt(indiceLinha, 4).toString());
-            jTextFieldBairro.setText(JTableAlunos.getValueAt(indiceLinha, 5).toString());
+            jTextFieldID_Empresa.setText(JTableAlunos.getValueAt(indiceLinha, 0).toString());
+            jTextFieldNomeFantasia.setText(JTableAlunos.getValueAt(indiceLinha, 1).toString());
+            jTextFieldRazaoSocial.setText(JTableAlunos.getValueAt(indiceLinha, 2).toString());
+            jTextFieldEndereco.setText(JTableAlunos.getValueAt(indiceLinha, 3).toString());
+            jTextFieldBairro.setText(JTableAlunos.getValueAt(indiceLinha, 4).toString());
+            jTextFieldCidade.setText(JTableAlunos.getValueAt(indiceLinha, 5).toString());
             jTextFieldEmail.setText(JTableAlunos.getValueAt(indiceLinha, 6).toString());
-            jFormattedTextFieldTelefone.setText(JTableAlunos.getValueAt(indiceLinha, 7).toString());
-            jTextFieldCidade.setText(JTableAlunos.getValueAt(indiceLinha, 8).toString());
-//            jDateChooserDataNasc.setDateFormatString(JTableAlunos.getValueAt(indiceLinha, 8).toString());
-            String dataV = JTableAlunos.getValueAt(indiceLinha, 9).toString();
+            jFormattedTextFieldCNPJ.setText(null);
+            jFormattedTextFieldCNPJ.setText(JTableAlunos.getValueAt(indiceLinha, 7).toString());
+            jTextFieldIE.setText(JTableAlunos.getValueAt(indiceLinha, 8).toString());
+            jFormattedTextFieldTelefone.setText(JTableAlunos.getValueAt(indiceLinha, 9).toString());
             if (JTableAlunos.getValueAt(indiceLinha, 0).toString().equals("1")) {
                 jButtonExcluir.setEnabled(false);
             } else {
- jButtonExcluir.setEnabled(true);
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
-                Date dte = sdf.parse(dataV);
-                jDateChooserDataNasc.setDate(dte);
+                jButtonExcluir.setEnabled(true);
 
-                jTextFieldNome.setEnabled(true);
-                jFormattedTextFieldCPF.setEnabled(false);
-                jTextFieldRG.setEnabled(true);
+                jTextFieldNomeFantasia.setEnabled(true);
+                jFormattedTextFieldCNPJ.setEnabled(false);
+                jTextFieldIE.setEnabled(true);
                 jTextFieldEndereco.setEnabled(true);
                 jTextFieldEmail.setEnabled(true);
                 jFormattedTextFieldTelefone.setEnabled(true);
                 jTextFieldCidade.setEnabled(true);
                 jTextFieldBairro.setEnabled(true);
-                jDateChooserDataNasc.setEnabled(true);
-
-                if (JTableAlunos.getValueAt(indiceLinha, 2).toString().equals("Dependente")) {
-                    jFormattedTextFieldCPF.setEnabled(false);
-                }
+                jTextFieldRazaoSocial.setEnabled(true);
             }
         } catch (NullPointerException e) {
             System.out.println("src.JDCRUDAluno.JTableAlunosMouseClicked()");
-        } catch (ParseException ex) {
-            Logger.getLogger(JDCRUDAluno.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_JTableAlunosMouseClicked
 
@@ -937,13 +927,13 @@ public class JDCRUDAluno extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldCidadeActionPerformed
 
-    private void jTextFieldRGFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldRGFocusLost
+    private void jTextFieldIEFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldIEFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldRGFocusLost
+    }//GEN-LAST:event_jTextFieldIEFocusLost
 
-    private void jTextFieldRGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRGActionPerformed
+    private void jTextFieldIEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIEActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldRGActionPerformed
+    }//GEN-LAST:event_jTextFieldIEActionPerformed
 
     private void jTextFieldEnderecoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldEnderecoFocusLost
         // TODO add your handling code here:
@@ -961,41 +951,48 @@ public class JDCRUDAluno extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldBairroActionPerformed
 
+    private void jTextFieldRazaoSocialFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldRazaoSocialFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldRazaoSocialFocusLost
+
+    private void jTextFieldRazaoSocialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldRazaoSocialActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldRazaoSocialActionPerformed
+
+    private void jFormattedTextFieldCNPJBuscaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCNPJBuscaFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextFieldCNPJBuscaFocusLost
+
+    private void jFormattedTextFieldCNPJBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldCNPJBuscaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextFieldCNPJBuscaActionPerformed
+
     private void montarTabela() {
         int linha = 0;
         try {
             while (rsListar.next()) {
-                String id_aluno = rsListar.getString("id_aluno");
-                String nome = rsListar.getString("nome");
-                String cpf = rsListar.getString("cpf");
-                String rg = rsListar.getString("rg");
+                String id_empresa = rsListar.getString("id_empresa");
+                String nome_fantasia = rsListar.getString("nome_fantasia");
+                String razao_social = rsListar.getString("razao_social");
                 String endereco = rsListar.getString("endereco");
                 String bairro = rsListar.getString("bairro");
-                String email = rsListar.getString("email");
-                String telefone = rsListar.getString("telefone");
                 String cidade = rsListar.getString("cidade");
-                String data_nasc = rsListar.getString("data_nasc");
+                String email = rsListar.getString("email");
+                String cnpj = rsListar.getString("cnpj");
+                String ie = rsListar.getString("inscricao_estadual");
+                String telefone = rsListar.getString("telefone");
                 String ativo = rsListar.getString("ativo");
-                JTableAlunos.getModel().setValueAt(id_aluno, linha, 0);
-                JTableAlunos.getModel().setValueAt(nome, linha, 1);
-                JTableAlunos.getModel().setValueAt(cpf, linha, 2);
-                JTableAlunos.getModel().setValueAt(rg, linha, 3);
-                JTableAlunos.getModel().setValueAt(endereco, linha, 4);
-                JTableAlunos.getModel().setValueAt(bairro, linha, 5);
+                JTableAlunos.getModel().setValueAt(id_empresa, linha, 0);
+                JTableAlunos.getModel().setValueAt(nome_fantasia, linha, 1);
+                JTableAlunos.getModel().setValueAt(razao_social, linha, 2);
+                JTableAlunos.getModel().setValueAt(endereco, linha, 3);
+                JTableAlunos.getModel().setValueAt(bairro, linha, 4);
+                JTableAlunos.getModel().setValueAt(cidade, linha, 5);
                 JTableAlunos.getModel().setValueAt(email, linha, 6);
-                JTableAlunos.getModel().setValueAt(telefone, linha, 7);
-                JTableAlunos.getModel().setValueAt(cidade, linha, 8);
-                JTableAlunos.getModel().setValueAt(data_nasc, linha, 9);
-
-                if (cpf.equals("   .   .   -  ")) {
-                    JTableAlunos.getModel().setValueAt("Dependente", linha, 2);
-                }
-
-                if (ativo.equals("1")) {
-                    JTableAlunos.getModel().setValueAt("ATIVO", linha, 10);
-                } else {
-                    JTableAlunos.getModel().setValueAt("INATIVO", linha, 10);
-                }
+                JTableAlunos.getModel().setValueAt(cnpj, linha, 7);
+                JTableAlunos.getModel().setValueAt(ie, linha, 8);
+                JTableAlunos.getModel().setValueAt(telefone, linha, 9);
+                JTableAlunos.getModel().setValueAt(ativo, linha, 10);
 
                 linha++;
             }
@@ -1030,62 +1027,56 @@ public class JDCRUDAluno extends javax.swing.JDialog {
     }
 
     private void limparcampos() {
-        jTextFieldNome.setText("");
-        jFormattedTextFieldCPF.setText("");
+        jTextFieldNomeFantasia.setText("");
+        jFormattedTextFieldCNPJ.setText("");
         jTextFieldEmail.setText("");
         jFormattedTextFieldTelefone.setText("");
         jTextFieldEndereco.setText("");
-        jTextFieldRG.setText("");
+        jTextFieldIE.setText("");
         jTextFieldCidade.setText("");
         jTextFieldBairro.setText("");
-        jDateChooserDataNasc.setDate(null);
+        jTextFieldRazaoSocial.setText("");
+
     }
 
     private void excluir() {
 
         try {
-            AlunoBean alunos = new AlunoBean();
+            EmpresaBean empresa = new EmpresaBean();
 //                alunos.setCpf(jFormattedTextFieldCPF.getText());
-            alunos.setId_aluno(Integer.parseInt(jTextFieldID_Aluno.getText()));
-            AlunoDAO dao = new AlunoDAO();
-            dao.exclui(alunos);
+            empresa.setId_empresa(Integer.parseInt(jTextFieldID_Empresa.getText()));
+            EmpresaDAO dao = new EmpresaDAO();
+            dao.exclui(empresa);
             ((DefaultTableModel) JTableAlunos.getModel()).removeRow(JTableAlunos.getSelectedRow());
-            jTextFieldNome.requestFocus();
+            jTextFieldNomeFantasia.requestFocus();
             limparcampos();
             bloquearCampos();
         } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(JDCRUDAluno.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JDCRUDEmpresa.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
 
     private void atualizar() {
 
-        if (validarcamposvazios() == false) {
+        if (validarcamposvazios() == true) {
             System.out.println("src.JDCRUDAluno.atualizar()");
             try {
-                Date data = jDateChooserDataNasc.getDate();
-                SimpleDateFormat df;
-                df = new SimpleDateFormat("dd/MM/yyyy");
-                df.format(new Date(System.currentTimeMillis()));
-                String dataF = df.format(data);
-                System.out.println(dataF);
-                AlunoBean alunos = new AlunoBean();
-                alunos.setId_aluno(Integer.parseInt(jTextFieldID_Aluno.getText()));
-                alunos.setNome(jTextFieldNome.getText());
-                alunos.setCpf(jFormattedTextFieldCPF.getText());
-                alunos.setRg(jTextFieldRG.getText());
-                alunos.setEmail(jTextFieldEmail.getText());
-                alunos.setTelefone(jFormattedTextFieldTelefone.getText());
-                alunos.setBairro(jTextFieldBairro.getText());
-                alunos.setEndereco(jTextFieldEndereco.getText());
-                alunos.setCidade(jTextFieldCidade.getText());
-                alunos.setAtivo(1);
-                alunos.setData_nasc(dataF);
-                System.out.println(dataF);
-                AlunoDAO dao = new AlunoDAO();
-                dao.altera(alunos);
-                jTextFieldNome.requestFocus();
+
+                EmpresaBean empresa = new EmpresaBean();
+                EmpresaDAO dao = new EmpresaDAO();
+                empresa.setId_empresa(Integer.parseInt(jTextFieldID_Empresa.getText()));
+
+                empresa.setNome_fantasia(jTextFieldNomeFantasia.getText());
+                empresa.setRazao_social(jTextFieldRazaoSocial.getText());
+                empresa.setEndereco(jTextFieldEndereco.getText());
+                empresa.setBairro(jTextFieldBairro.getText());
+                empresa.setCidade(jTextFieldCidade.getText());
+                empresa.setEmail(jTextFieldEmail.getText());
+                empresa.setInscricao_estadual(jTextFieldIE.getText());
+                empresa.setTelefone(jFormattedTextFieldTelefone.getText());
+                dao.altera(empresa);
+                jTextFieldNomeFantasia.requestFocus();
                 limparcampos();
                 bloquearCampos();
             } catch (ClassNotFoundException ex) {
@@ -1098,13 +1089,13 @@ public class JDCRUDAluno extends javax.swing.JDialog {
         try {
             con = ConexaoFactory.getConnection();
             stmtListar = con.createStatement();
-            Integer opcao = JOptionPane.showConfirmDialog(null, "Confirma?", "Inativar Aluno", JOptionPane.OK_CANCEL_OPTION);
+            Integer opcao = JOptionPane.showConfirmDialog(null, "Confirma?", "Inativar Empresa", JOptionPane.OK_CANCEL_OPTION);
             if (opcao == 0) {
-                System.out.println("src.JDCRUDAluno.inativar()" + jFormattedTextFieldCPF.getText());
-                stmtListar.executeUpdate("UPDATE cad_aluno SET ativo ='0' WHERE id_aluno='" + Integer.parseInt(jTextFieldID_Aluno.getText()) + "'");
+                System.out.println("src.JDCRUDAluno.inativar()" + jFormattedTextFieldCNPJ.getText());
+                stmtListar.executeUpdate("UPDATE cad_empresa SET ativo ='0' WHERE id_empresa='" + Integer.parseInt(jTextFieldID_Empresa.getText()) + "'");
                 limparcampos();
                 bloquearCampos();
-                JOptionPane.showMessageDialog(null, "Aluno Inativado Com Sucesso !!");
+                JOptionPane.showMessageDialog(null, "Empresa Inativada Com Sucesso !!");
             }
         } catch (Exception e) {
         }
@@ -1113,14 +1104,14 @@ public class JDCRUDAluno extends javax.swing.JDialog {
     private void buscarnome() {
         try {
             AlunoBean aluno = new AlunoBean();
-            aluno.setNome(jTextFieldPesquisaNome2.getText());
+            aluno.setNome(jTextFieldPesquisaNomeFantasia.getText());
             iniciarBD();
-            rsListar = stmtListar.executeQuery("SELECT * FROM cad_aluno WHERE nome LIKE '%" + aluno.getNome() + "%'");
+            rsListar = stmtListar.executeQuery("SELECT * FROM cad_empresa WHERE nome_fantasia LIKE '%" + aluno.getNome() + "%'");
             if (!rsListar.next()) {
                 JOptionPane.showMessageDialog(null, "Nenhum resultado para esta pesqusa!!");
-                jTextFieldPesquisaNome2.requestFocus();
+                jTextFieldPesquisaNomeFantasia.requestFocus();
             } else {
-                rsListar = stmtListar.executeQuery("SELECT * FROM cad_aluno WHERE nome LIKE '%" + aluno.getNome() + "%'");
+                rsListar = stmtListar.executeQuery("SELECT * FROM cad_empresa WHERE nome_fantasia '%" + aluno.getNome() + "%'");
                 montarTabela();
             }
         } catch (SQLException ex) {
@@ -1131,14 +1122,14 @@ public class JDCRUDAluno extends javax.swing.JDialog {
     private void buscarcpf() {
         try {
             AlunoBean aluno = new AlunoBean();
-            aluno.setCpf(jFormattedTextFieldCPFBusca.getText());
+            aluno.setCpf(jFormattedTextFieldCNPJBusca.getText());
             iniciarBD();
-            rsListar = stmtListar.executeQuery("SELECT * FROM cad_aluno WHERE cpf='" + aluno.getCpf() + "'");
+            rsListar = stmtListar.executeQuery("SELECT * FROM cad_empresa WHERE cnpj='" + aluno.getCpf() + "'");
             if (!rsListar.next()) {
                 JOptionPane.showMessageDialog(null, "Nenhum resultado para esta pesqusa!!");
-                jFormattedTextFieldCPFBusca.requestFocus();
+                jFormattedTextFieldCNPJ.requestFocus();
             } else {
-                rsListar = stmtListar.executeQuery("SELECT * FROM cad_aluno WHERE cpf='" + aluno.getCpf() + "'");
+                rsListar = stmtListar.executeQuery("SELECT * FROM cad_empresa WHERE cnpj='" + aluno.getCpf() + "'");
                 montarTabela();
             }
         } catch (SQLException ex) {
@@ -1148,51 +1139,34 @@ public class JDCRUDAluno extends javax.swing.JDialog {
 
     private boolean validarcamposvazios() {
 
-        if (jTextFieldNome.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor digite um nome!", "Digite um nome", WIDTH);
-            jTextFieldNome.requestFocus();
-//        } else if (jFormattedTextFieldCPF.getText().equals("   .   .   -  ")) {
-//            JOptionPane.showMessageDialog(null, "Por favor digite um CPF!", "Digite um CPF", WIDTH);
-//            jFormattedTextFieldCPF.requestFocus();
-        } else if (jTextFieldRG.getText().equals(" ª")) {
-            JOptionPane.showMessageDialog(null, "Por favor digite o RG!", "Digite o RG", WIDTH);
-            jTextFieldRG.requestFocus();
-        } else if (jFormattedTextFieldTelefone.getText().equals("(  )     -    ")) {
-            JOptionPane.showMessageDialog(null, "Por favor digite um Telefone!", "Digite um Telefone", WIDTH);
-            jFormattedTextFieldTelefone.requestFocus();
-        } else if (jTextFieldEmail.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor digite um email!", "Digite um email", WIDTH);
-            jTextFieldEmail.requestFocus();
-        } else if (jTextFieldCidade.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor digite a Cidade!", "Digite a Cidade", WIDTH);
-            jTextFieldEndereco.requestFocus();
-        } else if (jTextFieldEndereco.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor digite O Endereço!", "Digite o Endereço", WIDTH);
-            jTextFieldEndereco.requestFocus();
-        } else if (jTextFieldBairro.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor digite O Bairro!", "Digite o Bairro", WIDTH);
-            jTextFieldEndereco.requestFocus();
-        } else if (jDateChooserDataNasc.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Por favor digite A Data de Nascimento!", "Digite a data de Nascimento", WIDTH);
-            jDateChooserDataNasc.requestFocus();
+        if (jTextFieldNomeFantasia.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor digite Nome Fantasia!", "Digite o Nome Fantasia", WIDTH);
+            jTextFieldNomeFantasia.requestFocus();
+            if (jTextFieldRazaoSocial.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor digite a Razão Social!", "Digite a Razão Social", WIDTH);
+                jTextFieldRazaoSocial.requestFocus();
+            } else if (jFormattedTextFieldTelefone.getText().equals("(  )     -    ")) {
+                JOptionPane.showMessageDialog(null, "Por favor digite um Telefone!", "Digite um Telefone", WIDTH);
+                jFormattedTextFieldTelefone.requestFocus();
+            } else if (jTextFieldEmail.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Por favor digite um email!", "Digite um email", WIDTH);
+                jTextFieldEmail.requestFocus();
 
-        } else {
-//            JOptionPane.showMessageDialog(null, " Funcionario " + jTextFieldNovoNome.getText() + " atualizado");
-            return false;
+            }
         }
 
         return true;
     }
 
     private void bloquearCampos() {
-        jTextFieldNome.setEnabled(false);
-        jFormattedTextFieldCPF.setEnabled(false);
-        jTextFieldRG.setEnabled(false);
+        jTextFieldNomeFantasia.setEnabled(false);
+        jFormattedTextFieldCNPJ.setEnabled(false);
+        jTextFieldRazaoSocial.setEditable(false);
+        jTextFieldIE.setEnabled(false);
         jTextFieldEndereco.setEnabled(false);
         jTextFieldEmail.setEnabled(false);
         jFormattedTextFieldTelefone.setEnabled(false);
         jTextFieldCidade.setEnabled(false);
-        jDateChooserDataNasc.setEnabled(false);
         jTextFieldBairro.setEnabled(false);
     }
 
@@ -1200,7 +1174,7 @@ public class JDCRUDAluno extends javax.swing.JDialog {
         AlunoBean aluno = new AlunoBean();
         iniciarBD();
         try {
-            rsListar = stmtListar.executeQuery("SELECT * FROM cad_aluno WHERE ativo='1'");
+            rsListar = stmtListar.executeQuery("SELECT * FROM cad_empresa WHERE ativo='1'");
             montarTabela();
 
         } catch (Exception e) {
@@ -1245,21 +1219,23 @@ public class JDCRUDAluno extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDCRUDAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDCRUDEmpresa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDCRUDAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDCRUDEmpresa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDCRUDAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDCRUDEmpresa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDCRUDAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDCRUDEmpresa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JDCRUDAluno dialog = new JDCRUDAluno(new javax.swing.JFrame(), true);
+                JDCRUDEmpresa dialog = new JDCRUDEmpresa(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -1282,18 +1258,17 @@ public class JDCRUDAluno extends javax.swing.JDialog {
     private javax.swing.JButton jButtonLimpar;
     private javax.swing.JButton jButtonNovoAluno;
     private javax.swing.JButton jButtonSair;
-    private com.toedter.calendar.JDateChooser jDateChooserDataNasc;
-    private javax.swing.JFormattedTextField jFormattedTextFieldCPF;
-    private javax.swing.JFormattedTextField jFormattedTextFieldCPFBusca;
+    private javax.swing.JFormattedTextField jFormattedTextFieldCNPJ;
+    private javax.swing.JFormattedTextField jFormattedTextFieldCNPJBusca;
     private javax.swing.JFormattedTextField jFormattedTextFieldTelefone;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
@@ -1310,9 +1285,10 @@ public class JDCRUDAluno extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldCidade;
     private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldEndereco;
-    private javax.swing.JTextField jTextFieldID_Aluno;
-    private javax.swing.JTextField jTextFieldNome;
-    private javax.swing.JTextField jTextFieldPesquisaNome2;
-    private javax.swing.JTextField jTextFieldRG;
+    private javax.swing.JTextField jTextFieldID_Empresa;
+    private javax.swing.JTextField jTextFieldIE;
+    private javax.swing.JTextField jTextFieldNomeFantasia;
+    private javax.swing.JTextField jTextFieldPesquisaNomeFantasia;
+    private javax.swing.JTextField jTextFieldRazaoSocial;
     // End of variables declaration//GEN-END:variables
 }

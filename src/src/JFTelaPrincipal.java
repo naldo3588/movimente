@@ -76,6 +76,7 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuGerEstoque = new javax.swing.JMenu();
         jMenuItemGerAlunos = new javax.swing.JMenuItem();
+        jMenuItemGerAlunos1 = new javax.swing.JMenuItem();
         jMenuItemGerFuncionarios = new javax.swing.JMenuItem();
         jMenuItemCadPlanos1 = new javax.swing.JMenuItem();
         jMenuItemCadPlanos2 = new javax.swing.JMenuItem();
@@ -95,6 +96,7 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
         jMenuItemBaixaLctoPagar = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItemBaixaLctoReceber = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItemRelatorioAlunos = new javax.swing.JMenuItem();
         jMenuOpcoes = new javax.swing.JMenu();
@@ -324,6 +326,15 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
         });
         jMenuGerEstoque.add(jMenuItemGerAlunos);
 
+        jMenuItemGerAlunos1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/group_2-repair.png"))); // NOI18N
+        jMenuItemGerAlunos1.setText("Empresas");
+        jMenuItemGerAlunos1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemGerAlunos1ActionPerformed(evt);
+            }
+        });
+        jMenuGerEstoque.add(jMenuItemGerAlunos1);
+
         jMenuItemGerFuncionarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/employees.png"))); // NOI18N
         jMenuItemGerFuncionarios.setText("Usuarios");
         jMenuItemGerFuncionarios.addActionListener(new java.awt.event.ActionListener() {
@@ -369,6 +380,7 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
         });
         jMenuGerEstoque.add(jMenuItemCadPlanos4);
 
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/pagar.png"))); // NOI18N
         jMenuItem6.setText("Contas a Pagar");
         jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -377,6 +389,7 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
         });
         jMenuGerEstoque.add(jMenuItem6);
 
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/receber.png"))); // NOI18N
         jMenuItem7.setText("Contas a Receber");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -408,7 +421,7 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItemCadFuncionario);
 
-        jMenuItemCadFuncionario1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/employees.png"))); // NOI18N
+        jMenuItemCadFuncionario1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/check.png"))); // NOI18N
         jMenuItemCadFuncionario1.setText("Bancos");
         jMenuItemCadFuncionario1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -480,6 +493,15 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
             }
         });
         jMenuMovimentação.add(jMenuItemBaixaLctoReceber);
+
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/res/report-vendor.png"))); // NOI18N
+        jMenuItem8.setText("Baixar Contrato - Empresa");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenuMovimentação.add(jMenuItem8);
 
         jMenuBar1.add(jMenuMovimentação);
 
@@ -807,10 +829,24 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-         ((DefaultTableModel) JTableContratos.getModel()).setNumRows(0);
+        ((DefaultTableModel) JTableContratos.getModel()).setNumRows(0);
         ((DefaultTableModel) JTableContratos.getModel()).setNumRows(50);
         compararData();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+        JDBaixaContratoEmpresa telaBaixa = new JDBaixaContratoEmpresa(null, rootPaneCheckingEnabled);
+        telaBaixa.setLocationRelativeTo(null);
+        telaBaixa.setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItemGerAlunos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemGerAlunos1ActionPerformed
+        // TODO add your handling code here:
+        JDCRUDEmpresa telaCRUDAluno = new JDCRUDEmpresa(null, rootPaneCheckingEnabled);
+        telaCRUDAluno.setLocationRelativeTo(null);
+        telaCRUDAluno.setVisible(true);
+    }//GEN-LAST:event_jMenuItemGerAlunos1ActionPerformed
 
     class hora implements ActionListener {
 
@@ -990,6 +1026,7 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItemAlterarSenha;
     private javax.swing.JMenuItem jMenuItemBaixaLctoPagar;
     private javax.swing.JMenuItem jMenuItemBaixaLctoReceber;
@@ -1002,6 +1039,7 @@ public class JFTelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemCadPlanos3;
     private javax.swing.JMenuItem jMenuItemCadPlanos4;
     private javax.swing.JMenuItem jMenuItemGerAlunos;
+    private javax.swing.JMenuItem jMenuItemGerAlunos1;
     private javax.swing.JMenuItem jMenuItemGerFuncionarios;
     private javax.swing.JMenuItem jMenuItemRelatorioAlunos;
     private javax.swing.JMenuItem jMenuItemSistema;

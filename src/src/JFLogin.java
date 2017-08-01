@@ -221,10 +221,10 @@ public class JFLogin extends javax.swing.JFrame {
             if (!acesso) {
                 JOptionPane.showMessageDialog(null, "Usuário Incorreto/Inativo ou Senha Inválida!! ");
             }
-
         } catch (Exception erro) {
             System.out.println("Erro Tela Login: " + erro);
         }
+
         return acesso;
     }
 

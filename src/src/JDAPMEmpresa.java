@@ -38,6 +38,7 @@ import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
+import static src.JDAPM.status;
 
 /**
  *
@@ -71,10 +72,10 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
         initComponents();
         lookandfell();
 //        this.setBounds(0, 0, screenSize.width, screenSize.height);
-        jTextFieldID_Plano.setVisible(true);
-        jTextFieldID_Modalidade.setVisible(true);
-        jTextFieldID_ItemModalidade.setVisible(true);
-        jTextFieldID_ItemPlano.setVisible(true);
+        jTextFieldID_Plano.setVisible(false);
+        jTextFieldID_Modalidade.setVisible(false);
+        jTextFieldID_ItemModalidade.setVisible(false);
+        jTextFieldID_ItemPlano.setVisible(false);
         jButtonSalvar.setEnabled(false);
         jButtonEditar.setEnabled(false);
 
@@ -164,7 +165,7 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
         jLabel16 = new javax.swing.JLabel();
         jFormattedTextFieldTelefone = new javax.swing.JFormattedTextField();
         jLabel23 = new javax.swing.JLabel();
-        jTextFieldID_Aluno = new javax.swing.JTextField();
+        jTextFieldID_Empresa = new javax.swing.JTextField();
         jLabel29 = new javax.swing.JLabel();
         jTextFieldRazao = new javax.swing.JTextField();
         jLabel30 = new javax.swing.JLabel();
@@ -762,64 +763,61 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextFieldPlanoAPM, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(79, 79, 79)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jTextFieldNomeAlunoDadosAPM, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(56, 56, 56)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel14)
-                                        .addGap(78, 78, 78))
-                                    .addComponent(jTextFieldModalidadeAPM)))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jButton1)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldPlanoAPM, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(35, 35, 35)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(jTextFieldNomeAlunoDadosAPM, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4)
-                        .addGap(211, 211, 211))))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel14)
+                            .addComponent(jTextFieldModalidadeAPM, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextFieldModalidadeAPM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldNomeAlunoDadosAPM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addGap(6, 6, 6)
-                        .addComponent(jTextFieldModalidadeAPM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel13)
                         .addGap(6, 6, 6)
                         .addComponent(jTextFieldPlanoAPM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton4)
-                    .addComponent(jButton1))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton4)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Dados da Empresa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 10))); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jLabel4.setText("CPF Aluno");
+        jLabel4.setText("CNPJ");
 
         try {
             jFormattedTextFieldCPFAluno.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###/####-##")));
@@ -857,10 +855,10 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jFormattedTextFieldCPFAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addComponent(jFormattedTextFieldCPFAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54))
+                .addGap(26, 26, 26))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1026,14 +1024,14 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel23.setText("ID Empresa");
 
-        jTextFieldID_Aluno.setEditable(false);
-        jTextFieldID_Aluno.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jTextFieldID_Aluno.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jTextFieldID_Aluno.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jTextFieldID_Aluno.setEnabled(false);
-        jTextFieldID_Aluno.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldID_Empresa.setEditable(false);
+        jTextFieldID_Empresa.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jTextFieldID_Empresa.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jTextFieldID_Empresa.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTextFieldID_Empresa.setEnabled(false);
+        jTextFieldID_Empresa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldID_AlunoActionPerformed(evt);
+                jTextFieldID_EmpresaActionPerformed(evt);
             }
         });
 
@@ -1115,69 +1113,59 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel23)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextFieldID_Aluno, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jTextFieldID_Empresa, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel29)
                     .addComponent(jLabel12)
-                    .addComponent(jTextFieldRazao, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                    .addComponent(jTextFieldNomeFantasia))
+                    .addComponent(jTextFieldNomeFantasia, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                    .addComponent(jTextFieldRazao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextFieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel7)
-                                .addGap(59, 59, 59))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jTextFieldCNPJ))))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel30))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jTextFieldIE))))
-                .addContainerGap())
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel30))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFormattedTextFieldTelefone)
+                    .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextFieldCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel10)
+                        .addComponent(jTextFieldIE, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel23)
-                    .addComponent(jTextFieldID_Aluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldID_Empresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextFieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel16)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jFormattedTextFieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel31)
+                                .addGap(25, 25, 25))
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jTextFieldCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextFieldBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
-                                .addGap(25, 25, 25))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel15)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jFormattedTextFieldTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextFieldCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jTextFieldCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1189,15 +1177,16 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
                                     .addComponent(jLabel29)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jTextFieldRazao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jLabel30)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                                    .addComponent(jLabel31)
+                                    .addComponent(jLabel10)
                                     .addGap(25, 25, 25)))
-                            .addComponent(jTextFieldCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldIE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addGap(25, 25, 25)))))
+                            .addComponent(jTextFieldIE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel15)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel30)))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -1281,6 +1270,12 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(250, 250, 250)
+                        .addComponent(jLabel35)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextFieldID_Contrato, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(20, 20, 20)
@@ -1291,21 +1286,15 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
                                 .addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButtonLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jbSair))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(9, 23, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel35)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextFieldID_Contrato, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(233, 233, 233))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel36)
@@ -1326,11 +1315,11 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(19, 19, 19)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel35)
                             .addComponent(jTextFieldID_Contrato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1344,7 +1333,7 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
                         .addComponent(jButtonEditar)
                         .addComponent(jButtonLimpar)
                         .addComponent(jbSair)))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -1460,8 +1449,9 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
         // TODO add your handling code here:
 
         int option = JOptionPane.showConfirmDialog(rootPane, "Confirma ?");
+        if (option == JOptionPane.CANCEL_OPTION) {
 
-        if (option == JOptionPane.YES_OPTION) {
+        } else if (option == JOptionPane.YES_OPTION) {
 
             salvar();
         } else {
@@ -1481,9 +1471,9 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNomeFantasiaActionPerformed
 
-    private void jTextFieldID_AlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldID_AlunoActionPerformed
+    private void jTextFieldID_EmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldID_EmpresaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldID_AlunoActionPerformed
+    }//GEN-LAST:event_jTextFieldID_EmpresaActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
 //        // TODO add your handling code here:
@@ -1851,7 +1841,7 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
         jFormattedTextFieldValorTotalContrato.setText("");
         jFormattedTextFieldValorTotalMensal.setText("");
         jTextAreaDiasSemana.setText("");
-        jTextFieldID_Aluno.setText("");
+        jTextFieldID_Empresa.setText("");
         jTextFieldID_Contrato.setText("");
         jTextFieldID_ItemModalidade.setText("");
         jTextFieldID_Modalidade.setText("");
@@ -1871,9 +1861,9 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
         iniciarBD();
         try {
             con = ConexaoFactory.getConnection();
-            rsListar = stmtListar.executeQuery("SELECT * FROM contrato");
+            rsListar = stmtListar.executeQuery("SELECT * FROM contrato_empresa");
             if (rsListar.last()) {
-                int valor = rsListar.getInt("id_contrato");
+                int valor = rsListar.getInt("id_contrato_empresa");
                 id_contrato = valor + 1;
                 jTextFieldID_NovoContrato.setText(Integer.toString(id_contrato));
             }
@@ -1886,7 +1876,7 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
     }
 
     public void chamarParcelas() {
-        JDParcelas jdparcelas = new JDParcelas(null, rootPaneCheckingEnabled);
+        JDParcelasEmpresa jdparcelas = new JDParcelasEmpresa(null, rootPaneCheckingEnabled);
         jdparcelas.setLocationRelativeTo(null);
         jdparcelas.setVisible(true);
 
@@ -1904,21 +1894,6 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
             Map parameters = new HashMap();
             parameters.put("REPORT_CONNECTION", conecta.Conexao());
             conecta.executaSQL("SELECT\n"
-                    + "     cad_item_contrato.`id_item_contrato` AS cad_item_contrato_id_item_contrato,\n"
-                    + "     cad_item_contrato.`id_contrato` AS cad_item_contrato_id_contrato,\n"
-                    + "     cad_item_contrato.`id_titular` AS cad_item_contrato_id_titular,\n"
-                    + "     cad_item_contrato.`id_modalidade` AS cad_item_contrato_id_modalidade,\n"
-                    + "     cad_item_contrato.`id_item_modalidade` AS cad_item_contrato_id_item_modalidade,\n"
-                    + "     cad_item_contrato.`id_aluno` AS cad_item_contrato_id_aluno,\n"
-                    + "     cad_item_contrato.`nome_aluno` AS cad_item_contrato_nome_aluno,\n"
-                    + "     cad_item_contrato.`frequencia` AS cad_item_contrato_frequencia,\n"
-                    + "     cad_item_contrato.`dias` AS cad_item_contrato_dias,\n"
-                    + "     cad_item_contrato.`valor` AS cad_item_contrato_valor,\n"
-                    + "     cad_item_contrato.`modalidade` AS cad_item_contrato_modalidade,\n"
-                    + "     cad_item_contrato.`horario` AS cad_item_contrato_horario,\n"
-                    + "     contrato.`id_contrato` AS contrato_id_contrato,\n"
-                    + "     contrato.`total_parcelas` AS contrato_total_parcelas,\n"
-                    + "     contrato.`valor_mensal` AS contrato_valor_mensal,\n"
                     + "     cad_empresa.`id_empresa` AS cad_empresa_id_empresa,\n"
                     + "     cad_empresa.`nome_fantasia` AS cad_empresa_nome_fantasia,\n"
                     + "     cad_empresa.`razao_social` AS cad_empresa_razao_social,\n"
@@ -1934,19 +1909,38 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
                     + "     cad_plano.`nome` AS cad_plano_nome,\n"
                     + "     cad_modalidade.`id_modalidade` AS cad_modalidade_id_modalidade,\n"
                     + "     cad_modalidade.`nome` AS cad_modalidade_nome,\n"
-                    + "     contrato.`id_plano` AS contrato_id_plano,\n"
-                    + "     cad_item_contrato.`id_empresa` AS cad_item_contrato_id_empresa,\n"
-                    + "     contrato.`id_empresa` AS contrato_id_empresa\n"
+                    + "     cad_item_contrato_empresa.`id_item_contrato_empresa` AS cad_item_contrato_empresa_id_item_contrato_empresa,\n"
+                    + "     cad_item_contrato_empresa.`id_contrato_empresa` AS cad_item_contrato_empresa_id_contrato_empresa,\n"
+                    + "     cad_item_contrato_empresa.`id_modalidade` AS cad_item_contrato_empresa_id_modalidade,\n"
+                    + "     cad_item_contrato_empresa.`id_item_modalidade` AS cad_item_contrato_empresa_id_item_modalidade,\n"
+                    + "     cad_item_contrato_empresa.`id_empresa` AS cad_item_contrato_empresa_id_empresa,\n"
+                    + "     cad_item_contrato_empresa.`nome_empresa` AS cad_item_contrato_empresa_nome_empresa,\n"
+                    + "     cad_item_contrato_empresa.`frequencia` AS cad_item_contrato_empresa_frequencia,\n"
+                    + "     cad_item_contrato_empresa.`dias` AS cad_item_contrato_empresa_dias,\n"
+                    + "     cad_item_contrato_empresa.`valor` AS cad_item_contrato_empresa_valor,\n"
+                    + "     cad_item_contrato_empresa.`modalidade` AS cad_item_contrato_empresa_modalidade,\n"
+                    + "     cad_item_contrato_empresa.`horario` AS cad_item_contrato_empresa_horario,\n"
+                    + "     contrato_empresa.`id_contrato_empresa` AS contrato_empresa_id_contrato_empresa,\n"
+                    + "     contrato_empresa.`id_empresa` AS contrato_empresa_id_empresa,\n"
+                    + "     contrato_empresa.`id_plano` AS contrato_empresa_id_plano,\n"
+                    + "     contrato_empresa.`id_item_plano` AS contrato_empresa_id_item_plano,\n"
+                    + "     contrato_empresa.`data_adesao` AS contrato_empresa_data_adesao,\n"
+                    + "     contrato_empresa.`data_criacao` AS contrato_empresa_data_criacao,\n"
+                    + "     contrato_empresa.`usuario` AS contrato_empresa_usuario,\n"
+                    + "     contrato_empresa.`total_parcelas` AS contrato_empresa_total_parcelas,\n"
+                    + "     contrato_empresa.`valor_total` AS contrato_empresa_valor_total,\n"
+                    + "     contrato_empresa.`valor_mensal` AS contrato_empresa_valor_mensal,\n"
+                    + "     contrato_empresa.`status` AS contrato_empresa_status\n"
                     + "FROM\n"
-                    + "     `contrato` contrato INNER JOIN `cad_item_contrato` cad_item_contrato ON contrato.`id_titular` = cad_item_contrato.`id_titular`\n"
-                    + "     AND cad_item_contrato.`id_contrato` = contrato.`id_contrato`\n"
-                    + "     INNER JOIN `cad_empresa` cad_empresa ON contrato.`id_titular` = cad_empresa.`id_empresa`\n"
-                    + "     INNER JOIN `cad_plano` cad_plano ON contrato.`id_plano` = cad_plano.`id_plano`\n"
-                    + "     INNER JOIN `cad_modalidade` cad_modalidade ON cad_item_contrato.`id_modalidade` = cad_modalidade.`id_modalidade`\n"
+                    + "     `cad_item_contrato_empresa` cad_item_contrato_empresa INNER JOIN `cad_modalidade` cad_modalidade ON cad_item_contrato_empresa.`id_modalidade` = cad_modalidade.`id_modalidade`\n"
+                    + "     INNER JOIN `contrato_empresa` contrato_empresa ON cad_item_contrato_empresa.`id_contrato_empresa` = contrato_empresa.`id_contrato_empresa`\n"
+                    + "     AND contrato_empresa.`id_empresa` = cad_item_contrato_empresa.`id_empresa`\n"
+                    + "     INNER JOIN `cad_plano` cad_plano ON contrato_empresa.`id_plano` = cad_plano.`id_plano`\n"
+                    + "     INNER JOIN `cad_empresa` cad_empresa ON contrato_empresa.`id_empresa` = cad_empresa.`id_empresa`\n"
                     + "WHERE\n"
-                    + "     cad_item_contrato.`id_empresa` ='" + Integer.parseInt(jTextFieldID_Aluno.getText()) + "'");
+                    + "     cad_item_contrato_empresa.`id_empresa` ='" + Integer.parseInt(jTextFieldID_Empresa.getText()) + "'");
             JRResultSetDataSource relatResult = new JRResultSetDataSource(conecta.rs);
-            JasperPrint jpPrint = JasperFillManager.fillReport("src/relatorios/ContratoAluno.jasper", parameters, relatResult);
+            JasperPrint jpPrint = JasperFillManager.fillReport("C:\\Program Files\\Movimente\\MoviMente\\src\\relatorios\\ContratoEmpresa.jasper", parameters, relatResult);
             JasperViewer jv = new JasperViewer(jpPrint, false);
             viewer.getContentPane().add(jv.getContentPane());
             viewer.setVisible(true);
@@ -2012,6 +2006,48 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
         }
     }
 
+    private boolean addItensTabela() {
+
+        try {
+
+            ItemContratoBean item = new ItemContratoBean();
+
+            item.setId_contrato(Integer.parseInt(jTextFieldID_NovoContrato.getText()));
+            item.setId_modalidade(Integer.parseInt(jTextFieldID_Modalidade.getText()));
+            item.setId_item_modalidade(Integer.parseInt(jTextFieldID_ItemModalidade.getText()));
+            item.setId_empresa(Integer.parseInt(jTextFieldID_Empresa.getText()));
+            item.setNome_empresa(jTextFieldNomeFantasia.getText());
+            item.setFrequencia(Integer.parseInt(jTextFieldID_Modalidade.getText()));
+            item.setDias(jTextAreaDiasSemana.getText());
+            item.setHorario(jFormattedTextFieldHorario.getText());
+            item.setModalidade(jTextFieldModalidadeAPM.getText());
+            item.setValor(Double.parseDouble(jFormattedTextFieldValorTotalMensal.getText()));
+
+            con = ConexaoFactory.getConnection();
+            String sql = "INSERT INTO cad_item_contrato_empresa(id_contrato_empresa,id_modalidade,id_item_modalidade,id_empresa,nome_empresa,frequencia,dias,valor,modalidade,horario) VALUES (?,?,?,?,?,?,?,?,?,?)";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, item.getId_contrato());
+            ps.setInt(2, item.getId_modalidade());
+            ps.setInt(3, item.getId_item_modalidade());
+            ps.setInt(4, item.getId_empresa());
+            ps.setString(5, item.getNome_empresa());
+            ps.setInt(6, item.getFrequencia());
+            ps.setString(7, item.getDias());
+            ps.setDouble(8, item.getValor());
+            ps.setString(9, item.getModalidade());
+            ps.setString(10, item.getHorario());
+
+            return ps.executeUpdate() != PreparedStatement.EXECUTE_FAILED;
+
+        } catch (ClassNotFoundException | SQLException | HeadlessException e) {
+
+        }
+        status = 0;
+        return true;
+
+    }
+
     public void salvar() {
 
         ContratoBean contrato = new ContratoBean();
@@ -2023,39 +2059,29 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
             df.format(data_criacao);
             System.out.println(data_criacao);
             String dataF = df.format(data_criacao);
-            contrato.setId_empresa(Integer.parseInt(jTextFieldID_Aluno.getText()));
-            System.out.println(Integer.parseInt(jTextFieldID_Aluno.getText()));
-
             contrato.setId_plano(Integer.parseInt(jTextFieldID_Plano.getText()));
-            System.out.println(Integer.parseInt(jTextFieldID_Plano.getText()));
             contrato.setId_item_plano(Integer.parseInt(jTextFieldID_ItemPlano.getText()));
-            System.out.println(Integer.parseInt(jTextFieldID_ItemPlano.getText()));
             contrato.setData_adesao(data_criacao);
-            System.out.println(data_criacao);
             contrato.setData_criacao(data_criacao);
-            System.out.println(data_criacao);
             contrato.setUsuario(nomeusuario);
-            System.out.println(nomeusuario);
             contrato.setQtd_parcelas(Integer.parseInt(jFormattedTextFieldQtdParcelas.getText()));
-            System.out.println(Integer.parseInt(jFormattedTextFieldQtdParcelas.getText()));
             contrato.setValor_total_contrato(Double.parseDouble(jFormattedTextFieldValorTotalContrato.getText()));
-            System.out.println(Double.parseDouble(jFormattedTextFieldValorTotalContrato.getText()));
             contrato.setValor_mensal(Double.parseDouble(jFormattedTextFieldValorTotalMensal.getText()));
-            System.out.println(Double.parseDouble(jFormattedTextFieldValorTotalMensal.getText()));
+            contrato.setId_empresa(Integer.parseInt(jTextFieldID_Empresa.getText()));
             contrato.setStatus(1);
+
             dao.inserirEmpresa(contrato);
+            addItensTabela();
             status = 0;
             id_contrato = Integer.parseInt(jTextFieldID_NovoContrato.getText());
             qtd_parcelas = Integer.parseInt(jFormattedTextFieldQtdParcelas.getText());
             valor_mensalidade = Double.parseDouble(jFormattedTextFieldValorTotalMensal.getText());
             valor_total_contrato = Double.parseDouble(jFormattedTextFieldValorTotalContrato.getText());
             chamarParcelas();
-            if (JDParcelas.statusParcelas == 1) {
+            if (JDParcelasEmpresa.statusParcelas == 1) {
                 status = 0;
                 JOptionPane.showMessageDialog(rootPane, "Aguarde ... \n Gerando Contrato !!");
                 gerarContratoJD();
-                limparCamposTodos();
-                jFormattedTextFieldCPFAluno.requestFocus();
                 this.dispose();
                 JDAPMEmpresa apm = new JDAPMEmpresa(null, rootPaneCheckingEnabled);
                 apm.setLocationRelativeTo(null);
@@ -2363,7 +2389,7 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
             rsListar = stmtListar.executeQuery("SELECT * FROM cad_empresa WHERE cnpj='" + jFormattedTextFieldCPFAluno.getText() + "'");
 
             if (rsListar.next()) {
-                jTextFieldID_Aluno.setText(rsListar.getString(1));
+                jTextFieldID_Empresa.setText(rsListar.getString(1));
 
             }
         } catch (SQLException ex) {
@@ -2435,7 +2461,7 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
         try {
 
             iniciarBD();
-            rsListar = stmtListar.executeQuery("SELECT * FROM cad_empresa WHERE id_empresa='" + Integer.parseInt(jTextFieldID_Aluno.getText()) + "'");
+            rsListar = stmtListar.executeQuery("SELECT * FROM cad_empresa WHERE id_empresa='" + Integer.parseInt(jTextFieldID_Empresa.getText()) + "'");
 
             if (rsListar.next()) {
 //                jTextFieldID_Aluno.setText(rsListar.getString(1));
@@ -2473,7 +2499,7 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
     }
 
     private void limparCamposAluno() {
-        jTextFieldID_Aluno.setText("");
+        jTextFieldID_Empresa.setText("");
         jTextFieldBairro.setText("");
         jTextFieldCidade.setText("");
         jTextFieldEmail.setText("");
@@ -2502,7 +2528,7 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
         jTextFieldCidade.setText("");
         jTextFieldEmail.setText("");
         jTextFieldRazao.setText("");
-        jTextFieldID_Aluno.setText("");
+        jTextFieldID_Empresa.setText("");
         jTextFieldID_Contrato.setText("");
         jTextFieldID_ItemModalidade.setText("");
         jTextFieldID_ItemPlano.setText("");
@@ -2561,7 +2587,7 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
         jFormattedTextFieldValorTotalMensal.setText("");
         jTextAreaDiasSemana.setText("");
 
-        jTextFieldID_Aluno.setText("");
+        jTextFieldID_Empresa.setText("");
         jTextFieldID_Contrato.setText("");
         jTextFieldID_ItemModalidade.setText("");
         jTextFieldID_ItemPlano.setText("");
@@ -2753,8 +2779,8 @@ public class JDAPMEmpresa extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldCNPJ;
     private javax.swing.JTextField jTextFieldCidade;
     private javax.swing.JTextField jTextFieldEmail;
-    private javax.swing.JTextField jTextFieldID_Aluno;
     private javax.swing.JTextField jTextFieldID_Contrato;
+    private javax.swing.JTextField jTextFieldID_Empresa;
     private javax.swing.JTextField jTextFieldID_ItemModalidade;
     private javax.swing.JTextField jTextFieldID_ItemPlano;
     private javax.swing.JTextField jTextFieldID_Modalidade;

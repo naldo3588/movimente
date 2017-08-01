@@ -2,44 +2,12 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="recibovenda" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fda01c3e-3ee0-4a03-bd9b-6991a544a8ce">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="36"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Program Files\\Movimente\\MoviMente\\src\\relatorios\\"]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[SELECT
-     cad_aluno.`id_aluno` AS cad_aluno_id_aluno,
-     cad_aluno.`nome` AS cad_aluno_nome,
-     cad_aluno.`endereco` AS cad_aluno_endereco,
-     cad_aluno.`bairro` AS cad_aluno_bairro,
-     cad_aluno.`telefone` AS cad_aluno_telefone,
-     cad_aluno.`cidade` AS cad_aluno_cidade,
-     cad_aluno.`cpf` AS cad_aluno_cpf,
-     cad_aluno.`rg` AS cad_aluno_rg,
-     cad_aluno.`email` AS cad_aluno_email,
-     cad_aluno.`data_nasc` AS cad_aluno_data_nasc,
-     cad_aluno.`ativo` AS cad_aluno_ativo,
-     cad_aluno.`id_titular` AS cad_aluno_id_titular,
-     contrato.`id_contrato` AS contrato_id_contrato,
-     contrato.`id_titular` AS contrato_id_titular,
-     contrato.`id_plano` AS contrato_id_plano,
-     contrato.`id_item_plano` AS contrato_id_item_plano,
-     contrato.`data_adesao` AS contrato_data_adesao,
-     contrato.`data_criacao` AS contrato_data_criacao,
-     contrato.`usuario` AS contrato_usuario,
-     contrato.`total_parcelas` AS contrato_total_parcelas,
-     contrato.`valor_total` AS contrato_valor_total,
-     contrato.`valor_mensal` AS contrato_valor_mensal,
-     parcela_contrato.`id_parcela_contrato` AS parcela_contrato_id_parcela_contrato,
-     parcela_contrato.`id_contrato` AS parcela_contrato_id_contrato,
-     parcela_contrato.`numero_parcela` AS parcela_contrato_numero_parcela,
-     parcela_contrato.`valor_parcela` AS parcela_contrato_valor_parcela,
-     parcela_contrato.`data_vencimento` AS parcela_contrato_data_vencimento,
-     parcela_contrato.`data_baixa` AS parcela_contrato_data_baixa,
-     parcela_contrato.`usuario` AS parcela_contrato_usuario,
-     parcela_contrato.`tipo_pagamento` AS parcela_contrato_tipo_pagamento,
-     parcela_contrato.`tipo_entrada` AS parcela_contrato_tipo_entrada,
-     parcela_contrato.`valor_total` AS parcela_contrato_valor_total,
      caixa.`id_caixa` AS caixa_id_caixa,
      caixa.`tipo_movimento` AS caixa_tipo_movimento,
      caixa.`tipo_pagamento` AS caixa_tipo_pagamento,
@@ -52,49 +20,50 @@
      caixa.`id_banco` AS caixa_id_banco,
      cad_plano.`id_plano` AS cad_plano_id_plano,
      cad_plano.`nome` AS cad_plano_nome,
-     caixa.`id_aluno` AS caixa_id_aluno
+     caixa.`id_aluno` AS caixa_id_aluno,
+     cad_empresa.`id_empresa` AS cad_empresa_id_empresa,
+     cad_empresa.`nome_fantasia` AS cad_empresa_nome_fantasia,
+     cad_empresa.`razao_social` AS cad_empresa_razao_social,
+     cad_empresa.`endereco` AS cad_empresa_endereco,
+     cad_empresa.`bairro` AS cad_empresa_bairro,
+     cad_empresa.`cidade` AS cad_empresa_cidade,
+     cad_empresa.`email` AS cad_empresa_email,
+     cad_empresa.`cnpj` AS cad_empresa_cnpj,
+     cad_empresa.`inscricao_estadual` AS cad_empresa_inscricao_estadual,
+     cad_empresa.`telefone` AS cad_empresa_telefone,
+     cad_empresa.`ativo` AS cad_empresa_ativo,
+     parcela_contrato_empresa.`id_parcela_contrato_empresa` AS parcela_contrato_empresa_id_parcela_contrato_empresa,
+     parcela_contrato_empresa.`id_contrato` AS parcela_contrato_empresa_id_contrato,
+     parcela_contrato_empresa.`numero_parcela` AS parcela_contrato_empresa_numero_parcela,
+     parcela_contrato_empresa.`valor_parcela` AS parcela_contrato_empresa_valor_parcela,
+     parcela_contrato_empresa.`data_vencimento` AS parcela_contrato_empresa_data_vencimento,
+     parcela_contrato_empresa.`data_baixa` AS parcela_contrato_empresa_data_baixa,
+     parcela_contrato_empresa.`usuario` AS parcela_contrato_empresa_usuario,
+     parcela_contrato_empresa.`tipo_pagamento` AS parcela_contrato_empresa_tipo_pagamento,
+     parcela_contrato_empresa.`tipo_entrada` AS parcela_contrato_empresa_tipo_entrada,
+     parcela_contrato_empresa.`valor_total` AS parcela_contrato_empresa_valor_total,
+     contrato_empresa.`id_contrato_empresa` AS contrato_empresa_id_contrato_empresa,
+     contrato_empresa.`id_empresa` AS contrato_empresa_id_empresa,
+     contrato_empresa.`id_plano` AS contrato_empresa_id_plano,
+     contrato_empresa.`id_item_plano` AS contrato_empresa_id_item_plano,
+     contrato_empresa.`data_adesao` AS contrato_empresa_data_adesao,
+     contrato_empresa.`data_criacao` AS contrato_empresa_data_criacao,
+     contrato_empresa.`usuario` AS contrato_empresa_usuario,
+     contrato_empresa.`total_parcelas` AS contrato_empresa_total_parcelas,
+     contrato_empresa.`valor_total` AS contrato_empresa_valor_total,
+     contrato_empresa.`valor_mensal` AS contrato_empresa_valor_mensal,
+     contrato_empresa.`status` AS contrato_empresa_status,
+     caixa.`id_fornecedor` AS caixa_id_fornecedor
 FROM
-     `cad_aluno` cad_aluno INNER JOIN `contrato` contrato ON cad_aluno.`id_aluno` = contrato.`id_titular`
-     INNER JOIN `cad_plano` cad_plano ON contrato.`id_plano` = cad_plano.`id_plano`
-     INNER JOIN `parcela_contrato` parcela_contrato ON contrato.`id_contrato` = parcela_contrato.`id_contrato`
-     INNER JOIN `caixa` caixa ON contrato.`id_titular` = caixa.`id_aluno`
-     AND caixa.`id_titulo` = parcela_contrato.`id_parcela_contrato`
+     `cad_empresa` cad_empresa INNER JOIN `contrato_empresa` contrato_empresa ON cad_empresa.`id_empresa` = contrato_empresa.`id_empresa`
+     INNER JOIN `caixa` caixa ON contrato_empresa.`id_empresa` = caixa.`id_fornecedor`
+     INNER JOIN `cad_plano` cad_plano ON contrato_empresa.`id_plano` = cad_plano.`id_plano`
+     INNER JOIN `parcela_contrato_empresa` parcela_contrato_empresa ON contrato_empresa.`id_contrato_empresa` = parcela_contrato_empresa.`id_contrato`
+     AND caixa.`id_titulo` = parcela_contrato_empresa.`id_parcela_contrato_empresa`
 WHERE
-     contrato.id_contrato = ''
-     and parcela_contrato.id_parcela_contrato = '']]>
+     contrato_empresa.id_contrato_empresa = ''
+     and parcela_contrato_empresa.id_parcela_contrato_empresa = '']]>
 	</queryString>
-	<field name="cad_aluno_id_aluno" class="java.lang.Integer"/>
-	<field name="cad_aluno_nome" class="java.lang.String"/>
-	<field name="cad_aluno_endereco" class="java.lang.String"/>
-	<field name="cad_aluno_bairro" class="java.lang.String"/>
-	<field name="cad_aluno_telefone" class="java.lang.String"/>
-	<field name="cad_aluno_cidade" class="java.lang.String"/>
-	<field name="cad_aluno_cpf" class="java.lang.String"/>
-	<field name="cad_aluno_rg" class="java.lang.String"/>
-	<field name="cad_aluno_email" class="java.lang.String"/>
-	<field name="cad_aluno_data_nasc" class="java.lang.String"/>
-	<field name="cad_aluno_ativo" class="java.lang.Integer"/>
-	<field name="cad_aluno_id_titular" class="java.lang.Integer"/>
-	<field name="contrato_id_contrato" class="java.lang.Integer"/>
-	<field name="contrato_id_titular" class="java.lang.Integer"/>
-	<field name="contrato_id_plano" class="java.lang.Integer"/>
-	<field name="contrato_id_item_plano" class="java.lang.Integer"/>
-	<field name="contrato_data_adesao" class="java.sql.Date"/>
-	<field name="contrato_data_criacao" class="java.sql.Date"/>
-	<field name="contrato_usuario" class="java.lang.String"/>
-	<field name="contrato_total_parcelas" class="java.lang.Integer"/>
-	<field name="contrato_valor_total" class="java.lang.Double"/>
-	<field name="contrato_valor_mensal" class="java.lang.Double"/>
-	<field name="parcela_contrato_id_parcela_contrato" class="java.lang.Integer"/>
-	<field name="parcela_contrato_id_contrato" class="java.lang.Integer"/>
-	<field name="parcela_contrato_numero_parcela" class="java.lang.Integer"/>
-	<field name="parcela_contrato_valor_parcela" class="java.lang.Double"/>
-	<field name="parcela_contrato_data_vencimento" class="java.sql.Date"/>
-	<field name="parcela_contrato_data_baixa" class="java.sql.Date"/>
-	<field name="parcela_contrato_usuario" class="java.lang.String"/>
-	<field name="parcela_contrato_tipo_pagamento" class="java.lang.String"/>
-	<field name="parcela_contrato_tipo_entrada" class="java.lang.Integer"/>
-	<field name="parcela_contrato_valor_total" class="java.lang.Double"/>
 	<field name="caixa_id_caixa" class="java.lang.Integer"/>
 	<field name="caixa_tipo_movimento" class="java.lang.String"/>
 	<field name="caixa_tipo_pagamento" class="java.lang.String"/>
@@ -108,6 +77,39 @@ WHERE
 	<field name="cad_plano_id_plano" class="java.lang.Integer"/>
 	<field name="cad_plano_nome" class="java.lang.String"/>
 	<field name="caixa_id_aluno" class="java.lang.Integer"/>
+	<field name="cad_empresa_id_empresa" class="java.lang.Integer"/>
+	<field name="cad_empresa_nome_fantasia" class="java.lang.String"/>
+	<field name="cad_empresa_razao_social" class="java.lang.String"/>
+	<field name="cad_empresa_endereco" class="java.lang.String"/>
+	<field name="cad_empresa_bairro" class="java.lang.String"/>
+	<field name="cad_empresa_cidade" class="java.lang.String"/>
+	<field name="cad_empresa_email" class="java.lang.String"/>
+	<field name="cad_empresa_cnpj" class="java.lang.String"/>
+	<field name="cad_empresa_inscricao_estadual" class="java.lang.String"/>
+	<field name="cad_empresa_telefone" class="java.lang.String"/>
+	<field name="cad_empresa_ativo" class="java.lang.Integer"/>
+	<field name="parcela_contrato_empresa_id_parcela_contrato_empresa" class="java.lang.Integer"/>
+	<field name="parcela_contrato_empresa_id_contrato" class="java.lang.Integer"/>
+	<field name="parcela_contrato_empresa_numero_parcela" class="java.lang.Integer"/>
+	<field name="parcela_contrato_empresa_valor_parcela" class="java.lang.Double"/>
+	<field name="parcela_contrato_empresa_data_vencimento" class="java.sql.Date"/>
+	<field name="parcela_contrato_empresa_data_baixa" class="java.sql.Date"/>
+	<field name="parcela_contrato_empresa_usuario" class="java.lang.String"/>
+	<field name="parcela_contrato_empresa_tipo_pagamento" class="java.lang.String"/>
+	<field name="parcela_contrato_empresa_tipo_entrada" class="java.lang.Integer"/>
+	<field name="parcela_contrato_empresa_valor_total" class="java.lang.Double"/>
+	<field name="contrato_empresa_id_contrato_empresa" class="java.lang.Integer"/>
+	<field name="contrato_empresa_id_empresa" class="java.lang.Integer"/>
+	<field name="contrato_empresa_id_plano" class="java.lang.Integer"/>
+	<field name="contrato_empresa_id_item_plano" class="java.lang.Integer"/>
+	<field name="contrato_empresa_data_adesao" class="java.sql.Date"/>
+	<field name="contrato_empresa_data_criacao" class="java.sql.Date"/>
+	<field name="contrato_empresa_usuario" class="java.lang.String"/>
+	<field name="contrato_empresa_total_parcelas" class="java.lang.Integer"/>
+	<field name="contrato_empresa_valor_total" class="java.lang.Double"/>
+	<field name="contrato_empresa_valor_mensal" class="java.lang.Double"/>
+	<field name="contrato_empresa_status" class="java.lang.Integer"/>
+	<field name="caixa_id_fornecedor" class="java.lang.Integer"/>
 	<title>
 		<band height="57">
 			<rectangle>
@@ -170,7 +172,7 @@ WHERE
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Nome]]></text>
+				<text><![CDATA[Empresa:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="111" width="43" height="15" uuid="477d20bd-c30b-4599-b51d-3a159b3ac6c4"/>
@@ -205,14 +207,14 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Aluno]]></text>
+				<text><![CDATA[Empresa]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="51" y="43" width="178" height="13" uuid="23af36da-f313-4a82-8dae-0d06b77993ee"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{cad_aluno_nome}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cad_empresa_razao_social}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="451" y="110" width="36" height="15" uuid="373a6c5b-c8d5-49cf-8dad-2e990e783831"/>
@@ -226,14 +228,14 @@ WHERE
 				<textElement>
 					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[CPF:]]></text>
+				<text><![CDATA[CNPJ:]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="51" y="56" width="178" height="13" uuid="0181eace-4268-49b7-bb18-71547a1e4b03"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{cad_aluno_cpf}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cad_empresa_cnpj}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="8" y="69" width="43" height="13" uuid="619a1987-f8c8-4b26-8ff3-6da22ad38c81"/>
@@ -254,14 +256,14 @@ WHERE
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{cad_aluno_email}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cad_empresa_email}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="51" y="82" width="178" height="13" uuid="26799310-2026-4e70-9968-36142fdcadb4"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{cad_aluno_telefone}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{cad_empresa_telefone}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="383" y="16" width="100" height="15" uuid="28b292f0-9ee9-4a03-8e5c-15672000208e"/>
@@ -302,7 +304,7 @@ WHERE
 				<textElement>
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{contrato_data_adesao})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{contrato_empresa_data_adesao})]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="0" y="109" width="555" height="1" uuid="678f7454-62b7-4595-babe-30463c3ccf4d"/>
@@ -326,7 +328,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{parcela_contrato_data_baixa})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{parcela_contrato_empresa_data_baixa})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="3" y="0" width="27" height="20" uuid="9713367b-5087-4e33-83ab-56d5e20a7cd5"/>
@@ -340,7 +342,7 @@ WHERE
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{parcela_contrato_data_vencimento})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format($F{parcela_contrato_empresa_data_vencimento})]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="451" y="0" width="104" height="20" uuid="7d36b1f3-c969-4ba4-830e-3f847ee28563"/>
@@ -354,7 +356,7 @@ WHERE
 				<textElement verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{parcela_contrato_valor_parcela}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{parcela_contrato_empresa_valor_parcela}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -375,7 +377,7 @@ WHERE
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Assinatura Aluno]]></text>
+				<text><![CDATA[Assinatura Empresa]]></text>
 			</staticText>
 			<line>
 				<reportElement x="320" y="1" width="235" height="1" uuid="c42f6c4e-b61f-4a6b-8c0b-f4f75cd5d2c6"/>
@@ -389,7 +391,7 @@ WHERE
 				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{contrato_usuario}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{contrato_empresa_usuario}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement x="3" y="0" width="552" height="1" uuid="ee64058f-dbb0-4b1b-be04-9bddd1dacae0"/>

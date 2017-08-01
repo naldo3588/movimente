@@ -15,6 +15,7 @@ public class ContratoBean {
 
     private int id_contrato;
     private int id_titular;
+    private int id_aluno;
     private int id_plano;
     private int id_modalidade;
     private int id_item_plano;
@@ -44,6 +45,14 @@ public class ContratoBean {
     private int qtd_parcelas;
     private int status;
     private int id_empresa;
+
+    public int getId_aluno() {
+        return id_aluno;
+    }
+
+    public void setId_aluno(int id_aluno) {
+        this.id_aluno = id_aluno;
+    }
 
     public int getId_empresa() {
         return id_empresa;

@@ -2451,7 +2451,7 @@ public class JDAPM extends javax.swing.JDialog {
                     + "WHERE\n"
                     + "     cad_item_contrato.`id_titular` ='" + Integer.parseInt(jTextFieldID_Titular.getText()) + "'");
             JRResultSetDataSource relatResult = new JRResultSetDataSource(conecta.rs);
-            JasperPrint jpPrint = JasperFillManager.fillReport("src/relatorios/ContratoAluno.jasper", parameters, relatResult);
+            JasperPrint jpPrint = JasperFillManager.fillReport("C:\\Program Files\\Movimente\\MoviMente\\src\\relatorios\\ContratoAluno.jasper", parameters, relatResult);
             JasperViewer jv = new JasperViewer(jpPrint, false);
             viewer.getContentPane().add(jv.getContentPane());
             viewer.setVisible(true);
